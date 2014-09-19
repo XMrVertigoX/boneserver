@@ -1,0 +1,12 @@
+[Unit]
+Description=ChronoDot 2.1 RTC
+Before=netctl-auto@wlan0.service
+
+[Type]
+Type=oneshot
+ 
+[Service]
+ExecStart=/usr/lib/systemd/scripts/rtc.sh
+ 
+[Install]
+WantedBy=multi-user.target

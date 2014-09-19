@@ -1,0 +1,267 @@
+{
+	"P8_7": {
+		"type": "TIMER",
+		"isAvailable": false,
+		"mux": 2,
+		"isActivated" : true
+	},
+
+	"P8_8": {
+		"type": "TIMER",
+		"isAvailable": false,
+		"mux": 2,
+		"isActivated" : true
+	},
+
+	"P8_9": {
+		"type": "TIMER",
+		"isAvailable": false,
+		"mux": 2,
+		"isActivated" : true
+	},
+
+	"P8_10": {
+		"type": "TIMER",
+		"isAvailable": false,
+		"mux": 2,
+		"isActivated" : true
+	},
+
+	"P8_11": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_12": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_13": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 4,
+		"isActivated" : true
+	},
+
+	"P8_14": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_15": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_16": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_17": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_18": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P8_19": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 4,
+		"isActivated" : true
+	},
+
+	"P8_26": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_11": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_12": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_13": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_14": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 6,
+		"isActivated" : true
+	},
+
+	"P9_15": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_16": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 6,
+		"isActivated" : true
+	},
+
+	"P9_17": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_18": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_21": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 3,
+		"isActivated" : true
+	},
+
+	"P9_22": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 3,
+		"isActivated" : true
+	},
+
+	"P9_23": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_24": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_26": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_27": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_30": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_33": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_35": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_36": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_37": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_38": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_39": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_40": {
+		"type": "AIN",
+		"isAvailable": true,
+		"mux": null,
+		"isActivated" : true
+	},
+
+	"P9_41": {
+		"type": "GPIO",
+		"isAvailable": true,
+		"mux": 7,
+		"isActivated" : true
+	},
+
+	"P9_42": {
+		"type": "PWM",
+		"isAvailable": true,
+		"mux": 0,
+		"isActivated" : true
+	}
+}

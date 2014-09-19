@@ -1,0 +1,13 @@
+[Unit]
+Description=BoneScript Web API
+After=rtc.target
+
+[Type]
+Type=oneshot
+ 
+[Service]
+ExecStart=/usr/lib/systemd/scripts/boneserver.sh
+Restart=on-failure
+ 
+[Install]
+WantedBy=multi-user.target
