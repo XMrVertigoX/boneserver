@@ -1,4 +1,4 @@
 boneserver
 ==========
 
-Bachelorarbeit, bonescript websocket api
+bonescript websocket api, Bachelorarbeit von Caspar Friedrich
