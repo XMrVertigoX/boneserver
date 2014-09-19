@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+
+        <!-- jQuery  -->
+        <script src="jquery-2.1.1/jquery-2.1.1.min.js"></script>
+
+        <!-- jQuery UI -->
+        <script src="jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js"></script>
+        <link href="jquery-ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.min.css"
+              rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
+        <link href="bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap-3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
+
+        <!-- Flot -->
+        <script src="flot-0.8.3/jquery.flot.min.js"></script>
+        <script src="flot-0.8.3/jquery.flot.resize.min.js"></script>
+        <script src="flot-0.8.3/jquery.flot.time.min.js"></script>
+
+        <!-- <script src="availablePins.js"></script> -->
+        <script src="util.js"></script>
+        <script src="bonescriptCtrl.js"></script>
+        <script src="diagramCtrl.js"></script>
+        <script src="websocketCtrl.js"></script>
+        <script src="responseHandler.js"></script>
+        <script src="init.js"></script>
+
+        <link href="style.css" rel="stylesheet">
+
+        <!-- Global functions and variables -->
+        <script type="text/javascript">
+            var debug = false;
+            var websocket;
+            var availablePins;
+
+            $(document).ready(function() {
+                websocketCtrl.connect();
+            });
+        </script>
+
+        <!-- Navigation bar -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <div class="navbar-brand">BeagleBone Black</div>
+                </div>
+                <div class="navbar-right">
+                    <button id="headerConnectionButton"
+                            class="btn btn-default navbar-btn"
+                            disabled="true">
+                                <span id="headerConnectionGlyphicon"
+                                    class="glyphicon glyphicon-remove">
+                                </span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- /Navigation bar -->
+
+        <!-- Body -->
+        <div class="container">
+            <div class="row">
+
+                <!-- Tile area -->
+                <div class="col-md-9">
+
+                    <!-- GPIO Tiles headline -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>GPIO</h4>
+                        </div>
+                    </div>
+                    <!-- /GPIO tiles headline -->
+
+                    <!-- GPIO Tiles -->
+                    <div id="GPIOTiles" class="row">
+
+                        <!-- Wird automatisch gefuellt! -->
+
+                    </div>
+                    <!-- /GPIO Tiles -->
+
+                    <!-- PWM tiles headline -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>PWM</h4>
+                        </div>
+                    </div>
+                    <!-- /PWM tiles headline -->
+
+                    <!-- PWM Tiles -->
+                    <div id="PWMTiles" class="row">
+
+                        <!-- Wird automatisch gefuellt! -->
+
+                    </div>
+                    <!-- /PWM Tiles -->
+
+                    <!-- ADC Tiles headline -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>ADC</h4>
+                        </div>
+                    </div>
+                    <!-- /ADC tiles headline -->
+
+                    <!-- ADC Tiles -->
+                    <div id="AINTiles" class="row">
+
+                        <!-- Wird automatisch gefuellt! -->
+
+                    </div>
+                    <!-- /ADC Tiles -->
+
+                </div>
+                <!-- /Tile area -->
+
+                <!-- GPIO toggle group-->
+                <div class="col-md-1" align="center">
+
+                    <h4>GPIO</h4>
+                    <p id="GPIOTglBtnGrp" class="btn-group-vertical btn-block">
+                        
+                        <!-- Wird automatisch gefuellt! -->
+
+                    </p>
+
+                </div>
+                <!-- /GPIO toggle group-->
+
+                <!-- PWM toggle group-->
+                <div class="col-md-1" align="center">
+                    <h4>PWM</h4>
+                    <p id="PWMTglBtnGrp" class="btn-group-vertical btn-block">
+                        
+                        <!-- Wird automatisch gefuellt! -->
+
+                    </p>
+
+                </div>
+                <!-- /PWM toggle group-->
+
+                <!-- ADC toggle group-->
+                <div class="col-md-1" align="center">
+
+                    <h4>ADC</h4>
+                    <p id="AINTglBtnGrp" class="btn-group-vertical btn-block">
+                        
+                        <!-- Wird automatisch gefuellt! -->
+
+                    </p>
+
+                </div>
+                <!-- /ADC toggle group-->
+
+            </div>
+        </div>
+        <!-- /Body -->
+
+    </body>
+
+</html>
