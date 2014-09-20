@@ -1,4 +1,4 @@
-boneserver
+boneserver - Scripts
 ==========
 
-bonescript websocket api, Bachelorarbeit von Caspar Friedrich
+...
