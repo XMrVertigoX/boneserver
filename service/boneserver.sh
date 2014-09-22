@@ -1,4 +1,4 @@
 #! /bin/sh
 
-# cd /opt/boneserver/
-node ../boneserver.js
+/opt/boneserver/node
+node index.js
