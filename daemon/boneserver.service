@@ -3,8 +3,8 @@ Description=bonescript web API
 After=network.target
  
 [Service]
-ExecStart=/usr/lib/systemd/scripts/boneserver
-Restart=on-failure
+WorkingDirectory=/opt/boneserver/node
+ExecStart=/bin/node index.js
 
 [Install]
 WantedBy=multi-user.target
