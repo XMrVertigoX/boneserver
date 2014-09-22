@@ -1,6 +1,10 @@
 [Unit]
 Description=bonescript web API
+After=network.target
  
 [Service]
-ExecStart=/bin/sh /opt/boneserver/service/boneserver.sh
+ExecStart=/usr/lib/systemd/scripts/boneserver
 Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
