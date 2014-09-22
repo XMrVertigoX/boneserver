@@ -1,13 +1,6 @@
 [Unit]
-Description=BoneScript Web API
-After=rtc.target
-
-[Type]
-Type=oneshot
+Description=bonescript web API
  
 [Service]
 ExecStart=/bin/sh /opt/boneserver/service/boneserver.sh
 Restart=on-failure
- 
-[Install]
-WantedBy=multi-user.target
