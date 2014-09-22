@@ -1,4 +1,0 @@
-boneserver - config
-===================
-
-config files

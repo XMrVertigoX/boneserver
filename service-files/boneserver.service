@@ -6,7 +6,7 @@ After=rtc.target
 Type=oneshot
  
 [Service]
-ExecStart=/usr/lib/systemd/scripts/boneserver.sh
+ExecStart=node /opt/boneserver/node/index.js
 Restart=on-failure
  
 [Install]
