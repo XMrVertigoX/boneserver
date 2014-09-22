@@ -1,5 +1,5 @@
 {
-    "host": "127.0.0.1",
+    "host": "localhost",
     "port": 8081,
     "gpioSampleRate": 20,
     "adcSampleRate": 1,
