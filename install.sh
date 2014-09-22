@@ -7,7 +7,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 pacman -S --noconfirm base-devel python2 nodejs lighttpd linux-headers-am33x-legacy vsftpd
 
 # haproxy from local package
-pacman -U --noconfirm ./packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
+pacman -U --noconfirm ./package/haproxy-1.5.3-1-armv7h.pkg.tar.xz
 
 # link configuration files
 ln -sf /bin/python2 /bin/python
@@ -32,5 +32,7 @@ npm install /tmp/bonescript
 cd ..
 
 # link and enable services
-ln -s /opt/boneserver/service/boneserver.service /etc/systemd/system/boneserver.service
+ln -s /opt/boneserver/daemon/boneserver.service /usr/lib/systemd/system/boneserver.service
+ln -s /opt/boneserver/daemon/boneserver.sh /usr/lib/systemd/scripts/boneserver
+systemctl daemon-reload
 systemctl enable haproxy lighttpd boneserver
