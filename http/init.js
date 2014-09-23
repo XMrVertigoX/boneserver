@@ -110,7 +110,7 @@ init.init = function() {
                 // }
 
                 $('#' + pin + 'TileBtnEnable').click(function() {
-                    bonescriptCtrl.setPinMode(this.title, 'out', availablePins[this.title].mux, 'disabled', 'disabled');
+                    bonescriptCtrl.setPinMode(this.title, 'out', availablePins[this.title].mux, 'disabled', 'fast');
                 })
 
                 $('#' + pin + 'TileBtnWrite').click(function() {
