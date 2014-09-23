@@ -71,8 +71,8 @@ responseHandler.getPinMode = function(message) {
     }
 }
 
-responseHandler.setPinMode = function(message) {
-    if (debug) { console.log("responseHandler.setPinMode: " + JSON.stringify(message)) };
+responseHandler.pinMode = function(message) {
+    if (debug) { console.log("responseHandler.pinMode: " + JSON.stringify(message)) };
 
     if (message['response']) {
         bonescriptCtrl.getPinMode(message['parameters']['pin']);

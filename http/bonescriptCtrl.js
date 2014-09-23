@@ -40,7 +40,7 @@ bonescriptCtrl.getPinMode = function(pin) {
     bonescriptCtrl.util.sendRequest('getPinMode', parameters);
 }
 
-bonescriptCtrl.setPinMode = function(pin, direction, mux, pullup, slew) {
+bonescriptCtrl.pinMode = function(pin, direction, mux, pullup, slew) {
     var parameters = {};
         parameters['pin'] = pin;
         parameters['direction'] = direction;
@@ -48,7 +48,7 @@ bonescriptCtrl.setPinMode = function(pin, direction, mux, pullup, slew) {
         parameters['pullup'] = pullup;
         parameters['slew'] = slew;
 
-    bonescriptCtrl.util.sendRequest('setPinMode', parameters);
+    bonescriptCtrl.util.sendRequest('pinMode', parameters);
 }
 
 // Special commands
@@ -67,7 +67,7 @@ bonescriptCtrl.stopADC = function(pin) {
     bonescriptCtrl.util.sendRequest('stopADC', parameters);
 }
 
-bonescriptCtrl.getAvailablePins = function() {
+bonescriptCtrl.getPins = function() {
     bonescriptCtrl.util.sendRequest('getAvailablePins', null);
 }
 

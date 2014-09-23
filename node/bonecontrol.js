@@ -28,7 +28,7 @@ exports.handleRequest = function(request) {
             response = bonescript.getPinMode(parameters.pin);
             break;
 
-        case 'setPinMode':
+        case 'pinMode':
             response = bonescript.pinMode(parameters.pin, parameters.direction, parameters.mux, parameters.pullup, parameters.slew);
 
             switch (parameters.direction) {

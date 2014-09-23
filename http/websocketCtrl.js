@@ -25,6 +25,6 @@ websocketCtrl.connect = function() {
         util.replaceClass($('#headerConnectionGlyphicon'), 'glyphicon-remove', 'glyphicon-ok');
         util.replaceClass($('#headerConnectionButton'), 'btn-danger', 'btn-success');
         
-        bonescriptCtrl.getAvailablePins();
+        bonescriptCtrl.getPins();
     }
 }
