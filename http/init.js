@@ -1,13 +1,20 @@
 var init = {};
 
-init.init = function() {
+init.init = function () {
     for(pin in pins) {
 
         if (pins[pin].hasOwnProperty('pwm')) {
             var maxPWMFrequency = 1000000; // 1MHz. Experimental...
-            var html =  '<!-- ' + pin + ' --><div class="col-md-3 tile" title="' + pin + '" id="' + pin + 'Tile" align="center"><h5>' + pin + ": " + pins[pin].name + '</h5><p><div class="input-group input-group-sm"><span class="input-group-addon">Freq</span><input title="' + pin + '" id="' + pin + 'FreqValue" class="form-control" type="number"></div></p><p><div title="' + pin + '" id="' + pin + 'FreqSlider"></div></p><p><div class="input-group input-group-sm"><span class="input-group-addon">Duty</span><input title="' + pin + '" id="' + pin + 'DutyValue" class="form-control" type="number"></div></p><p><div title="' + pin + '" id="' + pin + 'DutySlider"></div></p><P><table width="100%"><tr><td align="left"><button title="' + pin + '" id="' + pin + 'TileBtnEnable" class="btn btn-xs btn-default">Enable</button></td><td align="right"><button title="' + pin + '" id="' + pin + 'TileBtnWrite" class="btn btn-xs btn-default">Write</button></td></tr></table></P></div><!-- /' + pin + ' -->';
-                
-            $('#PWMTiles').append(html);
+
+            $.ajax({
+                type: 'GET',
+                url: 'templatePWM.html',
+                dataType: 'html',
+                success: function (template) {
+                $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin}));},
+                data: {},
+                async: false
+            });
 
             $('#' + pin + 'FreqSlider').slider({
                 'min': 0,
@@ -36,19 +43,19 @@ init.init = function() {
                 }
             })
 
-            $('#' + pin + 'FreqValue').change(function() {
+            $('#' + pin + 'FreqValue').change(function () {
                 $('#' + this.title + 'FreqSlider').slider('value', $('#' + this.title + 'FreqValue').val());
             })
 
-            $('#' + pin + 'DutyValue').change(function() {
+            $('#' + pin + 'DutyValue').change(function () {
                 $('#' + this.title + 'DutySlider').slider('value', $('#' + this.title + 'DutyValue').val());
             })
 
-            $('#' + pin + 'TileBtnEnable').click(function() {
+            $('#' + pin + 'TileBtnEnable').click(function () {
                 bonescriptCtrl.setPinMode(this.title, 'out', pins[this.title].mux, 'disabled', 'fast');
             })
 
-            $('#' + pin + 'TileBtnWrite').click(function() {
+            $('#' + pin + 'TileBtnWrite').click(function () {
                 bonescriptCtrl.analogWrite(this.title, $('#' + this.title + 'DutyValue').val(), $('#' + this.title + 'FreqValue').val());
             })
 
@@ -72,19 +79,19 @@ init.init = function() {
                 
             $('#GPIOTiles').append(html);
 
-            $('#' + pin + 'TileBtnON').click(function() {
+            $('#' + pin + 'TileBtnON').click(function () {
                 bonescriptCtrl.digitalWrite(this.title, 1);
             })
 
-            $('#' + pin + 'TileBtnOFF').click(function() {
+            $('#' + pin + 'TileBtnOFF').click(function () {
                 bonescriptCtrl.digitalWrite(this.title, 0);
             })
 
-            $('#' + pin + 'TileBtnIN').click(function() {
+            $('#' + pin + 'TileBtnIN').click(function () {
                 bonescriptCtrl.setPinMode(this.title, 'in', pins[this.title].mux, 'pulldown', 'fast');
             })
 
-            $('#' + pin + 'TileBtnOUT').click(function() {
+            $('#' + pin + 'TileBtnOUT').click(function () {
                 bonescriptCtrl.setPinMode(this.title, 'out', pins[this.title].mux, 'disabled', 'fast');
             })
 
@@ -97,12 +104,12 @@ init.init = function() {
 
             $('#AINTiles').append(html);
 
-            $('#' + pin + 'Start').click(function() {
+            $('#' + pin + 'Start').click(function () {
                 bonescriptCtrl.startADC(this.title, 1000);
                 diagramCtrl.util.resetData(this.title);
             })
 
-            $('#' + pin + 'Stop').click(function() {
+            $('#' + pin + 'Stop').click(function () {
                 bonescriptCtrl.stopADC(this.title);
             })
 
@@ -111,12 +118,12 @@ init.init = function() {
             diagramCtrl.init(pin);
         }
 
-        $('#' + pin + 'TileTglBtn').click(function() {
+        $('#' + pin + 'TileTglBtn').click(function () {
             var title = this.title;
             
             $('#' + title + 'Tile').toggle({
                 duration: 100,
-                complete: function() {
+                complete: function () {
                     var isVisible = $('#' + title + 'Tile').is(':visible');
                     var isHidden  = $('#' + title + 'Tile').is(':hidden');
 
