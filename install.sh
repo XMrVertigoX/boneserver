@@ -1,38 +1,9 @@
-#! /bin/sh
+#! /bin?sh
 
-# set system locale
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+systemctl stop bonescript.service bonescript.socket bonescript-autorun.service
+systemctl disable bonescript.service bonescript.socket bonescript-autorun.service
 
-# install basic software
-pacman -S --noconfirm base-devel python2 nodejs lighttpd linux-headers-am33x-legacy vsftpd
+apt-get autoremove -y apache2 lightdm
 
-# haproxy from local package
-pacman -U --noconfirm ./package/haproxy-1.5.3-1-armv7h.pkg.tar.xz
-
-# link configuration files
-ln -sf /bin/python2 /bin/python
-
-mv /etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf.old
-ln -s /opt/boneserver/config/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
-
-mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.old
-ln -s /opt/boneserver/config/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
-
-mv /etc/vsftpd.conf /etc/vsftpd.conf.old
-ln -s /opt/boneserver/config/vsftpd/vsftpd.conf /etc/vsftpd.conf
-
-# install node modules
-cd /node
-
-npm install ws
-
-git -C /tmp clone https://github.com/jadonk/bonescript.git
-npm install /tmp/bonescript
-
-cd ..
-
-# link and enable services
-ln -s /opt/boneserver/daemon/boneserver.service /usr/lib/systemd/system/boneserver.service
-ln -s /opt/boneserver/daemon/boneserver.sh /usr/lib/systemd/scripts/boneserver
-systemctl daemon-reload
-systemctl enable haproxy lighttpd boneserver
+tar -xzf packages/haproxy-1.5.3.tar.gz -C /tmp
+tar -xzf packages/lighttpd-1.4.35.tar.gz -C /tmp
