@@ -9,27 +9,27 @@ exports.handleRequest = function(request) {
     switch(request.type) {
         // BoneScript API
         case 'analogRead':
-            response = bonescript.analogRead(parameters.pin);
+            response = bonescript[request.type](parameters.pin);
             break;
 
         case 'analogWrite':
-            response = bonescript.analogWrite(parameters.pin, parameters.duty, parameters.freq);
+            response = bonescript[request.type](parameters.pin, parameters.duty, parameters.freq);
             break;
 
         case 'digitalRead':
-            response = bonescript.digitalRead(parameters.pin);
+            response = bonescript[request.type](parameters.pin);
             break;
 
         case 'digitalWrite':
-            response = bonescript.digitalWrite(parameters.pin, parameters.value);
+            response = bonescript[request.type](parameters.pin, parameters.value);
             break;
 
         case 'getPinMode':
-            response = bonescript.getPinMode(parameters.pin);
+            response = bonescript[request.type](parameters.pin);
             break;
 
         case 'pinMode':
-            response = bonescript.pinMode(parameters.pin, parameters.direction, parameters.mux, parameters.pullup, parameters.slew);
+            response = bonescript[request.type](parameters.pin, parameters.direction, parameters.mux, parameters.pullup, parameters.slew);
 
             switch (parameters.direction) {
                 case 'in':
@@ -55,8 +55,8 @@ exports.handleRequest = function(request) {
             timer.deleteTimer(parameters.pin);
             break;
 
-        case 'getAvailablePins':
-            response = JSON.parse(fs.readFileSync('./availablePins.json'));
+        case 'getPins':
+            response = JSON.stringify(bonescript.getPlatform().platform.pins);
             break;
     }
 

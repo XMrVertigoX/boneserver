@@ -2,9 +2,9 @@ var websocketCtrl = {};
 
 websocketCtrl.connect = function() {
     if (location.protocol === 'https:') {
-        websocket = new WebSocket('wss://' + location.host);
+        websocket = new WebSocket('wss://' + location.host + ':8081');
     } else {
-        websocket = new WebSocket('ws://' + location.host);
+        websocket = new WebSocket('ws://' + location.host + ':8081');
     }
 
     websocket.onclose = function() {

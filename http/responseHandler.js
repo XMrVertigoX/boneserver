@@ -90,10 +90,10 @@ responseHandler.stopADC = function(message) {
     if (debug) { console.log("responseHandler.stopADC: " + JSON.stringify(message)) };
 }
 
-responseHandler.getAvailablePins = function(message) {
-    if (debug) { console.log("responseHandler.getAvailablePins: " + JSON.stringify(message)) };
+responseHandler.getPins = function(message) {
+    if (debug) { console.log("responseHandler.getPins: " + JSON.stringify(message)) };
 
-    availablePins = message.response;
+    pins = message.response;
 
     init.init();
 
