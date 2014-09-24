@@ -18,8 +18,11 @@ service apache2 remove
 apt-get remove --purge -y apache2 lightdm
 apt-get autoremove
 
-tar -xzf package/haproxy-1.5.3.tar.gz -C /tmp
-make -C /tmp/haproxy-1.5.3 install TARGET=generic
+tar -xzf packages/haproxy-1.5.3.tar.gz -C /tmp
+cd /tmp/haproxy-1.5.3
+make TARGET=linux2628 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1
+make install
+cd /opt/boneserver
 
 tar -xzf package/lighttpd-1.4.35.tar.gz -C /tmp
 
