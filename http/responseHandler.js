@@ -53,10 +53,12 @@ responseHandler.digitalWrite = function(message) {
 responseHandler.getPinMode = function(message) {
     if (debug) { console.log("responseHandler.getPinMode: " + JSON.stringify(message)) };
 
+    pins[message.parameters.pin].pinMode = message.response;
+
     var parameters = message['parameters'];
     var response = message['response'];
 
-    switch (availablePins[parameters['pin']].type) {
+    switch (pins[parameters['pin']].type) {
         case 'GPIO':
             if (response.hasOwnProperty('gpio')) {
                 responseHandler.util.changeGPIOTile(parameters['pin'], response['gpio']['direction'], message['timer']);
@@ -93,11 +95,13 @@ responseHandler.stopADC = function(message) {
 responseHandler.getPins = function(message) {
     if (debug) { console.log("responseHandler.getPins: " + JSON.stringify(message)) };
 
-    pins = message.response;
+    pins = JSON.parse(message.response);
+
+    //console.log(JSON.stringify(pins, undefined, 2));
 
     init.init();
 
-    for(pin in availablePins) {
+    for(pin in pins) {
         bonescriptCtrl.getPinMode(pin);
     }
 }

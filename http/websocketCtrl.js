@@ -16,7 +16,7 @@ websocketCtrl.connect = function() {
 
     websocket.onmessage = function(message) {
         message = JSON.parse(message.data);
-        responseHandler[message.type](message);
+		responseHandler[message.type](message);
     }
 
     websocket.onopen = function() {
