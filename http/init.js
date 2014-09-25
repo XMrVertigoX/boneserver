@@ -4,8 +4,6 @@ init.init = function () {
     for(pin in pins) {
 
         if (pins[pin].hasOwnProperty('pwm')) {
-            var maxPWMFrequency = 1000000; // 1MHz. Experimental...
-
             $.ajax({
                 type: 'GET',
                 url: 'templatePWM.html',
@@ -15,6 +13,9 @@ init.init = function () {
                 data: {},
                 async: false
             });
+
+            var maxPWMFrequency = 1000000; // 1MHz. Experimental...
+
 
             $('#' + pin + 'FreqSlider').slider({
                 'min': 0,
@@ -75,9 +76,15 @@ init.init = function () {
 
             $('#PWMTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
         } else if (pins[pin].hasOwnProperty('gpio')) {
-            //var html = '<!-- ' + pin + ' --><div class="col-md-2 tile"' + pin + '" id="' + pin + 'Tile" align="center"><h5>' + pin + '</h5><p class="btn-group"><button title="' + pin + '" id="' + pin + 'TileBtnON" class="btn btn-lg btn-default">1</button><button title="' + pin + '" id="' + pin + 'TileBtnOFF" class="btn btn-lg btn-default">0</button></p><p class="btn-group"><button title="' + pin + '" id="' + pin + 'TileBtnIN" class="btn btn-xs btn-default">In</button><button title="' + pin + '" id="' + pin + 'TileBtnOUT" class="btn btn-xs btn-default">Out</button></p></div><!-- /' + pin + ' -->';
-                
-            $('#GPIOTiles').append(html);
+            $.ajax({
+                type: 'GET',
+                url: 'templateGPIO.html',
+                dataType: 'html',
+                success: function (template) {
+                $('#GPIOTiles').append(Mustache.render($(template).html(), {pin: pin}));},
+                data: {},
+                async: false
+            });
 
             $('#' + pin + 'TileBtnON').click(function () {
                 bonescriptCtrl.digitalWrite(this.title, 1);
