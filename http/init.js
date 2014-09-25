@@ -53,7 +53,7 @@ init.init = function () {
             })
 
             $('#' + pin + 'TileBtnEnable').click(function () {
-                bonescriptCtrl.pinMode(this.title, 'out', pins[this.title].pwm.muxmode, 'disabled', 'fast');
+                bonescriptCtrl.pinMode(this.title, 'out', pins[this.title].pwm.muxmode, 'pulldown', 'fast');
             })
 
             $('#' + pin + 'TileBtnWrite').click(function () {
@@ -95,11 +95,11 @@ init.init = function () {
             })
 
             $('#' + pin + 'TileBtnIN').click(function () {
-                bonescriptCtrl.pinMode(this.title, 'in', 7);
+                bonescriptCtrl.pinMode(this.title, 'in', 7, 'pulldown', 'fast');
             })
 
             $('#' + pin + 'TileBtnOUT').click(function () {
-                bonescriptCtrl.pinMode(this.title, 'out', 7);
+                bonescriptCtrl.pinMode(this.title, 'out', 7, 'disabled', 'disabled');
             })
 
             $('#' + pin + 'TileBtnON').prop('disabled', true);

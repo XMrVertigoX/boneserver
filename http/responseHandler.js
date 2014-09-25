@@ -4,7 +4,7 @@ var responseHandler = {};
 responseHandler.analogRead = function(message) {
     if (debug) { console.log("responseHandler.analogRead: " + JSON.stringify(message)) };
 
-    diagramCtrl.util.addValue(message['parameters']['pin'], message['response']);
+    diagramCtrl.util.addValue(message.parameters.pin, message.response);
 }
 
 responseHandler.analogWrite = function(message) {
@@ -53,18 +53,15 @@ responseHandler.digitalWrite = function(message) {
 responseHandler.getPinMode = function(message) {
     if (debug) { console.log("responseHandler.getPinMode: " + JSON.stringify(message)) };
 
-    pins[message.parameters.pin].pinMode = message.response;
-
-    var parameters = message['parameters'];
-    var response = pins[message.parameters.pin].pinMode;
-
-    if (pins[parameters.pin].hasOwnProperty('pwm')) {
-        if (pins[parameters.pin].pinMode.hasOwnProperty('pwm')) {
-            responseHandler.util.changePWMTile(parameters.pin, response.pwm.value, response.pwm.freq);
+    if (pins[message.parameters.pin].hasOwnProperty('pwm')) {
+        if (message.response.hasOwnProperty('pwm')) {
+            responseHandler.util.changePWMTile(message.parameters.pin, message.response.pwm.value, message.response.pwm.freq);
         }
-    } else if (pins[parameters.pin].hasOwnProperty('gpio')) {
-        responseHandler.util.changeGPIOTile(parameters.pin, response.gpio.direction, message.timer);
+    } else if (pins[message.parameters.pin].hasOwnProperty('gpio')) {
+        responseHandler.util.changeGPIOTile(message.parameters.pin, message.response.gpio.direction, message.timer);
     }
+
+    pins[message.parameters.pin].pinMode = message.response;
 }
 
 responseHandler.pinMode = function(message) {

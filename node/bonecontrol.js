@@ -29,18 +29,22 @@ exports.handleRequest = function(request) {
             break;
 
         case 'pinMode':
-            response = bonescript[request.type](parameters.pin, parameters.direction, parameters.mux, parameters.pullup, parameters.slew);
+            try {
+                response = bonescript[request.type](parameters.pin, parameters.direction, parameters.mux, parameters.pullup, parameters.slew);
 
-            switch (parameters.direction) {
-                case 'in':
-                    timer.deleteTimer(parameters.pin);
-                    timer.addTimer('digitalRead', parameters.pin);
-                    
-                    break;
+                switch (parameters.direction) {
+                    case 'in':
+                        timer.deleteTimer(parameters.pin);
+                        timer.addTimer('digitalRead', parameters.pin);
+                        break;
 
-                case 'out':
-                    timer.deleteTimer(parameters.pin);
-                    break;
+                    case 'out':
+                        timer.deleteTimer(parameters.pin);
+                        break;
+                }
+            } catch (error) {
+                console.error(error);
+                response = "error";
             }
 
             break;
