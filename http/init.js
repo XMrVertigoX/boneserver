@@ -53,7 +53,7 @@ init.init = function () {
             })
 
             $('#' + pin + 'TileBtnEnable').click(function () {
-                bonescriptCtrl.setPinMode(this.title, 'out', pins[this.title].mux, 'disabled', 'fast');
+                bonescriptCtrl.pinMode(this.title, 'out', pins[this.title].mux, 'disabled', 'fast');
             })
 
             $('#' + pin + 'TileBtnWrite').click(function () {
@@ -95,11 +95,11 @@ init.init = function () {
             })
 
             $('#' + pin + 'TileBtnIN').click(function () {
-                bonescriptCtrl.setPinMode(this.title, 'in', pins[this.title].mux, 'pulldown', 'fast');
+                bonescriptCtrl.pinMode(this.title, 'in', pins[this.title].mux, 'pulldown', 'fast');
             })
 
             $('#' + pin + 'TileBtnOUT').click(function () {
-                bonescriptCtrl.setPinMode(this.title, 'out', pins[this.title].mux, 'disabled', 'fast');
+                bonescriptCtrl.pinMode(this.title, 'out', pins[this.title].mux, 'disabled', 'fast');
             })
 
             $('#' + pin + 'TileBtnON').prop('disabled', true);
@@ -107,9 +107,15 @@ init.init = function () {
 
             $('#GPIOTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn"' + 'class="btn btn-primary btn-block">' + pin + '</button>');
         } else if (pins[pin].hasOwnProperty('ain')) {
-            var html = '<!-- ' + pin + ' --><div class="col-md-12 tile" title="' + pin + '" id="' + pin + 'Tile"><h4 align="left">' + pin + '</h4><p><div class="flotContainer"><div title="' + pin + '" id="' + pin + 'FlotPlaceholder" class="flotPlaceholder"></div></div></p><p align="right"><button class="btn btn-default" title="' + pin + '" id="' + pin + 'Start">Start</button><button class="btn btn-default" title="' + pin + '" id="' + pin + 'Stop">Stop</button></p></div><!-- /' + pin + ' -->';
-
-            $('#AINTiles').append(html);
+            $.ajax({
+                type: 'GET',
+                url: 'templateAIN.html',
+                dataType: 'html',
+                success: function (template) {
+                $('#AINTiles').append(Mustache.render($(template).html(), {pin: pin}));},
+                data: {},
+                async: false
+            });
 
             $('#' + pin + 'Start').click(function () {
                 bonescriptCtrl.startADC(this.title, 1000);

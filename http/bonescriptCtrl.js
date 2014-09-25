@@ -68,7 +68,7 @@ bonescriptCtrl.stopADC = function(pin) {
 }
 
 bonescriptCtrl.getPins = function() {
-    bonescriptCtrl.util.sendRequest('getPins', null);
+    bonescriptCtrl.util.sendRequest('getPins');
 }
 
 // Utilities
@@ -76,7 +76,7 @@ bonescriptCtrl.util.sendRequest = function(type, parameters) {
     var request = {};
         request['type'] = type;
 
-        if (parameters != null) {
+        if (parameters != undefined) {
             request['parameters'] = parameters;
         };
 

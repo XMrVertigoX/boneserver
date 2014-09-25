@@ -56,20 +56,14 @@ responseHandler.getPinMode = function(message) {
     pins[message.parameters.pin].pinMode = message.response;
 
     var parameters = message['parameters'];
-    var response = message['response'];
+    var response = pins[message.parameters.pin].pinMode;
 
-    switch (pins[parameters['pin']].type) {
-        case 'GPIO':
-            if (response.hasOwnProperty('gpio')) {
-                responseHandler.util.changeGPIOTile(parameters['pin'], response['gpio']['direction'], message['timer']);
-            }
-
-            break;
-
-        case 'PWM':
-            if (response.hasOwnProperty('pwm')) {
-                responseHandler.util.changePWMTile(parameters['pin'], response['pwm']['value'], response['pwm']['freq']);
-            }
+    if (pins[parameters.pin].hasOwnProperty('pwm')) {
+        if (pins[parameters.pin].pinMode.hasOwnProperty('pwm')) {
+            responseHandler.util.changePWMTile(parameters.pin, response.pwm.value, response.pwm.freq);
+        }
+    } else if (pins[parameters.pin].hasOwnProperty('gpio')) {
+        responseHandler.util.changeGPIOTile(parameters.pin, response.gpio.direction, message.timer);
     }
 }
 
@@ -96,8 +90,6 @@ responseHandler.getPins = function(message) {
     if (debug) { console.log("responseHandler.getPins: " + JSON.stringify(message)) };
 
     pins = JSON.parse(message.response);
-
-    //console.log(JSON.stringify(pins, undefined, 2));
 
     init.init();
 
