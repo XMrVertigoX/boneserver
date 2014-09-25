@@ -75,7 +75,7 @@ init.init = function () {
 
             $('#PWMTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
         } else if (pins[pin].hasOwnProperty('gpio')) {
-            var html = '<!-- ' + pin + ' --><div class="col-md-2 tile"' + pin + '" id="' + pin + 'Tile" align="center"><h5>' + pin + '</h5><p class="btn-group"><button title="' + pin + '" id="' + pin + 'TileBtnON" class="btn btn-lg btn-default">1</button><button title="' + pin + '" id="' + pin + 'TileBtnOFF" class="btn btn-lg btn-default">0</button></p><p class="btn-group"><button title="' + pin + '" id="' + pin + 'TileBtnIN" class="btn btn-xs btn-default">In</button><button title="' + pin + '" id="' + pin + 'TileBtnOUT" class="btn btn-xs btn-default">Out</button></p></div><!-- /' + pin + ' -->';
+            //var html = '<!-- ' + pin + ' --><div class="col-md-2 tile"' + pin + '" id="' + pin + 'Tile" align="center"><h5>' + pin + '</h5><p class="btn-group"><button title="' + pin + '" id="' + pin + 'TileBtnON" class="btn btn-lg btn-default">1</button><button title="' + pin + '" id="' + pin + 'TileBtnOFF" class="btn btn-lg btn-default">0</button></p><p class="btn-group"><button title="' + pin + '" id="' + pin + 'TileBtnIN" class="btn btn-xs btn-default">In</button><button title="' + pin + '" id="' + pin + 'TileBtnOUT" class="btn btn-xs btn-default">Out</button></p></div><!-- /' + pin + ' -->';
                 
             $('#GPIOTiles').append(html);
 
