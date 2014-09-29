@@ -9,11 +9,10 @@ bonescriptCtrl.analogRead = function(pin) {
     bonescriptCtrl.util.sendRequest('analogRead', parameters);
 }
 
-bonescriptCtrl.analogWrite = function(pin, duty, frequency) {
+bonescriptCtrl.analogWrite = function(pin, options) {
     var parameters = {};
         parameters['pin'] = pin;
-        parameters['duty'] = duty;
-        parameters['freq'] = frequency;
+        parameters['options'] = options;
 
     bonescriptCtrl.util.sendRequest('analogWrite', parameters);
 }
@@ -52,6 +51,20 @@ bonescriptCtrl.pinMode = function(pin, direction, mux, pullup, slew) {
 }
 
 // Special commands
+bonescriptCtrl.enablePWM = function(pin) {
+    var parameters = {};
+        parameters['pin'] = pin;
+
+    bonescriptCtrl.util.sendRequest('enablePWM', parameters);
+}
+
+bonescriptCtrl.disablePWM = function(pin) {
+    var parameters = {};
+        parameters['pin'] = pin;
+
+    bonescriptCtrl.util.sendRequest('disablePWM', parameters);
+}
+
 bonescriptCtrl.startADC = function(pin, sampleRate) {
     var parameters = {};
         parameters['pin'] = pin;

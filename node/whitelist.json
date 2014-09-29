@@ -1,15 +1,12 @@
 {
-	"P8_7": true,
-	"P8_8": true,
-	"P8_9": true,
-	"P8_10": true,
-	"P8_11": true,
-	"P8_12": true,
-	"P8_13": true,
-	"P8_14": true,
-	"P8_15": true,
-	"P8_16": true,
-	"P8_17": true,
-	"P8_18": true,
-	"P8_19": true
+	// AIN
+	// GPIO
+	// PWM
+	"P8_13": {"available": true, "active": true},
+	"P8_19": {"available": true, "active": true},
+	"P9_14": {"available": true, "active": true},
+	"P9_16": {"available": true, "active": true},
+	"P9_21": {"available": true, "active": true},
+	"P9_22": {"available": true, "active": true},
+	"P9_42": {"available": true, "active": true}
 }

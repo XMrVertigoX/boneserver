@@ -10,16 +10,28 @@
 		</div>
 	</p>
 	<p>
-		<div title="{{pin}}" id="{{pin}}FreqSlider"></div>
-	</p>
-	<p>
 		<div class="input-group input-group-sm">
 			<span class="input-group-addon">Duty</span>
 			<input title="{{pin}}" id="{{pin}}DutyValue" class="form-control" type="number">
 		</div>
 	</p>
 	<p>
-		<div title="{{pin}}" id="{{pin}}DutySlider"></div>
+		<table width="100%">
+			<tr>
+				<td align="left">
+					<div class="btn-group">
+						<button title="{{pin}}" id="{{pin}}TileBtnPolarity0" class="btn btn-xs btn-default">In</button>
+						<button title="{{pin}}" id="{{pin}}TileBtnPolarity1" class="btn btn-xs btn-default">Out</button>
+					</div>
+				</td>
+				<td align="right">
+					<div class="btn-group">
+						<button title="{{pin}}" id="{{pin}}TileBtnPolarity0" class="btn btn-xs btn-default">In</button>
+						<button title="{{pin}}" id="{{pin}}TileBtnPolarity1" class="btn btn-xs btn-default">Out</button>
+					</div>
+				<td>
+			</tr>
+		</table>
 	</p>
 	<p>
 		<table width="100%">
@@ -27,8 +39,11 @@
 				<td align="left">
 					<button title="{{pin}}" id="{{pin}}TileBtnEnable" class="btn btn-xs btn-default">Enable</button>
 				</td>
-				<td align="right">
+				<td align="center">
 					<button title="{{pin}}" id="{{pin}}TileBtnWrite" class="btn btn-xs btn-default">Write</button>
+				</td>
+				<td align="right">
+					<button title="{{pin}}" id="{{pin}}TileBtnDisable" class="btn btn-xs btn-default">Disable</button>
 				</td>
 			</tr>
 		</table>

@@ -18,7 +18,7 @@ ln -frs /bin/python2 /bin/python
 
 # install node modules
 cd node
-npm install ws bonescript exec-sync
+npm install bonescript shelljs ws
 cd ..
 
 # link config files

@@ -5,7 +5,7 @@ var websocket = require('./websocket.js');
 
 var timers = {};
 
-exports.addTimer = function(type, pin) {
+var addTimer = function (type, pin) {
     var timerResponse = {};
         timerResponse.parameters = {'pin': pin};
         timerResponse.type = type;
@@ -15,7 +15,7 @@ exports.addTimer = function(type, pin) {
     switch(type) {
         case 'digitalRead':
             timers[pin].state = null;
-            timers[pin].id = setInterval(function() {
+            timers[pin].id = setInterval(function () {
                 var pinState = bonescript.digitalRead(pin);
 
                 // Send message only on change
@@ -28,7 +28,7 @@ exports.addTimer = function(type, pin) {
             break;
 
         case 'analogRead':
-            timers[pin].id = setInterval(function() {
+            timers[pin].id = setInterval(function () {
                 timerResponse.response = [new Date().getTime(), bonescript.analogRead(pin)];
                 
                 fs.appendFile(settings.dataLocation + pin + '.csv', timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
@@ -39,13 +39,19 @@ exports.addTimer = function(type, pin) {
     }
 }
 
-exports.deleteTimer = function(pin) {
+var deleteTimer = function (pin) {
     if (timers.hasOwnProperty(pin)) {
         clearInterval(timers[pin].id);
         delete timers[pin];
     }
 }
 
-exports.isRunning = function(pin) {
+var isRunning = function (pin) {
     return timers.hasOwnProperty(pin);
 }
+
+module.exports = {
+	addTimer: addTimer,
+	deleteTimer: deleteTimer,
+	isRunning: isRunning
+};

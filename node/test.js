@@ -1,6 +1,9 @@
-var pwm = require('./pwmControl')
+var pwm = require('./pwmControl2.js');
 
-pwm.enable('P9_14');
-pwm.set('P9_14', {frequency: 1, duty: 0.5});
+pwm.enablePWM('P9_14');
+pwm.enablePWM('P9_16');
 
-console.log(pwm.get('P9_14'));
+pwm.writePWM('P9_14', {duty: 0.5});
+
+console.log(pwm.readPWM('P9_14'));
+console.log(pwm.readPWM('P9_16'));

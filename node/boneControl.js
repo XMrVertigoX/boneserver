@@ -1,6 +1,8 @@
 var bonescript = require('bonescript');
+var pwm = require('./pwmControl.js');
 var fs = require('fs');
 var timer = require('./timer.js');
+//var whitelist = require('./whitelist.json');
 
 exports.handleRequest = function(request) {
     var parameters = request.parameters;
@@ -13,7 +15,10 @@ exports.handleRequest = function(request) {
             break;
 
         case 'analogWrite':
-            response = bonescript[request.type](parameters.pin, parameters.duty, parameters.freq);
+            //response = bonescript[request.type](parameters.pin, parameters.duty, parameters.freq);
+
+            pwm.writePWM(parameters.pin, parameters.options);
+            response = pwm.readPWM(parameters.pin);
             break;
 
         case 'digitalRead':
@@ -50,6 +55,16 @@ exports.handleRequest = function(request) {
             break;
 
         // Special cases
+        case 'enablePWM':
+            pwm.enablePWM(parameters.pin);
+            response = pwm.readPWM(parameters.pin);
+            break;
+
+        case 'disablePWM':
+            pwm.disablePWM(parameters.pin);
+            response = pwm.readPWM(parameters.pin);
+            break;
+
         case 'startADC':
             timer.deleteTimer(parameters.pin);
             timer.addTimer('analogRead', parameters.pin);

@@ -4,84 +4,67 @@ init.init = function () {
     for(pin in pins) {
 
         if (pins[pin].hasOwnProperty('pwm')) {
+            // Get template
             $.ajax({
                 type: 'GET',
-                url: 'templatePWM.html',
+                url: 'templates/templatePWM.html',
                 dataType: 'html',
                 success: function (template) {
-                $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin, name: pins[pin].name}));},
+                    $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin, name: pins[pin].name}));
+                },
                 data: {},
                 async: false
             });
 
-            var maxPWMFrequency = 1000000; // 1MHz. Experimental...
-
-
-            $('#' + pin + 'FreqSlider').slider({
+            // Inputs
+            $('#' + pin + 'FreqValue').prop({
                 'min': 0,
-                'max': maxPWMFrequency,
+                'disabled': true
+            });
 
-                slide: function(event, ui) {
-                    $('#' + this.title + 'FreqValue').val($('#' + this.title + 'FreqSlider').slider('value'));
-                },
-
-                stop: function(event, ui) {
-                    $('#' + this.title + 'FreqValue').val($('#' + this.title + 'FreqSlider').slider('value'));
-                }
-            })
-
-            $('#' + pin + 'DutySlider').slider({
+            $('#' + pin + 'DutyValue').prop({
                 'min': 0,
                 'max': 1,
                 'step': 0.01,
+                'disabled': true
+            });
 
-                slide: function(event, ui) {
-                    $('#' + this.title + 'DutyValue').val($('#' + this.title + 'DutySlider').slider('value'));
-                },
-
-                stop: function(event, ui) {
-                    $('#' + this.title + 'DutyValue').val($('#' + this.title + 'DutySlider').slider('value'));
-                }
-            })
-
-            $('#' + pin + 'FreqValue').change(function () {
-                $('#' + this.title + 'FreqSlider').slider('value', $('#' + this.title + 'FreqValue').val());
-            })
-
-            $('#' + pin + 'DutyValue').change(function () {
-                $('#' + this.title + 'DutySlider').slider('value', $('#' + this.title + 'DutyValue').val());
-            })
-
+            // TileBtnEnable
             $('#' + pin + 'TileBtnEnable').click(function () {
-                bonescriptCtrl.pinMode(this.title, 'out', pins[this.title].pwm.muxmode, 'pulldown', 'fast');
-            })
+                bonescriptCtrl.enablePWM(this.title);
+            });
 
+            // TileBtnWrite
             $('#' + pin + 'TileBtnWrite').click(function () {
-                bonescriptCtrl.analogWrite(this.title, $('#' + this.title + 'DutyValue').val(), $('#' + this.title + 'FreqValue').val());
-            })
+                bonescriptCtrl.analogWrite(this.title, {
+                    'frequency': $('#' + this.title + 'FreqValue').val(),
+                    'duty': $('#' + this.title + 'DutyValue').val()
+                });
+            });
 
-            $('#' + pin + 'FreqValue').prop('min', 0);
-            $('#' + pin + 'FreqValue').prop('max', maxPWMFrequency);
+            $('#' + pin + 'TileBtnWrite').prop({
+                'disabled': true
+            });
 
-            $('#' + pin + 'DutyValue').prop('min', 0);
-            $('#' + pin + 'DutyValue').prop('max', 1);
-            $('#' + pin + 'DutyValue').prop('step', 0.01);
+            // TileBtnDisable
+            $('#' + pin + 'TileBtnDisable').click(function () {
+                bonescriptCtrl.disablePWM(this.title);
+            });
+            
+            $('#' + pin + 'TileBtnDisable').prop({
+                'disabled': true
+            });
 
-            $('#' + pin + 'FreqValue').prop('disabled', true);
-            $('#' + pin + 'FreqSlider').slider('disable');
-            $('#' + pin + 'DutyValue').prop('disabled', true);
-            $('#' + pin + 'DutySlider').slider('disable');
-
-            $('#' + pin + 'TileBtnWrite').prop('disabled', true);
-
+            // Append HTML
             $('#PWMTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
         } else if (pins[pin].hasOwnProperty('gpio')) {
             $.ajax({
                 type: 'GET',
-                url: 'templateGPIO.html',
+                url: 'templates/templateGPIO.html',
                 dataType: 'html',
                 success: function (template) {
-                $('#GPIOTiles').append(Mustache.render($(template).html(), {pin: pin}));},
+                    $('#GPIOTiles').append(Mustache.render($(template).html(), {pin: pin}));
+                },
                 data: {},
                 async: false
             });
@@ -109,10 +92,11 @@ init.init = function () {
         } else if (pins[pin].hasOwnProperty('ain')) {
             $.ajax({
                 type: 'GET',
-                url: 'templateAIN.html',
+                url: 'templates/templateAIN.html',
                 dataType: 'html',
                 success: function (template) {
-                $('#AINTiles').append(Mustache.render($(template).html(), {pin: pin}));},
+                    $('#AINTiles').append(Mustache.render($(template).html(), {pin: pin}));
+                },
                 data: {},
                 async: false
             });

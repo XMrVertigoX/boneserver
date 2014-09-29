@@ -7,7 +7,7 @@
 
 var wss = require('ws').Server;
 
-var bonecontrol = require('./bonecontrol.js');
+var boneControl = require('./boneControl.js');
 var bonescript = require('bonescript');
 var settings = require('./settings.json');
 var timer = require('./timer.js')
@@ -29,7 +29,7 @@ boneserver.on('connection', function(socket) {
 
     socket.on('message', function(request) {
         response = JSON.parse(request);
-        response.response = bonecontrol.handleRequest(response);
+        response.response = boneControl.handleRequest(response);
 
         if (response.hasOwnProperty('parameters')) {
             response.timer = timer.isRunning(response.parameters.pin);
