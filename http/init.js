@@ -9,7 +9,7 @@ init.init = function () {
                 url: 'templatePWM.html',
                 dataType: 'html',
                 success: function (template) {
-                $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin}));},
+                $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin, name: pins[pin].name}));},
                 data: {},
                 async: false
             });
