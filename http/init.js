@@ -19,13 +19,15 @@ init.init = function () {
             // Inputs
             $('#' + pin + 'FreqValue').prop({
                 'min': 0,
+                'max': 1000000000,
+                'step': 0.000000001,
                 'disabled': true
             });
 
             $('#' + pin + 'DutyValue').prop({
                 'min': 0,
                 'max': 1,
-                'step': 0.01,
+                'step': 0.000000001,
                 'disabled': true
             });
 
