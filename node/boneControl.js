@@ -1,83 +1,152 @@
 var bonescript = require('bonescript');
-var pwm = require('./pwmControl.js');
 var fs = require('fs');
 var timer = require('./timer.js');
-//var whitelist = require('./whitelist.json');
+
+var whitelist = require('./whitelist.json');
+var pins = bonescript.getPlatform().platform.pins;
+
+var pwm = require('./pwmControl.js');
+var gpio = require('./gpioControl.js');
 
 exports.handleRequest = function(request) {
-    var parameters = request.parameters;
-    var response;
+	var parameters = request.parameters;
+	var response = {};
 
-    switch(request.type) {
-        // BoneScript API
-        case 'analogRead':
-            response = bonescript[request.type](parameters.pin);
-            break;
+	switch(request.type) {
+		// BoneScript API
+		case 'analogRead':
+			var pin = parameters.pin;
 
-        case 'analogWrite':
-            //response = bonescript[request.type](parameters.pin, parameters.duty, parameters.freq);
+			response = bonescript[request.type](pin);
+			break;
 
-            pwm.writePWM(parameters.pin, parameters.options);
-            response = pwm.readPWM(parameters.pin);
-            break;
+		case 'analogWrite':
+			var pin = parameters.pin;
 
-        case 'digitalRead':
-            response = bonescript[request.type](parameters.pin);
-            break;
+			//response = bonescript[request.type](pin, parameters.duty, parameters.freq);
 
-        case 'digitalWrite':
-            response = bonescript[request.type](parameters.pin, parameters.value);
-            break;
+			pwm.writePWM(pin, parameters.options);
+			response = pwm.readPWM(pin);
+			break;
 
-        case 'getPinMode':
-            response = bonescript[request.type](parameters.pin);
-            break;
+		case 'digitalRead':
+			var pin = parameters.pin;
 
-        case 'pinMode':
-            try {
-                response = bonescript[request.type](parameters.pin, parameters.direction, parameters.mux, parameters.pullup, parameters.slew);
+			response = bonescript[request.type](pin);
+			break;
 
-                switch (parameters.direction) {
-                    case 'in':
-                        timer.deleteTimer(parameters.pin);
-                        timer.addTimer('digitalRead', parameters.pin);
-                        break;
+		case 'digitalWrite':
+			var pin = parameters.pin;
 
-                    case 'out':
-                        timer.deleteTimer(parameters.pin);
-                        break;
-                }
-            } catch (error) {
-                console.error(error);
-                response = "error";
-            }
+			//response = bonescript[request.type](pin, parameters.value);
 
-            break;
+			gpio.write(pins[pin].gpio, {value: parameters.value});
+			break;
 
-        // Special cases
-        case 'enablePWM':
-            pwm.enablePWM(parameters.pin);
-            response = pwm.readPWM(parameters.pin);
-            break;
+		case 'getPinMode':
+			var pin = parameters.pin;
 
-        case 'disablePWM':
-            pwm.disablePWM(parameters.pin);
-            response = pwm.readPWM(parameters.pin);
-            break;
+			if (whitelist.hasOwnProperty(pin)) {
+				switch(whitelist[pin].type) {
+					case 'pwm':
+						response.pwm = pwm.readPWM(pin);
+						break;
 
-        case 'startADC':
-            timer.deleteTimer(parameters.pin);
-            timer.addTimer('analogRead', parameters.pin);
-            break;
+					case 'gpio':
+						response.gpio = gpio.read(pins[pin].gpio);
+						break;
 
-        case 'stopADC':
-            timer.deleteTimer(parameters.pin);
-            break;
+					default:
+						response = bonescript[request.type](pin);
+				}
+			}
 
-        case 'getPins':
-            response = JSON.stringify(bonescript.getPlatform().platform.pins);
-            break;
-    }
+			break;
 
-    return response;
+		case 'pinMode':
+			var pin = parameters.pin;
+
+			//var direction;
+
+			// switch (parameters.direction) {
+			// 	case 'in':
+			// 		direction = bonescript.INPUT;
+			// 		break;
+			// 	case 'out':
+			// 		direction = bonescript.OUTPUT;
+			// 		break;
+			// }
+			
+			gpio.write(pins[pin].gpio, {direction: parameters.direction});
+
+			switch (parameters.direction) {
+				case 'in':
+					timer.deleteTimer(pin);
+					timer.addTimer('digitalRead', pin);
+					break;
+
+				case 'out':
+					timer.deleteTimer(pin);
+					break;
+			}
+
+			//response = bonescript[request.type](pin, direction);
+			response.gpio = gpio.read(pins[pin].gpio);
+
+			break;
+
+		// Special cases
+		case 'enableGPIO':
+			var pin = parameters.pin;
+
+			gpio.enable(pins[pin].gpio);
+			response.gpio = gpio.read(pins[pin].gpio);
+			break;
+
+		case 'disableGPIO':
+			var pin = parameters.pin;
+
+			gpio.disable(pins[pin].gpio);
+			response.gpio = gpio.read(pins[pin].gpio);
+			break;
+
+		case 'enablePWM':
+			var pin = parameters.pin;
+
+			pwm.enablePWM(pin);
+			response['pwm'] = pwm.readPWM(pin);
+			break;
+
+		case 'disablePWM':
+			var pin = parameters.pin;
+
+			pwm.disablePWM(pin);
+			response['pwm'] = pwm.readPWM(pin);
+			break;
+
+		case 'startADC':
+			var pin = parameters.pin;
+
+			timer.deleteTimer(pin);
+			timer.addTimer('analogRead', pin);
+			break;
+
+		case 'stopADC':
+			var pin = parameters.pin;
+			
+			timer.deleteTimer(pin);
+			break;
+
+		case 'getPins':
+			var list = whitelist;
+
+			for (pin in list) {
+				list[pin]['pinMode'] = bonescript.getPinMode(pin);
+			}
+
+			response = JSON.stringify(list);
+			break;
+	}
+
+	return response;
 }

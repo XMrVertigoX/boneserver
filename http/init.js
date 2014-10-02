@@ -2,15 +2,16 @@ var init = {};
 
 init.init = function () {
     for(pin in pins) {
+        switch (pins[pin].type) {
 
-        if (pins[pin].hasOwnProperty('pwm')) {
+        case 'pwm':
             // Get template
             $.ajax({
                 type: 'GET',
                 url: 'templates/templatePWM.html',
                 dataType: 'html',
                 success: function (template) {
-                    $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin, name: pins[pin].name}));
+                    $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin}))
                 },
                 data: {},
                 async: false
@@ -59,7 +60,10 @@ init.init = function () {
 
             // Append HTML
             $('#PWMTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
-        } else if (pins[pin].hasOwnProperty('gpio')) {
+
+            break;
+
+        case 'gpio':
             $.ajax({
                 type: 'GET',
                 url: 'templates/templateGPIO.html',
@@ -80,18 +84,20 @@ init.init = function () {
             })
 
             $('#' + pin + 'TileBtnIN').click(function () {
-                bonescriptCtrl.pinMode(this.title, 'in', 7, 'pulldown', 'fast');
+                bonescriptCtrl.pinMode(this.title, 'in');
             })
 
             $('#' + pin + 'TileBtnOUT').click(function () {
-                bonescriptCtrl.pinMode(this.title, 'out', 7, 'disabled', 'disabled');
+                bonescriptCtrl.pinMode(this.title, 'out');
             })
 
             $('#' + pin + 'TileBtnON').prop('disabled', true);
             $('#' + pin + 'TileBtnOFF').prop('disabled', true);
 
             $('#GPIOTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn"' + 'class="btn btn-primary btn-block">' + pin + '</button>');
-        } else if (pins[pin].hasOwnProperty('ain')) {
+            break;
+
+        case 'ain':
             $.ajax({
                 type: 'GET',
                 url: 'templates/templateAIN.html',
@@ -115,6 +121,7 @@ init.init = function () {
             $('#AINTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
 
             diagramCtrl.init(pin);
+            break;
         }
 
         $('#' + pin + 'TileTglBtn').click(function () {

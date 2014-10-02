@@ -39,13 +39,10 @@ bonescriptCtrl.getPinMode = function(pin) {
     bonescriptCtrl.util.sendRequest('getPinMode', parameters);
 }
 
-bonescriptCtrl.pinMode = function(pin, direction, mux, pullup, slew) {
+bonescriptCtrl.pinMode = function(pin, direction) {
     var parameters = {};
         parameters['pin'] = pin;
         parameters['direction'] = direction;
-        parameters['mux'] = mux;
-        parameters['pullup'] = pullup;
-        parameters['slew'] = slew;
 
     bonescriptCtrl.util.sendRequest('pinMode', parameters);
 }

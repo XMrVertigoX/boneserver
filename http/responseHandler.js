@@ -16,12 +16,12 @@ responseHandler.analogWrite = function(message) {
 responseHandler.digitalRead = function(message) {
 	if (debug) { console.log("responseHandler.digitalRead: " + JSON.stringify(message)) };
 
-	var parameters = message['parameters'];
-	var response = message['response'];
+	var parameters = message.parameters;
+	var response = message.response;
 
-	var pin = parameters['pin'];
+	var pin = parameters.pin;
 
-	if (response) {
+	if (response == 1) {
 		util.changeBtnColor($('#' + pin + 'TileBtnOFF'), 'btn-default');
 		util.changeBtnColor($('#' + pin + 'TileBtnON'), 'btn-success');
 	} else {
@@ -53,40 +53,45 @@ responseHandler.digitalWrite = function(message) {
 responseHandler.getPinMode = function(message) {
 	if (debug) { console.log("responseHandler.getPinMode: " + JSON.stringify(message)) };
 
-	if (pins[message.parameters.pin].hasOwnProperty('pwm')) {
-		if (message.response.hasOwnProperty('pwm')) {
-			responseHandler.util.changePWMTile(message.parameters.pin, message.response.pwm.value, message.response.pwm.freq);
-		}
-	} else if (pins[message.parameters.pin].hasOwnProperty('gpio')) {
-		responseHandler.util.changeGPIOTile(message.parameters.pin, message.response.gpio.direction, message.timer);
+	var parameters = message.parameters;
+	var response = message.response;
+
+	if (response.hasOwnProperty('pwm')) {
+		var pwm = response.pwm;
+		var active = pwm.hasOwnProperty('path');
+
+		responseHandler.util.changePWMTile(parameters.pin, pwm.duty, pwm.period, active);
+	} else if (response.hasOwnProperty('gpio')) {
+		var gpio = response.gpio;
+
+		responseHandler.util.changeGPIOTile(parameters.pin, gpio.direction, message.timer);
 	}
 
-	pins[message.parameters.pin].pinMode = message.response;
+	pins[parameters.pin].pinMode = response;
 }
 
 responseHandler.pinMode = function(message) {
 	if (debug) { console.log("responseHandler.pinMode: " + JSON.stringify(message)) };
 
-	if (message['response']) {
-		bonescriptCtrl.getPinMode(message['parameters']['pin']);
+	if (message.response) {
+		bonescriptCtrl.getPinMode(message.parameters.pin);
 	} else {
 		console.log(message);
 	}
 }
 
 responseHandler.enablePWM = function(message) {
-	var parameters = message['parameters'];
-	var response = message['response'];
-
+	var parameters = message.parameters;
+	var response = message.response;
 	var pin = parameters.pin;
 
-	if (response.hasOwnProperty('path')) {
-		if (response.period !== undefined || response.duty !== undefined) {
-			var duty = response.duty/response.period;
-			var freq = (1/response.period) * Math.pow(10, 9);
-		}
+	var active;
 
-		responseHandler.util.changePWMTile(pin, duty, freq, false);
+	if (response.hasOwnProperty('pwm')) {
+		var pwm = response.pwm;
+		var active = pwm.hasOwnProperty('path');
+
+		responseHandler.util.changePWMTile(parameters.pin, pwm.duty, pwm.period, active);
 	}
 }
 
@@ -94,13 +99,12 @@ responseHandler.disablePWM = function(message) {
 	var parameters = message['parameters'];
 	var response = message['response'];
 
-	var pin = parameters.pin;
+	if (response.hasOwnProperty('pwm')) {
+		var pwm = response.pwm;
+		var active = pwm.hasOwnProperty('path');
 
-	responseHandler.util.changePWMTile(pin, undefined, undefined, true);
-}
-
-responseHandler.readPWM = function(message) {
-	console.log(message);
+		responseHandler.util.changePWMTile(parameters.pin, pwm.duty, pwm.period, active);
+	}
 }
 
 responseHandler.startADC = function(message) {
@@ -116,6 +120,8 @@ responseHandler.getPins = function(message) {
 	if (debug) { console.log("responseHandler.getPins: " + JSON.stringify(message)) };
 
 	pins = JSON.parse(message.response);
+
+	console.log(pins);
 
 	init.init();
 
@@ -147,25 +153,24 @@ responseHandler.util.changeGPIOTile = function(pin, direction, timer) {
 		bonescriptCtrl.digitalRead(pin);
 	}
 }
-responseHandler.util.changePWMTile = function(pin, duty, freq, enable) {
-	//duty = duty.toFixed(2);
-	//freq = freq.toFixed(0);
 
-	$('#' + pin + 'TileBtnEnable').prop('disabled', !enable);
-	$('#' + pin + 'TileBtnDisable').prop('disabled', enable);
+responseHandler.util.changePWMTile = function(pin, duty, period, enable) {
+	$('#' + pin + 'TileBtnEnable').prop('disabled', enable);
+	$('#' + pin + 'TileBtnDisable').prop('disabled', !enable);
 
-	var tmp;
+	var writable;
 
-	if (duty === undefined || freq === undefined) {
-		tmp = true;
-	} else {
-		tmp = false;
+	if (duty !== undefined && period !== undefined) {
+		var duty = duty/period;
+		var freq = (1/period) * Math.pow(10, 9);
+
+		writable = true;
+
 		$('#' + pin + 'DutyValue').val(duty);
 		$('#' + pin + 'FreqValue').val(freq);
 	}
 
-
-	$('#' + pin + 'FreqValue').prop('disabled', tmp);
-	$('#' + pin + 'DutyValue').prop('disabled', tmp);
-	$('#' + pin + 'TileBtnWrite').prop('disabled', tmp);
+	$('#' + pin + 'FreqValue').prop('disabled', !writable);
+	$('#' + pin + 'DutyValue').prop('disabled', !writable);
+	$('#' + pin + 'TileBtnWrite').prop('disabled', !writable);
 }
