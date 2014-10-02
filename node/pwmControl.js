@@ -1,17 +1,19 @@
 var shelljs = require('shelljs');
 
-var ocp = shelljs.ls('/sys/devices/ocp.*')[0];
 var slots = shelljs.ls('/sys/devices/bone_capemgr.*')[0] + '/slots';
-var pinPattern = /P[8|9]_[1-4][0-9]/i;
-var pwmDirectoryPrefix = 'pwm_test_';
-var pwmSlotPrefix = 'bone_pwm_';
 
 // Enable PWM functionality
 if (shelljs.cat(slots).match('am33xx_pwm') == null) {
 	'am33xx_pwm'.to(slots);
 }
 
-var disablePWM = function(pin) {
+var ocp = shelljs.ls('/sys/devices/ocp.*')[0];
+
+var pinPattern = /P[8|9]_[1-4][0-9]/i;
+var pwmDirectoryPrefix = 'pwm_test_';
+var pwmSlotPrefix = 'bone_pwm_';
+
+var disable = function(pin) {
 	var tmpSlots = readSlots();
 
 	if (tmpSlots.hasOwnProperty(pin)) {
@@ -19,7 +21,7 @@ var disablePWM = function(pin) {
 	}
 } 
 
-var enablePWM = function(pin) {
+var enable = function(pin) {
 	var tmpSlots = readSlots();
 
 	if (!tmpSlots.hasOwnProperty(pin)) {
@@ -27,7 +29,7 @@ var enablePWM = function(pin) {
 	}
 }
 
-var readPWM = function(pin) {
+var read = function(pin) {
 	var directory = pwmDirectory(pin);
 	var data = {};
 
@@ -64,11 +66,11 @@ var readSlots = function() {
 	return pwmlist;
 }
 
-var writePWM = function(pin, options) {
+var write = function(pin, options) {
 	var pwmlist = readSlots();
 	
 	if (pwmlist.hasOwnProperty(pin)) {
-		var pwm = readPWM(pin);
+		var pwm = read(pin);
 	
 		if (options.hasOwnProperty('frequency')) {
 			// convert frequency to period in ns
@@ -100,8 +102,8 @@ var writePWM = function(pin, options) {
 }
 
 module.exports = {
-	disablePWM: disablePWM,
-	enablePWM: enablePWM,
-	readPWM: readPWM,
-	writePWM: writePWM
+	disable: disable,
+	enable: enable,
+	read: read,
+	write: write
 };

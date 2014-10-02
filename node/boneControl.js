@@ -25,8 +25,8 @@ exports.handleRequest = function(request) {
 
 			//response = bonescript[request.type](pin, parameters.duty, parameters.freq);
 
-			pwm.writePWM(pin, parameters.options);
-			response = pwm.readPWM(pin);
+			pwm.write(pin, parameters.options);
+			response = pwm.read(pin);
 			break;
 
 		case 'digitalRead':
@@ -49,7 +49,7 @@ exports.handleRequest = function(request) {
 			if (whitelist.hasOwnProperty(pin)) {
 				switch(whitelist[pin].type) {
 					case 'pwm':
-						response.pwm = pwm.readPWM(pin);
+						response.pwm = pwm.read(pin);
 						break;
 
 					case 'gpio':
@@ -113,15 +113,15 @@ exports.handleRequest = function(request) {
 		case 'enablePWM':
 			var pin = parameters.pin;
 
-			pwm.enablePWM(pin);
-			response['pwm'] = pwm.readPWM(pin);
+			pwm.enable(pin);
+			response['pwm'] = pwm.read(pin);
 			break;
 
 		case 'disablePWM':
 			var pin = parameters.pin;
 
-			pwm.disablePWM(pin);
-			response['pwm'] = pwm.readPWM(pin);
+			pwm.disable(pin);
+			response['pwm'] = pwm.read(pin);
 			break;
 
 		case 'startADC':
