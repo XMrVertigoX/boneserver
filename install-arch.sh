@@ -5,7 +5,7 @@ pacman -S --noconfirm ntp base-devel python2 lighttpd vsftpd linux-headers-am33x
 pacman -U --noconfirm packages/dtc-git-patched-20130410-1-armv7h.pkg packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
 
 # install some useful packages
-pacman -S --noconfirm wget zsh grml-zsh-config
+pacman -S --noconfirm wget zsh grml-zsh-config wpa_supplicant
 chsh -s /bin/zsh
 
 # update time and set localtime und hostname
@@ -21,7 +21,7 @@ cd node
 npm install bonescript shelljs ws
 cd ..
 
-# link config files
+# link config file(s)
 ln -sf /opt/boneserver/config/vsftpd/vsftpd.conf /etc/vsftpd.conf
 ln -sf /opt/boneserver/config/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
 ln -sf /opt/boneserver/config/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
@@ -29,6 +29,6 @@ ln -sf /opt/boneserver/config/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
 # copy service file(s)
 cp /opt/boneserver/services/boneserver.service /usr/lib/systemd/system
 
-# enable/start services
+# enable and start services
 systemctl enable lighttpd vsftpd haproxy boneserver ntpd
 systemctl start lighttpd vsftpd haproxy boneserver ntpd
