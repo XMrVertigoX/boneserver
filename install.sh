@@ -1,11 +1,13 @@
 #! /bin/sh
 
-# install required packages
-pacman -S --noconfirm ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs
-pacman -U --noconfirm packages/dtc-git-patched-20130410-1-armv7h.pkg packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
+# pacman -Q check if package is installed
 
-# install some useful packages
-pacman -S --noconfirm wget zsh grml-zsh-config wpa_supplicant
+# install required packages if not already up to date
+pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs
+pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
+
+# install some useful packages if not already up to date
+pacman -S --noconfirm --needed wget zsh grml-zsh-config wpa_supplicant
 chsh -s /bin/zsh
 
 # update time and set localtime und hostname
