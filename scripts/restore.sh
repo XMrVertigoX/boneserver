@@ -2,23 +2,17 @@
 
 set -e
 
-OUTPUT="/dev/mmcblk1"
+OUTPUTFILE="/dev/mmcblk1"
 
 if [[ ! -z "$1" ]]
 	then
-		INPUT=$1
+		INPUTFILE=$1
 fi
 
-if [[ ! -r $INPUT ]]
+if [[ ! -r $INPUTFILE ]]
 		then
-			echo "input file not readable"
+			echo "file not readable"
 			exit 1
 fi
 
-if [[ ! -w $OUTPUT ]]
-  	then
-		echo "output file not writable"
-		exit 1
-fi
-
-gzip -cd $INPUT | pv | dd bs=4M of=$OUTPUT
+gzip -cd $INPUTFILE | pv | dd bs=4M of=$OUTPUTFILE

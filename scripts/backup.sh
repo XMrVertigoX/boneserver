@@ -2,24 +2,18 @@
 
 set -e
 
-INPUT="/dev/mmcblk1"
-OUTPUT="./backup-$(date +"%s").img"
+INPUTFILE="/dev/mmcblk1"
+OUTPUTDIRECTORY="./"
 
 if [[ ! -z "$1" ]]
 	then
-		OUTPUT=$1
+		OUTPUTDIRECTORY=$1
 fi
 
-if [[ ! -r $INPUT ]]
-		then
-			echo "input file not readable"
-			exit 1
-fi
-
-if [[ ! -w $OUTPUT ]]
+if [[ ! -d $OUTPUTDIRECTORY ]]
   	then
-		echo "output file not writable"
+		echo "not a directory"
 		exit 1
 fi
 
-dd bs=4M if=$INPUT | pv | gzip -f > ${OUTPUT}.gz
+dd bs=4M if=$INPUTFILE | pv | gzip -f > ${OUTPUTDIRECTORY}/backup-$(date +"%s").img.gz
