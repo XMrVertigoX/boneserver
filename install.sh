@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set -e
+
 # install or update required packages
 pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs
 pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg.tar.xz packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
