@@ -5,13 +5,10 @@ set -e
 INPUT="/dev/mmcblk1"
 OUTPUT="./backup-$(date +"%s").img"
 
-while getopts i:o: opt
-do
-	case $opt in
-		i) INPUT=$OPTARG ;;
-		o) OUTPUT=$OPTARG ;;
-	esac
-done
+if [[ ! -z "$1" ]]
+	then
+		OUTPUT=$1
+fi
 
 if [[ ! -r $INPUT ]]
 		then
@@ -19,9 +16,9 @@ if [[ ! -r $INPUT ]]
 			exit 1
 fi
 
-if [[ -a $OUTPUT ]]
+if [[ ! -w $OUTPUT ]]
   	then
-		echo "output file already exists"
+		echo "output file not writable"
 		exit 1
 fi
 
