@@ -2,6 +2,9 @@
 
 set -e
 
+# update system time
+ntpdate -u pool.ntp.org
+
 # install or update required packages
 pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs
 pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg.tar.xz packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
@@ -10,16 +13,18 @@ pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg.ta
 pacman -S --noconfirm --needed wget zsh grml-zsh-config wpa_supplicant pv
 chsh -s /bin/zsh
 
-# update time and set localtime und hostname
-ntpdate -u pool.ntp.org
+# set localtime und hostname
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 echo boneserver > /etc/hostname
 
 # link python -> python2
-ln -frs /bin/python2 /bin/python
+# cd /bin
+# ln -fs python2 python
+# cd /opt/boneserver
 
 # install node modules
 cd node
+npm config set python /bin/python2.7
 npm install bonescript shelljs ws
 cd ..
 

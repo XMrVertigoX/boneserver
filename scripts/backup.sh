@@ -3,7 +3,7 @@
 set -e
 
 INPUT="/dev/mmcblk1"
-OUTPUT="./backup-$(date +"%s").img.gz"
+OUTPUT="./backup-$(date +"%s").img"
 
 while getopts i:o: opt
 do
@@ -25,4 +25,4 @@ if [[ -a $OUTPUT ]]
 		exit 1
 fi
 
-dd bs=4M if=$INPUT | pv | gzip -f > $OUTPUT
+dd bs=4M if=$INPUT | pv | gzip -f > ${OUTPUT}.gz
