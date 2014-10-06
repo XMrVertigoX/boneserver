@@ -7,7 +7,7 @@ pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-head
 pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg.tar.xz packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
 
 # install some useful packages if not already up to date
-pacman -S --noconfirm --needed wget zsh grml-zsh-config wpa_supplicant
+pacman -S --noconfirm --needed wget zsh grml-zsh-config wpa_supplicant pv
 chsh -s /bin/zsh
 
 # update time and set localtime und hostname
