@@ -33,4 +33,4 @@ cp /opt/boneserver/services/boneserver.service /usr/lib/systemd/system
 systemctl enable lighttpd vsftpd haproxy boneserver ntpd
 systemctl start lighttpd vsftpd haproxy boneserver ntpd
 
-reboot
+# reboot
