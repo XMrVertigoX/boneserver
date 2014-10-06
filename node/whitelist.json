@@ -36,5 +36,6 @@
 	"P9_38": {"available": true, "active": true, "type": "ain"},
 	"P9_39": {"available": true, "active": true, "type": "ain"},
 	"P9_40": {"available": true, "active": true, "type": "ain"},
+	"P9_41": {"available": true, "active": true, "type": "gpio"},
 	"P9_42": {"available": true, "active": true, "type": "pwm"}
 }

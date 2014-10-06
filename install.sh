@@ -1,8 +1,6 @@
 #! /bin/sh
 
-# pacman -Q check if package is installed
-
-# install required packages if not already up to date
+# install or update required packages
 pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs
 pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
 
@@ -34,3 +32,5 @@ cp /opt/boneserver/services/boneserver.service /usr/lib/systemd/system
 # enable and start services
 systemctl enable lighttpd vsftpd haproxy boneserver ntpd
 systemctl start lighttpd vsftpd haproxy boneserver ntpd
+
+reboot

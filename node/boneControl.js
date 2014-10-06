@@ -1,10 +1,9 @@
 var bonescript = require('bonescript');
 var fs = require('fs');
-var timer = require('./timer.js');
 
-var whitelist = require('./whitelist.json');
 var pins = bonescript.getPlatform().platform.pins;
 
+var timer = require('./timer.js');
 var pwm = require('./pwmControl.js');
 var gpio = require('./gpioControl.js');
 
@@ -25,8 +24,7 @@ exports.handleRequest = function(request) {
 
 			//response = bonescript[request.type](pin, parameters.duty, parameters.freq);
 
-			pwm.write(pin, parameters.options);
-			response = pwm.read(pin);
+			response = pwm.write(pin, parameters.options);
 			break;
 
 		case 'digitalRead':
@@ -45,6 +43,7 @@ exports.handleRequest = function(request) {
 
 		case 'getPinMode':
 			var pin = parameters.pin;
+			var whitelist = JSON.parse(fs.readFileSync('./whitelist.json'));
 
 			if (whitelist.hasOwnProperty(pin)) {
 				switch(whitelist[pin].type) {
@@ -138,7 +137,7 @@ exports.handleRequest = function(request) {
 			break;
 
 		case 'getPins':
-			var list = whitelist;
+			var list = JSON.parse(fs.readFileSync('./whitelist.json'));
 
 			for (pin in list) {
 				list[pin]['pinMode'] = bonescript.getPinMode(pin);

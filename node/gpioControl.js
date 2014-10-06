@@ -6,16 +6,16 @@ var disable = function(gpio) {
 	if (isEnabled(gpio)) {
 		String(gpio).to(gpioPath + 'unexport');
 	}
+
+	return isEnabled(gpio);
 }
 
 var enable = function(gpio) {
 	if (!isEnabled(gpio)) {
 		String(gpio).to(gpioPath + 'export');
 	}
-}
 
-var isEnabled = function(gpio) {
-	return shelljs.test('-e', gpioPath + 'gpio' + gpio);
+	return isEnabled(gpio);
 }
 
 var read = function(gpio) {
@@ -53,6 +53,12 @@ var write = function(gpio, options) {
 			}
 		}
 	}
+
+	return read(gpio);
+}
+
+var isEnabled = function(gpio) {
+	return shelljs.test('-e', gpioPath + 'gpio' + gpio);
 }
 
 module.exports = {
