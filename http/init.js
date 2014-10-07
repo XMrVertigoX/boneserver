@@ -8,7 +8,7 @@ init.init = function () {
             // Get template
             $.ajax({
                 type: 'GET',
-                url: 'templates/templatePWM.html',
+                url: 'templates/templatePWM.mustache',
                 dataType: 'html',
                 success: function (template) {
                     $('#PWMTiles').append(Mustache.render($(template).html(), {pin: pin}))
@@ -66,7 +66,7 @@ init.init = function () {
         case 'gpio':
             $.ajax({
                 type: 'GET',
-                url: 'templates/templateGPIO.html',
+                url: 'templates/templateGPIO.mustache',
                 dataType: 'html',
                 success: function (template) {
                     $('#GPIOTiles').append(Mustache.render($(template).html(), {pin: pin}));
@@ -100,7 +100,7 @@ init.init = function () {
         case 'ain':
             $.ajax({
                 type: 'GET',
-                url: 'templates/templateAIN.html',
+                url: 'templates/templateAIN.mustache',
                 dataType: 'html',
                 success: function (template) {
                     $('#AINTiles').append(Mustache.render($(template).html(), {pin: pin}));

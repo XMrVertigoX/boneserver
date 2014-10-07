@@ -1,14 +1,11 @@
 body {
-    padding-top: 70px;
+    /*padding-top: 70px;*/ /*Uncomment if navbar is fixed to top*/ 
 }
 
 .tile {
     margin: 5px;
     border: 1px solid #000;
-    border-radius: 5px;
-
-    /*outline: 1px solid #000;*/
-    /*outline-offset: -5px;*/
+    /*border-radius: 5px;*/
 }
 
 .flotContainer {
