@@ -121,8 +121,6 @@ responseHandler.getPins = function(message) {
 
 	pins = JSON.parse(message.response);
 
-	console.log(pins);
-
 	init.init();
 
 	for(pin in pins) {

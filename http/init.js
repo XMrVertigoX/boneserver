@@ -118,6 +118,11 @@ init.init = function () {
                 bonescriptCtrl.stopADC(this.title);
             })
 
+            $('#' + pin + 'Data').click(function(e) {
+                e.preventDefault();
+                window.location.href = 'data/' + this.title + '.csv';
+            });
+
             $('#AINTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
 
             diagramCtrl.init(pin);

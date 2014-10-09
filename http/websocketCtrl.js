@@ -20,7 +20,7 @@ websocketCtrl.connect = function() {
     }
 
     websocket.onopen = function() {
-        console.log("WebSocket connected (" + websocket.URL + ")");
+        console.log("WebSocket connected (" + websocket.url + ")");
 
         util.replaceClass($('#headerConnectionGlyphicon'), 'glyphicon-remove', 'glyphicon-ok');
         util.replaceClass($('#headerConnectionButton'), 'btn-danger', 'btn-success');
