@@ -1,7 +1,12 @@
 var bonescript = require('bonescript');
 var fs = require('fs');
+var settings = require('./settings.json');
 
+// Liefert die Systemadressen der Pins
 var pins = bonescript.getPlatform().platform.pins;
+
+// Interface konfiguration
+var whitelist = require('./whitelist.json');
 
 var timer = require('./timer.js');
 var pwm = require('./pwmControl.js');
@@ -43,7 +48,7 @@ exports.handleRequest = function(request) {
 
 		case 'getPinMode':
 			var pin = parameters.pin;
-			var whitelist = JSON.parse(fs.readFileSync('./whitelist.json'));
+			//var whitelist = JSON.parse(fs.readFileSync('./whitelist.json'));
 
 			if (whitelist.hasOwnProperty(pin)) {
 				switch(whitelist[pin].type) {
@@ -136,14 +141,37 @@ exports.handleRequest = function(request) {
 			timer.deleteTimer(pin);
 			break;
 
+		case 'deleteADCData':
+			var pin = parameters.pin;
+			var file = settings.dataLocation + '/' + pin + '.csv';
+
+			if (fs.existsSync(file)) {
+				fs.unlinkSync(settings.dataLocation + '/' + pin + '.csv');
+			}
+			break;
+
+		// Interface controls
 		case 'getPins':
-			var list = JSON.parse(fs.readFileSync('./whitelist.json'));
+			var list = JSON.parse(JSON.stringify(whitelist));
 
 			for (pin in list) {
 				list[pin]['pinMode'] = bonescript.getPinMode(pin);
 			}
 
 			response = JSON.stringify(list);
+			break;
+
+		case 'toggle':
+			var pin = parameters.pin;
+			//var file = './whitelist.json';
+			//var list = JSON.parse(fs.readFileSync(file));
+
+			if (whitelist.hasOwnProperty(pin)) {
+				whitelist[pin].active = !whitelist[pin].active;
+			}
+
+			response = whitelist[pin].active;
+
 			break;
 	}
 

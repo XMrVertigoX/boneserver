@@ -3,7 +3,8 @@ boneserver
 
 bonescript websocket api, Bachelorarbeit von Caspar Friedrich
 
-## Todo
-* Messwerte der ADC über das webinterface abrufen und löschen
+## In Arbeit
 * Konfiguration der Oberfläche speichern
+
+## Agenda
 * Pinkonfiguration speichern und bei einem Neustart wieder herstellen

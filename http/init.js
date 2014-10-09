@@ -112,17 +112,28 @@ init.init = function () {
             $('#' + pin + 'Start').click(function () {
                 bonescriptCtrl.startADC(this.title, 1000);
                 diagramCtrl.util.resetData(this.title);
+                $('#' + pin + 'Download').prop( "disabled", true );
+                $('#' + pin + 'Delete').prop( "disabled", true );
             })
 
             $('#' + pin + 'Stop').click(function () {
                 bonescriptCtrl.stopADC(this.title);
+                $('#' + pin + 'Download').prop( "disabled", false );
+                $('#' + pin + 'Delete').prop( "disabled", false );
             })
 
             $('#' + pin + 'Download').click(function(e) {
                 e.preventDefault(); //stop the browser from following
                 window.open('data/' + this.title + '.csv');
-                //window.location.href = 'data/' + this.title + '.csv';
             });
+
+            $('#' + pin + 'Delete').click(function () {
+                var message = "Delete data series for " + this.title + "?"
+
+                if (confirm(message)) {
+                    bonescriptCtrl.deleteADCData(this.title);
+                }
+            })
 
             $('#AINTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
 
@@ -131,26 +142,27 @@ init.init = function () {
         }
 
         $('#' + pin + 'TileTglBtn').click(function () {
-            var title = this.title;
+            bonescriptCtrl.toggle(this.title);
             
-            $('#' + title + 'Tile').toggle({
-                duration: 100,
-                complete: function () {
-                    var isVisible = $('#' + title + 'Tile').is(':visible');
-                    var isHidden  = $('#' + title + 'Tile').is(':hidden');
+            // $('#' + this.title + 'Tile').toggle({
+            //     duration: 100,
+            //     complete: function () {
+            //         var isVisible = $('#' + this.title + 'Tile').is(':visible');
+            //         var isHidden  = $('#' + this.title + 'Tile').is(':hidden');
 
-                    if (isVisible) {
-                        util.changeBtnColor($('#' + title + 'TileTglBtn'), 'btn-primary');
-                    } else if (isHidden) {
-                        util.changeBtnColor($('#' + title + 'TileTglBtn'), 'btn-default');
-                    }
-                }
-            });
+            //         if (isVisible) {
+            //             util.changeBtnColor($('#' + this.title + 'TileTglBtn'), 'btn-primary');
+            //         } else if (isHidden) {
+            //             util.changeBtnColor($('#' + this.title + 'TileTglBtn'), 'btn-default');
+            //         }
+            //     }
+            // });
         })
-
-        // if (!pins[pin].isActivated) {
-        //     $('#' + pin + 'Tile').toggle();
-        //     util.changeBtnColor($('#' + pin + 'TileTglBtn'), 'btn-default');
-        // }
     }
+
+    // for(pin in pins) {
+    //     if (!pins[pin].active) {
+    //         $('#' + pin + 'TileTglBtn').click();
+    //     }
+    // }
 }
