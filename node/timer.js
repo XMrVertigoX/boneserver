@@ -31,7 +31,7 @@ var addTimer = function (type, pin) {
 			break;
 
 		case 'analogRead':
-			// Creates data directory and links into http if not exist
+			// Creates data directory and links into http if not existing
 			if (!fs.existsSync(settings.dataLocation)) {
 				fs.mkdirSync(settings.dataLocation, 0755);
 				fs.symlinkSync('../node/data', '../http/data');
