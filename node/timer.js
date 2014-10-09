@@ -9,48 +9,54 @@ var pins = bonescript.getPlatform().platform.pins;
 var timers = {};
 
 var addTimer = function (type, pin) {
-    var timerResponse = {};
-        timerResponse.parameters = {'pin': pin};
-        timerResponse.type = type;
-    
-    timers[pin] = {};
+	var timerResponse = {};
+		timerResponse.parameters = {'pin': pin};
+		timerResponse.type = type;
+	
+	timers[pin] = {};
 
-    switch(type) {
-        case 'digitalRead':
-            timers[pin].state = null;
-            timers[pin].id = setInterval(function () {
-                var pinState = gpio.read(pins[pin].gpio).value; //bonescript.digitalRead(pin);
+	switch(type) {
+		case 'digitalRead':
+			timers[pin].state = null;
+			timers[pin].id = setInterval(function () {
+				var pinState = gpio.read(pins[pin].gpio).value; //bonescript.digitalRead(pin);
 
-                // Send message only on change
-                if (pinState != timers[pin].state) {
-                    timers[pin].state = pinState;
-                    timerResponse.response = pinState;
-                    websocket.write(timerResponse);
-                }
-            }, settings.gpioSampleRate);
-            break;
+				// Send message only on change
+				if (pinState != timers[pin].state) {
+					timers[pin].state = pinState;
+					timerResponse.response = pinState;
+					websocket.write(timerResponse);
+				}
+			}, settings.gpioSampleRate);
+			break;
 
-        case 'analogRead':
-            timers[pin].id = setInterval(function () {
-                timerResponse.response = [new Date().getTime(), bonescript.analogRead(pin)];
-                
-                fs.appendFile(settings.dataLocation + pin + '.csv', timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
+		case 'analogRead':
+			// Creates data directory and links into http if not exist
+			if (!fs.existsSync(settings.dataLocation)) {
+				fs.mkdirSync(settings.dataLocation, 0755);
+				fs.symlinkSync('../node/data', '../http/data');
+			}
 
-                websocket.write(timerResponse);
-            }, settings.adcSampleRate);
-            break;
-    }
+			timers[pin].id = setInterval(function () {
+				timerResponse.response = [new Date().getTime(), bonescript.analogRead(pin)];
+				
+				fs.appendFile(settings.dataLocation + '/' + pin + '.csv', timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
+
+				websocket.write(timerResponse);
+			}, settings.adcSampleRate);
+			break;
+	}
 }
 
 var deleteTimer = function (pin) {
-    if (timers.hasOwnProperty(pin)) {
-        clearInterval(timers[pin].id);
-        delete timers[pin];
-    }
+	if (timers.hasOwnProperty(pin)) {
+		clearInterval(timers[pin].id);
+		delete timers[pin];
+	}
 }
 
 var isRunning = function (pin) {
-    return timers.hasOwnProperty(pin);
+	return timers.hasOwnProperty(pin);
 }
 
 module.exports = {

@@ -3,6 +3,6 @@
     "port": 8081,
     "gpioSampleRate": 20,
     "adcSampleRate": 1,
-    "dataLocation" :"./data/",
+    "dataLocation" :"./data",
     "debug": false
 }
