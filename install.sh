@@ -29,6 +29,7 @@ ln -sf /opt/boneserver/config/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
 cp /opt/boneserver/services/boneserver.service /usr/lib/systemd/system
 
 # enable and start services
+systemctl daemon-reload
 systemctl enable lighttpd vsftpd haproxy boneserver ntpd
 systemctl start lighttpd vsftpd haproxy boneserver ntpd
 
