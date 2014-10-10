@@ -5,15 +5,19 @@
  * © boneserver by Caspar Friedrich <caspar.friedrich@koeln.de>
  */
 
-var wss = require('ws').Server;
-
-var boneControl = require('./boneControl.js');
-var bonescript = require('bonescript');
+// Global modules
 var fs = require('fs');
+
+// Lokal modules
+var wss = require('ws').Server;
+var bonescript = require('bonescript');
+
+// Own modules
+var boneControl = require('./boneControl.js');
+var interface = require('./interfaceControl.js');
 var settings = require('./settings.json');
 var timer = require('./timer.js')
 var websocket = require('./websocket.js');
-var whitelist = require('./whitelist');
 
 // Initialize Web Socket server
 var boneserver = new wss({'host': settings.host, 'port': settings.port});
@@ -26,7 +30,7 @@ boneserver.on('connection', function(socket) {
 
     socket.on('close', function() {
         websocket.setConnected(false);
-        fs.writeFileSync('./whitelist.json', JSON.stringify(whitelist));
+        interface.saveToFile();
         console.log("interface disconnected");
     });
 

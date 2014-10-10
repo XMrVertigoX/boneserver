@@ -6,7 +6,7 @@ var settings = require('./settings.json');
 var pins = bonescript.getPlatform().platform.pins;
 
 // Interface konfiguration
-var whitelist = require('./whitelist.json');
+var interface = require('./interfaceControl.js');
 
 var timer = require('./timer.js');
 var pwm = require('./pwmControl.js');
@@ -48,10 +48,9 @@ exports.handleRequest = function(request) {
 
 		case 'getPinMode':
 			var pin = parameters.pin;
-			//var whitelist = JSON.parse(fs.readFileSync('./whitelist.json'));
 
-			if (whitelist.hasOwnProperty(pin)) {
-				switch(whitelist[pin].type) {
+			if (interface.config.hasOwnProperty(pin)) {
+				switch(interface.config[pin].type) {
 					case 'pwm':
 						response.pwm = pwm.read(pin);
 						break;
@@ -152,7 +151,8 @@ exports.handleRequest = function(request) {
 
 		// Interface controls
 		case 'getPins':
-			var list = JSON.parse(JSON.stringify(whitelist));
+			// create a deep copy of the interface config object
+			var list = JSON.parse(JSON.stringify(interface.config));
 
 			for (pin in list) {
 				list[pin]['pinMode'] = bonescript.getPinMode(pin);
@@ -163,14 +163,16 @@ exports.handleRequest = function(request) {
 
 		case 'toggle':
 			var pin = parameters.pin;
-			//var file = './whitelist.json';
+			//var file = './interface.json';
 			//var list = JSON.parse(fs.readFileSync(file));
 
-			if (whitelist.hasOwnProperty(pin)) {
-				whitelist[pin].active = !whitelist[pin].active;
-			}
+			// if (interface.config.hasOwnProperty(pin)) {
+			// 	interface.config[pin].active = !interface.config[pin].active;
+			// }
 
-			response = whitelist[pin].active;
+			// set the active state to the opposite
+			interface.set(pin, 'active', !interface.get(pin, 'active'));
+			response = interface.get(pin, 'active');
 
 			break;
 	}
