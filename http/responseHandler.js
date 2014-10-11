@@ -132,19 +132,21 @@ responseHandler.toggle = function(message) {
 	var parameters = message['parameters'];
 	var response = message['response'];
 
-	$('#' + parameters.pin + 'Tile').toggle({
-        duration: 100,
-        complete: function () {
-            var isVisible = $('#' + parameters.pin + 'Tile').is(':visible');
-            var isHidden  = $('#' + parameters.pin + 'Tile').is(':hidden');
+	if (response == !$('#' + parameters.pin + 'Tile').is(':visible')) {
+		$('#' + parameters.pin + 'Tile').toggle({
+	        duration: 250,
+	        complete: function () {
+	            var isVisible = $('#' + parameters.pin + 'Tile').is(':visible');
+	            var isHidden  = $('#' + parameters.pin + 'Tile').is(':hidden');
 
-            if (isVisible) {
-                util.changeBtnColor($('#' + parameters.pin + 'TileTglBtn'), 'btn-primary');
-            } else if (isHidden) {
-                util.changeBtnColor($('#' + parameters.pin + 'TileTglBtn'), 'btn-default');
-            }
-        }
-    });
+	            if (isVisible) {
+	                util.changeBtnColor($('#' + parameters.pin + 'TileTglBtn'), 'btn-primary');
+	            } else if (isHidden) {
+	                util.changeBtnColor($('#' + parameters.pin + 'TileTglBtn'), 'btn-default');
+	            }
+	        }
+	    });
+	}
 }
 
 responseHandler.util.changeGPIOTile = function(pin, direction, timer) {

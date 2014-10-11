@@ -3,8 +3,5 @@ boneserver
 
 bonescript websocket api, Bachelorarbeit von Caspar Friedrich
 
-## In Arbeit
-* Konfiguration der Oberfläche speichern
-
-## Agenda
+## Todo
 * Pinkonfiguration speichern und bei einem Neustart wieder herstellen

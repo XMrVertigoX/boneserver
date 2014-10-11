@@ -143,26 +143,13 @@ init.init = function () {
 
         $('#' + pin + 'TileTglBtn').click(function () {
             bonescriptCtrl.toggle(this.title);
-            
-            // $('#' + this.title + 'Tile').toggle({
-            //     duration: 100,
-            //     complete: function () {
-            //         var isVisible = $('#' + this.title + 'Tile').is(':visible');
-            //         var isHidden  = $('#' + this.title + 'Tile').is(':hidden');
-
-            //         if (isVisible) {
-            //             util.changeBtnColor($('#' + this.title + 'TileTglBtn'), 'btn-primary');
-            //         } else if (isHidden) {
-            //             util.changeBtnColor($('#' + this.title + 'TileTglBtn'), 'btn-default');
-            //         }
-            //     }
-            // });
         })
     }
 
-    // for(pin in pins) {
-    //     if (!pins[pin].active) {
-    //         $('#' + pin + 'TileTglBtn').click();
-    //     }
-    // }
+    // if tile is inactive toggle them via fake response message
+    for(pin in pins) {
+        if (!pins[pin].active) {
+            responseHandler.toggle({parameters: {pin: pin}, response: false});
+        }
+    }
 }
