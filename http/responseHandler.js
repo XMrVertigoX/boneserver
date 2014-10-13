@@ -181,15 +181,14 @@ responseHandler.util.changePWMTile = function(pin, duty, period, enable) {
 
 	if (duty !== undefined && period !== undefined) {
 		var duty = duty/period;
-		var freq = (1/period) * Math.pow(10, 9);
 
 		writable = true;
 
 		$('#' + pin + 'DutyValue').val(duty);
-		$('#' + pin + 'FreqValue').val(freq);
+		$('#' + pin + 'PeriodValue').val(period);
 	}
 
-	$('#' + pin + 'FreqValue').prop('disabled', !writable);
+	$('#' + pin + 'PeriodValue').prop('disabled', !writable);
 	$('#' + pin + 'DutyValue').prop('disabled', !writable);
 	$('#' + pin + 'TileBtnWrite').prop('disabled', !writable);
 }

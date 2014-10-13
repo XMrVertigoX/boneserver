@@ -52,6 +52,14 @@ var write = function(gpio, options) {
 				String(options.value).to(gpioFolder + 'value');
 			}
 		}
+
+		if (options.hasOwnProperty('pulldown')) {
+			if (options.pulldown) {
+				String(1).to(gpioFolder + 'active_low');
+			} else {
+				String(0).to(gpioFolder + 'active_low');
+			}
+		}
 	}
 
 	return read(gpio);

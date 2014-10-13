@@ -43,6 +43,7 @@ bonescriptCtrl.pinMode = function(pin, direction) {
 	var parameters = {};
 		parameters['pin'] = pin;
 		parameters['direction'] = direction;
+		parameters['pulldown'] = 1;
 
 	bonescriptCtrl.util.sendRequest('pinMode', parameters);
 }

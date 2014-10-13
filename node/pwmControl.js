@@ -72,14 +72,14 @@ var write = function(pin, options) {
 	if (pwmlist.hasOwnProperty(pin)) {
 		var pwm = read(pin);
 	
-		if (options.hasOwnProperty('frequency')) {
-			// convert frequency to period in ns
-			var period_ns = (1/options.frequency) * Math.pow(10, 9);
+		if (options.hasOwnProperty('period')) {
+			// Wert auf zulässigen Bereich begrenzen
+			var period_ns = Math.min(Math.max(options.period, 1), 1000000000);
 
 			if (options.hasOwnProperty('duty')) {
-				var duty_ns = period_ns * options.duty;
+				var duty_ns = Math.round(period_ns * options.duty);
 			} else {
-				var duty_ns = (pwm.duty/pwm.period) * period_ns;
+				var duty_ns = Math.round((pwm.duty/pwm.period) * period_ns);
 			}
 
 			String(0).to(pwm.path + '/duty');

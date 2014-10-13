@@ -18,17 +18,17 @@ init.init = function () {
             });
 
             // Inputs
-            $('#' + pin + 'FreqValue').prop({
-                'min': 0,
+            $('#' + pin + 'PeriodValue').prop({
+                'min': 1,
                 'max': 1000000000,
-                'step': 0.000000001,
+                'step': 1,
                 'disabled': true
             });
 
             $('#' + pin + 'DutyValue').prop({
                 'min': 0,
                 'max': 1,
-                'step': 0.000000001,
+                'step': 0.01,
                 'disabled': true
             });
 
@@ -40,7 +40,7 @@ init.init = function () {
             // TileBtnWrite
             $('#' + pin + 'TileBtnWrite').click(function () {
                 bonescriptCtrl.analogWrite(this.title, {
-                    'frequency': $('#' + this.title + 'FreqValue').val(),
+                    'period': $('#' + this.title + 'PeriodValue').val(),
                     'duty': $('#' + this.title + 'DutyValue').val()
                 });
             });
