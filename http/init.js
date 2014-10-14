@@ -132,6 +132,7 @@ init.init = function () {
 
                 if (confirm(message)) {
                     bonescriptCtrl.deleteADCData(this.title);
+                    diagramCtrl.util.resetData(this.title);
                 }
             })
 
