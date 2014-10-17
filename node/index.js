@@ -15,9 +15,20 @@ var bonescript = require('bonescript');
 // Own modules
 var boneControl = require('./boneControl.js');
 var interface = require('./interfaceControl.js');
-var settings = require('./settings.json');
+var settings = require('./settings-default.json');
 var timer = require('./timer.js')
 var websocket = require('./websocket.js');
+
+// Overwrites default settings if custom ones existing. Overwrites only settings provided in settings-default.json
+if (fs.existsSync('./settings.json')) {
+    var temp = JSON.parse(fs.readFileSync('./settings.json'));
+    
+    for (key in temp) {
+        if (settings.hasOwnProperty(key)) {
+            settings[key] = temp[key];
+        }
+    }
+}
 
 // Initialize Web Socket server
 var boneserver = new wss({'host': settings.host, 'port': settings.port});

@@ -24,6 +24,7 @@ cd ..
 ln -sf /opt/boneserver/config/vsftpd/vsftpd.conf /etc/vsftpd.conf
 ln -sf /opt/boneserver/config/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg
 ln -sf /opt/boneserver/config/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
+ln -sf /opt/boneserver/config/lighttpd/lighttpd.user /etc/lighttpd/lighttpd.user
 
 # copy service file(s)
 cp /opt/boneserver/services/boneserver.service /usr/lib/systemd/system

@@ -1,6 +1,6 @@
 var bonescript = require('bonescript');
 var fs = require('fs');
-var settings = require('./settings.json');
+var settings = require('./settings-default.json');
 
 // Liefert die Systemadressen der Pins
 var pins = bonescript.getPlatform().platform.pins;
