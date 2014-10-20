@@ -30,7 +30,7 @@ if (fs.existsSync('./settings.json')) {
     }
 }
 
-// Initialize Web Socket server
+// Initialize WebSocket server
 var boneserver = new wss({'host': settings.host, 'port': settings.port});
 
 boneserver.on('connection', function(socket) {

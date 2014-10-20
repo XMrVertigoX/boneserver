@@ -1,18 +1,38 @@
-var bonescript = require('bonescript');
-var fs = require('fs');
-var settings = require('./settings-default.json');
+/*
+ * boneControl.js - Manages hardware control requests and provides the
+ * bonescript API an some interface control functions.
+ *
+ * Some functions from the bonescript library do not work properly, they are
+ * bypassed but still there as comments to reuse them if the library works.
+ */
 
-// Liefert die Systemadressen der Pins
+// Loads pin descriptions from the bonescript library.
 var pins = bonescript.getPlatform().platform.pins;
 
-// Interface konfiguration
-var interface = require('./interfaceControl.js');
+// Managed modules
+var fs = require('fs');
+var bonescript = require('bonescript');
 
+// Custom modules
+var settings = require('./settings-default.json');
+var interface = require('./interfaceControl.js');
 var timer = require('./timer.js');
+
+// Bypass libraries for broken bonescript functions
 var pwm = require('./pwmControl.js');
 var gpio = require('./gpioControl.js');
 
-exports.handleRequest = function(request) {
+/* 
+ * Main function - Takes the whole request object and switches throught
+ * request[type] to determine what to do.
+ *
+ * The request types for functions from the bonescript library are identical
+ * to the function names. 
+ *
+ * Returns the whole request and adds a respose object with the return values
+ * of the functions.
+ */
+var handleRequest = function(request) {
 	var parameters = request.parameters;
 	var response = {};
 
@@ -29,6 +49,7 @@ exports.handleRequest = function(request) {
 
 			//response = bonescript[request.type](pin, parameters.duty, parameters.freq);
 
+			// Bypass to the analogWrite function of the bonescript library
 			response = pwm.write(pin, parameters.options);
 			break;
 
@@ -43,6 +64,7 @@ exports.handleRequest = function(request) {
 
 			//response = bonescript[request.type](pin, parameters.value);
 
+			// Bypass to the digitalWrite function of the bonescript library
 			gpio.write(pins[pin].gpio, {value: parameters.value});
 			break;
 
@@ -178,4 +200,8 @@ exports.handleRequest = function(request) {
 	}
 
 	return response;
+}
+
+module.exports = {
+	handleRequest: handleRequest
 }

@@ -4,5 +4,4 @@
     "gpioSampleRate": 100,
     "adcSampleRate": 10,
     "dataLocation" :"./data",
-    "debug": false
 }
