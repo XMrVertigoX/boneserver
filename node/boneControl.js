@@ -18,6 +18,10 @@ var settings = require('./settings.js');
 var interface = require('./interfaceControl.js');
 var timer = require('./timer.js');
 
+// bonscript bypass modules
+var gpio = require('./gpioControl.js');
+var pwm = require('./pwmControl.js');
+
 /* 
  * Main function - Takes the whole request object and switches throught
  * request[type] to determine what to do.
