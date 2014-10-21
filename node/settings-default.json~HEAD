@@ -1,7 +1,0 @@
-{
-    "host": "localhost",
-    "port": 8081,
-    "gpioSampleRate": 100,
-    "adcSampleRate": 10,
-    "dataLocation" : "./data"
-}

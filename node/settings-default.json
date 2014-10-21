@@ -1,16 +1,7 @@
 {
-<<<<<<< HEAD:node/settings.json
-    "gpioSampleRate": 100,
-    "adcSampleRate": 100
-=======
     "host": "localhost",
     "port": 8081,
     "gpioSampleRate": 100,
     "adcSampleRate": 10,
-<<<<<<< HEAD
-    "dataLocation" : "./data"
-=======
-    "dataLocation" :"./data",
->>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e:node/settings-default.json
->>>>>>> a710709cb0fb208b44c53d99a28f9dadb4393bbf
+    "dataLocation" :"./data"
 }
