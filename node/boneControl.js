@@ -6,6 +6,7 @@
  * bypassed but still there as comments to reuse them if the library works.
  */
 
+<<<<<<< HEAD
 // Managed modules
 var fs = require('fs');
 var bonescript = require('bonescript');
@@ -13,15 +14,32 @@ var bonescript = require('bonescript');
 // Loads pin descriptions from the bonescript library.
 var pins = bonescript.getPlatform().platform.pins;
 
+=======
+// Loads pin descriptions from the bonescript library.
+var pins = bonescript.getPlatform().platform.pins;
+
+// Managed modules
+var fs = require('fs');
+var bonescript = require('bonescript');
+
+// Custom modules
+var settings = require('./settings-default.json');
+var interface = require('./interfaceControl.js');
+var timer = require('./timer.js');
+
+>>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e
 // Bypass libraries for broken bonescript functions
 var pwm = require('./pwmControl.js');
 var gpio = require('./gpioControl.js');
 
+<<<<<<< HEAD
 // Custom modules
 var settings = require('./settings.js');
 var interface = require('./interfaceControl.js');
 var timer = require('./timer.js');
 
+=======
+>>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e
 /* 
  * Main function - Takes the whole request object and switches throught
  * request[type] to determine what to do.
@@ -32,7 +50,11 @@ var timer = require('./timer.js');
  * Returns the whole request and adds a respose object with the return values
  * of the functions.
  */
+<<<<<<< HEAD
 exports.handleRequest = function(request) {
+=======
+var handleRequest = function(request) {
+>>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e
 	var parameters = request.parameters;
 	var response = {};
 
@@ -164,10 +186,17 @@ exports.handleRequest = function(request) {
 
 		case 'deleteADCData':
 			var pin = parameters.pin;
+<<<<<<< HEAD
 			var file = settings.get('dataLocation') + '/' + pin + '.csv';
 
 			if (fs.existsSync(file)) {
 				fs.unlinkSync(settings.get('dataLocation') + '/' + pin + '.csv');
+=======
+			var file = settings.dataLocation + '/' + pin + '.csv';
+
+			if (fs.existsSync(file)) {
+				fs.unlinkSync(settings.dataLocation + '/' + pin + '.csv');
+>>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e
 			}
 			break;
 
@@ -203,6 +232,12 @@ exports.handleRequest = function(request) {
 	return response;
 }
 
+<<<<<<< HEAD
 // module.exports = {
 // 	handleRequest: handleRequest
 // }
+=======
+module.exports = {
+	handleRequest: handleRequest
+}
+>>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e
