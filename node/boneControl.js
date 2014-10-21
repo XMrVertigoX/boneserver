@@ -6,21 +6,21 @@
  * bypassed but still there as comments to reuse them if the library works.
  */
 
-// Loads pin descriptions from the bonescript library.
-var pins = bonescript.getPlatform().platform.pins;
-
 // Managed modules
 var fs = require('fs');
 var bonescript = require('bonescript');
 
-// Custom modules
-var settings = require('./settings-default.json');
-var interface = require('./interfaceControl.js');
-var timer = require('./timer.js');
+// Loads pin descriptions from the bonescript library.
+var pins = bonescript.getPlatform().platform.pins;
 
 // Bypass libraries for broken bonescript functions
 var pwm = require('./pwmControl.js');
 var gpio = require('./gpioControl.js');
+
+// Custom modules
+var settings = require('./settings.js');
+var interface = require('./interfaceControl.js');
+var timer = require('./timer.js');
 
 /* 
  * Main function - Takes the whole request object and switches throught
@@ -32,7 +32,7 @@ var gpio = require('./gpioControl.js');
  * Returns the whole request and adds a respose object with the return values
  * of the functions.
  */
-var handleRequest = function(request) {
+exports.handleRequest = function(request) {
 	var parameters = request.parameters;
 	var response = {};
 
@@ -164,10 +164,10 @@ var handleRequest = function(request) {
 
 		case 'deleteADCData':
 			var pin = parameters.pin;
-			var file = settings.dataLocation + '/' + pin + '.csv';
+			var file = settings.get('dataLocation') + '/' + pin + '.csv';
 
 			if (fs.existsSync(file)) {
-				fs.unlinkSync(settings.dataLocation + '/' + pin + '.csv');
+				fs.unlinkSync(settings.get('dataLocation') + '/' + pin + '.csv');
 			}
 			break;
 
@@ -176,6 +176,7 @@ var handleRequest = function(request) {
 			// create a deep copy of the interface config object
 			var list = JSON.parse(JSON.stringify(interface.config));
 
+			// Attaches the pinMode information to the interface object
 			for (pin in list) {
 				list[pin]['pinMode'] = bonescript.getPinMode(pin);
 			}
@@ -202,6 +203,6 @@ var handleRequest = function(request) {
 	return response;
 }
 
-module.exports = {
-	handleRequest: handleRequest
-}
+// module.exports = {
+// 	handleRequest: handleRequest
+// }

@@ -1,6 +1,6 @@
 var bonescript = require('bonescript');
 var fs = require('fs');
-var settings = require('./settings-default.json');
+var settings = require('./settings.js');
 var websocket = require('./websocket.js');
 var gpio = require('./gpioControl.js');
 
@@ -27,23 +27,23 @@ var addTimer = function (type, pin) {
 					timerResponse.response = pinState;
 					websocket.write(timerResponse);
 				}
-			}, settings.gpioSampleRate);
+			}, settings.get('gpioSampleRate'));
 			break;
 
 		case 'analogRead':
 			// Creates data directory and links into http if not existing
-			if (!fs.existsSync(settings.dataLocation)) {
-				fs.mkdirSync(settings.dataLocation, 0755);
+			if (!fs.existsSync(settings.get('dataLocation'))) {
+				fs.mkdirSync(settings.get('dataLocation'), 0755);
 				fs.symlinkSync('../node/data', '../http/data');
 			}
 
 			timers[pin].id = setInterval(function () {
 				timerResponse.response = [new Date().getTime(), bonescript.analogRead(pin)];
 				
-				fs.appendFile(settings.dataLocation + '/' + pin + '.csv', timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
+				fs.appendFile(settings.get('dataLocation') + '/' + pin + '.csv', timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
 
 				websocket.write(timerResponse);
-			}, settings.adcSampleRate);
+			}, settings.get('adcSampleRate'));
 			break;
 	}
 }

@@ -11,7 +11,7 @@ if [[ ! -z "$1" ]]
 fi
 
 if [[ ! -d $OUTPUTDIRECTORY ]]
-  	then
+	then
 		echo "not a directory"
 		exit 1
 fi
