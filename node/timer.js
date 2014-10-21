@@ -1,6 +1,14 @@
 var bonescript = require('bonescript');
 var fs = require('fs');
+<<<<<<< HEAD
 var settings = require('./settings.js');
+=======
+<<<<<<< HEAD
+var settings = require('./settings.js');
+=======
+var settings = require('./settings-default.json');
+>>>>>>> dcedeffae1d3672b8cacc74b33d5778fb8fc525e
+>>>>>>> a710709cb0fb208b44c53d99a28f9dadb4393bbf
 var websocket = require('./websocket.js');
 var gpio = require('./gpioControl.js');
 
