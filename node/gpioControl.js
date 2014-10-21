@@ -1,7 +1,19 @@
+/*
+ * gpioControl - Module to manage digital io via file system.
+ */
+
+// For writing directly to system files
 var shelljs = require('shelljs');
 
+// GPIO system path
 var gpioPath = '/sys/class/gpio/';
 
+/*
+ * disables a GPIO. Checks if GPIO is enabled and if not writes its ID to the
+ * unexport system file
+ * 
+ * returns
+ */
 var disable = function(gpio) {
 	if (isEnabled(gpio)) {
 		String(gpio).to(gpioPath + 'unexport');
@@ -10,6 +22,10 @@ var disable = function(gpio) {
 	return isEnabled(gpio);
 }
 
+/*
+ * enables a GPIO. Checks if GPIO is not enabled and if not writes its ID to
+ * the export system file
+ */
 var enable = function(gpio) {
 	if (!isEnabled(gpio)) {
 		String(gpio).to(gpioPath + 'export');
@@ -50,6 +66,14 @@ var write = function(gpio, options) {
 		if (options.hasOwnProperty('value')) {
 			if (read(gpio).direction == 'out') {
 				String(options.value).to(gpioFolder + 'value');
+			}
+		}
+
+		if (options.hasOwnProperty('pulldown')) {
+			if (options.pulldown) {
+				String(1).to(gpioFolder + 'active_low');
+			} else {
+				String(0).to(gpioFolder + 'active_low');
 			}
 		}
 	}

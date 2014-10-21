@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Titel des Passwortschutz"
+AuthUserFile /opt/boneserver/http/.htpasswd
+Require valid-user

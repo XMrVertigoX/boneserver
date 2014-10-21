@@ -5,16 +5,33 @@
  * © boneserver by Caspar Friedrich <caspar.friedrich@koeln.de>
  */
 
-var wss = require('ws').Server;
+// Global modules
+var fs = require('fs');
 
-var boneControl = require('./boneControl.js');
+// Lokal modules
+var wss = require('ws').Server;
 var bonescript = require('bonescript');
-var settings = require('./settings.json');
+
+// Own modules
+var boneControl = require('./boneControl.js');
+var interface = require('./interfaceControl.js');
+var settings = require('./settings.js');
 var timer = require('./timer.js')
 var websocket = require('./websocket.js');
 
-// Initialize Web Socket server
-var boneserver = new wss({'host': settings.host, 'port': settings.port});
+// Overwrites default settings if custom ones existing. Overwrites only settings provided in settings-default.json
+// if (fs.existsSync('./settings.json')) {
+//     var temp = JSON.parse(fs.readFileSync('./settings.json'));
+    
+//     for (key in temp) {
+//         if (settings.hasOwnProperty(key)) {
+//             settings[key] = temp[key];
+//         }
+//     }
+// }
+
+// Initialize WebSocket server
+var boneserver = new wss({'host': settings.get('host'), 'port': settings.get('port')});
 
 boneserver.on('connection', function(socket) {
     websocket.setSocket(socket);
@@ -24,6 +41,7 @@ boneserver.on('connection', function(socket) {
 
     socket.on('close', function() {
         websocket.setConnected(false);
+        interface.saveToFile();
         console.log("interface disconnected");
     });
 

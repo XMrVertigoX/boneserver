@@ -128,6 +128,27 @@ responseHandler.getPins = function(message) {
 	}
 }
 
+responseHandler.toggle = function(message) {
+	var parameters = message['parameters'];
+	var response = message['response'];
+
+	if (response == !$('#' + parameters.pin + 'Tile').is(':visible')) {
+		$('#' + parameters.pin + 'Tile').toggle({
+	        duration: 250,
+	        complete: function () {
+	            var isVisible = $('#' + parameters.pin + 'Tile').is(':visible');
+	            var isHidden  = $('#' + parameters.pin + 'Tile').is(':hidden');
+
+	            if (isVisible) {
+	                util.changeBtnColor($('#' + parameters.pin + 'TileTglBtn'), 'btn-primary');
+	            } else if (isHidden) {
+	                util.changeBtnColor($('#' + parameters.pin + 'TileTglBtn'), 'btn-default');
+	            }
+	        }
+	    });
+	}
+}
+
 responseHandler.util.changeGPIOTile = function(pin, direction, timer) {
 	if (direction == 'in') {
 		$('#' + pin + 'TileBtnON').prop('disabled', true);
@@ -160,15 +181,14 @@ responseHandler.util.changePWMTile = function(pin, duty, period, enable) {
 
 	if (duty !== undefined && period !== undefined) {
 		var duty = duty/period;
-		var freq = (1/period) * Math.pow(10, 9);
 
 		writable = true;
 
 		$('#' + pin + 'DutyValue').val(duty);
-		$('#' + pin + 'FreqValue').val(freq);
+		$('#' + pin + 'PeriodValue').val(period);
 	}
 
-	$('#' + pin + 'FreqValue').prop('disabled', !writable);
+	$('#' + pin + 'PeriodValue').prop('disabled', !writable);
 	$('#' + pin + 'DutyValue').prop('disabled', !writable);
 	$('#' + pin + 'TileBtnWrite').prop('disabled', !writable);
 }

@@ -18,17 +18,17 @@ init.init = function () {
             });
 
             // Inputs
-            $('#' + pin + 'FreqValue').prop({
-                'min': 0,
+            $('#' + pin + 'PeriodValue').prop({
+                'min': 1,
                 'max': 1000000000,
-                'step': 0.000000001,
+                'step': 1,
                 'disabled': true
             });
 
             $('#' + pin + 'DutyValue').prop({
                 'min': 0,
                 'max': 1,
-                'step': 0.000000001,
+                'step': 0.01,
                 'disabled': true
             });
 
@@ -40,7 +40,7 @@ init.init = function () {
             // TileBtnWrite
             $('#' + pin + 'TileBtnWrite').click(function () {
                 bonescriptCtrl.analogWrite(this.title, {
-                    'frequency': $('#' + this.title + 'FreqValue').val(),
+                    'period': $('#' + this.title + 'PeriodValue').val(),
                     'duty': $('#' + this.title + 'DutyValue').val()
                 });
             });
@@ -112,17 +112,29 @@ init.init = function () {
             $('#' + pin + 'Start').click(function () {
                 bonescriptCtrl.startADC(this.title, 1000);
                 diagramCtrl.util.resetData(this.title);
+                $('#' + pin + 'Download').prop( "disabled", true );
+                $('#' + pin + 'Delete').prop( "disabled", true );
             })
 
             $('#' + pin + 'Stop').click(function () {
                 bonescriptCtrl.stopADC(this.title);
+                $('#' + pin + 'Download').prop( "disabled", false );
+                $('#' + pin + 'Delete').prop( "disabled", false );
             })
 
             $('#' + pin + 'Download').click(function(e) {
                 e.preventDefault(); //stop the browser from following
                 window.open('data/' + this.title + '.csv');
-                //window.location.href = 'data/' + this.title + '.csv';
             });
+
+            $('#' + pin + 'Delete').click(function () {
+                var message = "Delete data series for " + this.title + "?"
+
+                if (confirm(message)) {
+                    bonescriptCtrl.deleteADCData(this.title);
+                    diagramCtrl.util.resetData(this.title);
+                }
+            })
 
             $('#AINTglBtnGrp').append('<button title="' + pin + '" id="' + pin + 'TileTglBtn" class="btn btn-primary btn-block">' + pin + '</button>');
 
@@ -131,26 +143,14 @@ init.init = function () {
         }
 
         $('#' + pin + 'TileTglBtn').click(function () {
-            var title = this.title;
-            
-            $('#' + title + 'Tile').toggle({
-                duration: 100,
-                complete: function () {
-                    var isVisible = $('#' + title + 'Tile').is(':visible');
-                    var isHidden  = $('#' + title + 'Tile').is(':hidden');
-
-                    if (isVisible) {
-                        util.changeBtnColor($('#' + title + 'TileTglBtn'), 'btn-primary');
-                    } else if (isHidden) {
-                        util.changeBtnColor($('#' + title + 'TileTglBtn'), 'btn-default');
-                    }
-                }
-            });
+            bonescriptCtrl.toggle(this.title);
         })
+    }
 
-        // if (!pins[pin].isActivated) {
-        //     $('#' + pin + 'Tile').toggle();
-        //     util.changeBtnColor($('#' + pin + 'TileTglBtn'), 'btn-default');
-        // }
+    // if tile is inactive toggle them via fake response message
+    for(pin in pins) {
+        if (!pins[pin].active) {
+            responseHandler.toggle({parameters: {pin: pin}, response: false});
+        }
     }
 }

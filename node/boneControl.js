@@ -1,12 +1,37 @@
-var bonescript = require('bonescript');
-var fs = require('fs');
+/*
+ * boneControl.js - Manages hardware control requests and provides the
+ * bonescript API an some interface control functions.
+ *
+ * Some functions from the bonescript library do not work properly, they are
+ * bypassed but still there as comments to reuse them if the library works.
+ */
 
+// Managed modules
+var fs = require('fs');
+var bonescript = require('bonescript');
+
+// Loads pin descriptions from the bonescript library.
 var pins = bonescript.getPlatform().platform.pins;
 
-var timer = require('./timer.js');
+// Bypass libraries for broken bonescript functions
 var pwm = require('./pwmControl.js');
 var gpio = require('./gpioControl.js');
 
+// Custom modules
+var settings = require('./settings.js');
+var interface = require('./interfaceControl.js');
+var timer = require('./timer.js');
+
+/* 
+ * Main function - Takes the whole request object and switches throught
+ * request[type] to determine what to do.
+ *
+ * The request types for functions from the bonescript library are identical
+ * to the function names. 
+ *
+ * Returns the whole request and adds a respose object with the return values
+ * of the functions.
+ */
 exports.handleRequest = function(request) {
 	var parameters = request.parameters;
 	var response = {};
@@ -24,6 +49,7 @@ exports.handleRequest = function(request) {
 
 			//response = bonescript[request.type](pin, parameters.duty, parameters.freq);
 
+			// Bypass to the analogWrite function of the bonescript library
 			response = pwm.write(pin, parameters.options);
 			break;
 
@@ -38,15 +64,15 @@ exports.handleRequest = function(request) {
 
 			//response = bonescript[request.type](pin, parameters.value);
 
+			// Bypass to the digitalWrite function of the bonescript library
 			gpio.write(pins[pin].gpio, {value: parameters.value});
 			break;
 
 		case 'getPinMode':
 			var pin = parameters.pin;
-			var whitelist = JSON.parse(fs.readFileSync('./whitelist.json'));
 
-			if (whitelist.hasOwnProperty(pin)) {
-				switch(whitelist[pin].type) {
+			if (interface.config.hasOwnProperty(pin)) {
+				switch(interface.config[pin].type) {
 					case 'pwm':
 						response.pwm = pwm.read(pin);
 						break;
@@ -136,16 +162,47 @@ exports.handleRequest = function(request) {
 			timer.deleteTimer(pin);
 			break;
 
-		case 'getPins':
-			var list = JSON.parse(fs.readFileSync('./whitelist.json'));
+		case 'deleteADCData':
+			var pin = parameters.pin;
+			var file = settings.get('dataLocation') + '/' + pin + '.csv';
 
+			if (fs.existsSync(file)) {
+				fs.unlinkSync(settings.get('dataLocation') + '/' + pin + '.csv');
+			}
+			break;
+
+		// Interface controls
+		case 'getPins':
+			// create a deep copy of the interface config object
+			var list = JSON.parse(JSON.stringify(interface.config));
+
+			// Attaches the pinMode information to the interface object
 			for (pin in list) {
 				list[pin]['pinMode'] = bonescript.getPinMode(pin);
 			}
 
 			response = JSON.stringify(list);
 			break;
+
+		case 'toggle':
+			var pin = parameters.pin;
+			//var file = './interface.json';
+			//var list = JSON.parse(fs.readFileSync(file));
+
+			// if (interface.config.hasOwnProperty(pin)) {
+			// 	interface.config[pin].active = !interface.config[pin].active;
+			// }
+
+			// set the active state to the opposite
+			interface.set(pin, 'active', !interface.get(pin, 'active'));
+			response = interface.get(pin, 'active');
+
+			break;
 	}
 
 	return response;
 }
+
+// module.exports = {
+// 	handleRequest: handleRequest
+// }
