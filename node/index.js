@@ -1,8 +1,5 @@
 /*
  * BoneServer - A bonescript Web Socket API
- * 
- * © bonescript by Jason Kridner <jdk@ti.com>
- * © boneserver by Caspar Friedrich <caspar.friedrich@koeln.de>
  */
 
 // Global modules
@@ -12,10 +9,9 @@ var fs = require('fs');
 var wss = require('ws').Server;
 var bonescript = require('bonescript');
 
-// Own modules
 var boneControl = require('./boneControl.js');
 var interface = require('./interfaceControl.js');
-var settings = require('./settings.js');
+var settings = require('./settingsControl.js');
 var timer = require('./timer.js')
 var websocket = require('./websocket.js');
 

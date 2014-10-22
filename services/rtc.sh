@@ -2,8 +2,8 @@
 
 # GND	pin 1 or 2
 # VCC	pin 3 or 4
-# SCL	pin 19 (I2C2)
-# SDA	pin 20 (I2C2)
+# SCL	pin 19 (I2C1)
+# SDA	pin 20 (I2C1)
 
 echo ds3231 0x68 > /sys/bus/i2c/devices/i2c-1/new_device
 

@@ -26,7 +26,7 @@ exports.setSocket = function(socket) {
 }
 
 /*
- * stringifies and writes a JSON-object to the websocket
+ * stringifies and writes a JSON-object to the websocket, no error correction.
  *
  * returns nothing
  */

@@ -1,7 +1,7 @@
 /*
  * settings.js - This module controls the settings files. First the defaults
- * are loaded and then overwritten by the custom one provided in settings.json
- * if the files exists
+ * are loaded and then overwritten by the custom settings provided in
+ * settings.json if the files exists
  */
 
 var fs = require('fs');

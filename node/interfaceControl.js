@@ -1,11 +1,19 @@
-/* Module for building the interface config */
+/*
+ * interfaceControl.js - Read an write interface config files
+ */
 
 var fs = require('fs');
 
+// read the static pin whitelist 
 var whitelist = require('./whitelist.json');
 
 var config = {};
 
+/*
+ * read config parameters
+ *
+ * returns the parameter value otherwise undefined
+ */
 var get = function(pin, parameter) {
 	if (config.hasOwnProperty(pin)) {
 		if (config[pin].hasOwnProperty(parameter)) {
@@ -14,6 +22,9 @@ var get = function(pin, parameter) {
 	}
 }
 
+/*
+ * write a parameter to the interface object. overwrites only existing parameters.
+ */
 var set = function(pin, parameter, value) {
 	if (config.hasOwnProperty(pin)) {
 		if (config[pin].hasOwnProperty(parameter)) {
@@ -22,6 +33,10 @@ var set = function(pin, parameter, value) {
 	}
 }
 
+/*
+ * read the interface config files. copies config data from whitelist or
+ * interface.json if existing
+ */
 var readFromFile = function() {
 	if (fs.existsSync('./interface.json')) {
 		config = JSON.parse(fs.readFileSync('interface.json'));
@@ -34,10 +49,14 @@ var readFromFile = function() {
 	}
 }
 
+/*
+ * write the interface object. overwrite existing one
+ */
 var saveToFile = function() {
 	fs.writeFileSync('./interface.json', JSON.stringify(config));
 }
 
+// read config files
 readFromFile();
 
 module.exports = {

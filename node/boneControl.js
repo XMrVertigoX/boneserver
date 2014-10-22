@@ -14,7 +14,7 @@ var bonescript = require('bonescript');
 var pins = bonescript.getPlatform().platform.pins;
 
 // Custom modules
-var settings = require('./settings.js');
+var settings = require('./settingsControl.js');
 var interface = require('./interfaceControl.js');
 var timer = require('./timer.js');
 
