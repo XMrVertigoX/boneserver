@@ -1,3 +1,7 @@
+/*
+ * bonescriptCtrl.js - 
+ */
+
 var bonescriptCtrl = {};
 	bonescriptCtrl.util = {};
 

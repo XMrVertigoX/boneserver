@@ -1,5 +1,13 @@
+/*
+ * websocketCtrl.js - Controller script to manage things according to the
+ * websocket connection.
+ */
+
 var websocketCtrl = {};
 
+/*
+ * Detects if a ssl connection and starts the websocket connection
+ */
 websocketCtrl.connect = function() {
     if (location.protocol === 'https:') {
         websocket = new WebSocket('wss://' + location.host);

@@ -1,5 +1,12 @@
+/*
+ * util.js - Some useful utility functions
+ */
 var util = [];
 
+/*
+ * Replace a class with another class. If the old class does not exist, the new
+ * one is added.
+ */
 util.replaceClass = function(element, oldClass, newClass) {
     if (element.hasClass(oldClass)) {
         element.removeClass(oldClass);
@@ -8,6 +15,9 @@ util.replaceClass = function(element, oldClass, newClass) {
     element.addClass(newClass);
 }
 
+/*
+ * Takes a bootstrap button color class to apply an removes the old one
+ */
 util.changeBtnColor = function(button, newClass) {
     if (button.hasClass('btn-default')) {
         button.removeClass('btn-default');
