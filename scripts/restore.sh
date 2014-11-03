@@ -15,4 +15,4 @@ if [[ ! -r $INPUTFILE ]]
 			exit 1
 fi
 
-gzip -cd $INPUTFILE | pv | dd bs=4M of=$OUTPUTFILE
+pv $INPUTFILE > $OUTPUTFILE

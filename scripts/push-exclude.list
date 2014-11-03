@@ -1,7 +1,5 @@
-.git
-*/.gitignore
-
 backup-*.img.gz
 
 node/node_modules
 node/data
+node/interface.json

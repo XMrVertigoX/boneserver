@@ -16,4 +16,6 @@ if [[ ! -d $OUTPUTDIRECTORY ]]
 		exit 1
 fi
 
-dd bs=4M if=$INPUTFILE | pv | gzip -f > ${OUTPUTDIRECTORY}/backup-$(date +"%s").img.gz
+OUTPUTFILE="${OUTPUTDIRECTORY}/backup-$(date +"%s").img"
+
+pv $INPUTFILE > $OUTPUTFILE

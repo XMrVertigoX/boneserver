@@ -63,6 +63,18 @@ init.init = function () {
 				'disabled': true
 			});
 
+			// GET and append the tile toggle button
+			$.ajax({
+				type: 'GET',
+				url: 'templates/templateTileTglBtn.mustache',
+				dataType: 'html',
+				success: function (template) {
+					$('#PWMTglBtnGrp').append(Mustache.render($(template).html(), {pin: pin}))
+				},
+				data: {},
+				async: false
+			});
+
 			break;
 
 		case 'gpio':
@@ -96,6 +108,7 @@ init.init = function () {
 			$('#' + pin + 'TileBtnON').prop('disabled', true);
 			$('#' + pin + 'TileBtnOFF').prop('disabled', true);
 
+			// GET and append the tile toggle button
 			$.ajax({
 				type: 'GET',
 				url: 'templates/templateTileTglBtn.mustache',
@@ -151,20 +164,20 @@ init.init = function () {
 			// Initialize the diagram engine
 			diagramCtrl.init(pin);
 
+			// GET and append the tile toggle button
+			$.ajax({
+				type: 'GET',
+				url: 'templates/templateTileTglBtn.mustache',
+				dataType: 'html',
+				success: function (template) {
+					$('#AINTglBtnGrp').append(Mustache.render($(template).html(), {pin: pin}))
+				},
+				data: {},
+				async: false
+			});
+
 			break;
 		}
-
-		// GET and append the tile toggle button
-		$.ajax({
-			type: 'GET',
-			url: 'templates/templateTileTglBtn.mustache',
-			dataType: 'html',
-			success: function (template) {
-				$('#' + pins[pin].type + 'TglBtnGrp').append(Mustache.render($(template).html(), {pin: pin}))
-			},
-			data: {},
-			async: false
-		});
 
 		// append toggle function
 		$('#' + pin + 'TileTglBtn').click(function () {
