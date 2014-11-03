@@ -53,7 +53,8 @@ var addTimer = function (type, pin) {
 			timers[pin].id = setInterval(function () {
 				timerResponse.response = [new Date().getTime(), bonescript.analogRead(pin)];
 				
-				fs.appendFile(settings.get('dataLocation') + '/' + pin + '.csv', timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
+				fs.appendFile(settings.get('dataLocation') + '/' + pin + '.csv',
+				              timerResponse.response[0] + "," + timerResponse.response[1] + "\r\n");
 
 				websocket.write(timerResponse);
 			}, settings.get('adcSampleRate'));
@@ -63,8 +64,6 @@ var addTimer = function (type, pin) {
 
 /*
  * stop and delete an existing timer
- *
- * returns nothing
  */
 var deleteTimer = function (pin) {
 	if (timers.hasOwnProperty(pin)) {

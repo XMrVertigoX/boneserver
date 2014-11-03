@@ -34,7 +34,7 @@ var set = function(pin, parameter, value) {
 }
 
 /*
- * read the interface config files. copies config data from whitelist or
+ * read the interface config files. copies config data from whitelist or from
  * interface.json if existing
  */
 var readFromFile = function() {

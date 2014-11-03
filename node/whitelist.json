@@ -13,7 +13,6 @@
 	"P8_18": {"available": true, "active": true, "type": "gpio"},
 	"P8_19": {"available": true, "active": true, "type": "pwm"},
 	"P8_26": {"available": true, "active": true, "type": "gpio"},
-
 	"P9_11": {"available": true, "active": true, "type": "gpio"},
 	"P9_12": {"available": true, "active": true, "type": "gpio"},
 	"P9_13": {"available": true, "active": true, "type": "gpio"},

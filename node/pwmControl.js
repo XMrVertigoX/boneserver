@@ -1,5 +1,6 @@
 var shelljs = require('shelljs');
 
+// slopts path
 var slots = shelljs.ls('/sys/devices/bone_capemgr.*')[0] + '/slots';
 
 // Enable PWM functionality
@@ -7,6 +8,7 @@ if (shelljs.cat(slots).match('am33xx_pwm') == null) {
 	'am33xx_pwm'.to(slots);
 }
 
+// ocp folder path
 var ocp = shelljs.ls('/sys/devices/ocp.*')[0];
 
 var pinPattern = /P[8|9]_[1-4][0-9]/i;
