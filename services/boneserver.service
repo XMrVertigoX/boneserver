@@ -5,6 +5,8 @@ After=network.target
 [Service]
 WorkingDirectory=/opt/boneserver/node
 ExecStart=/bin/node index.js
+Restart=on-failure
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
