@@ -12,14 +12,14 @@ var gpioPath = '/sys/class/gpio/';
  * disables a GPIO. Checks if GPIO is enabled and if not writes its ID to the
  * unexport system file
  * 
- * returns
+ * returns true if the GPIO is disabled
  */
 var disable = function(gpio) {
 	if (isEnabled(gpio)) {
 		String(gpio).to(gpioPath + 'unexport');
 	}
 
-	return isEnabled(gpio);
+	return !isEnabled(gpio);
 }
 
 /*
@@ -69,13 +69,15 @@ var write = function(gpio, options) {
 			}
 		}
 
-		if (options.hasOwnProperty('pulldown')) {
-			if (options.pulldown) {
-				String(1).to(gpioFolder + 'active_low');
-			} else {
-				String(0).to(gpioFolder + 'active_low');
-			}
-		}
+		// if (options.hasOwnProperty('pulldown')) {
+		// 	if (options.pulldown) {
+		// 		String(1).to(gpioFolder + 'active_low');
+		// 	} else {
+		// 		String(0).to(gpioFolder + 'active_low');
+		// 	}
+		// }
+
+		String(1).to(gpioFolder + 'active_low');
 	}
 
 	return read(gpio);
