@@ -16,6 +16,12 @@ echo boneserver > /etc/hostname
 cd node
 npm config set python /bin/python2.7
 npm install bonescript shelljs ws
+mkdir data
+cd ..
+
+# Link data directory
+cd http
+ln -sf ../node/data ./
 cd ..
 
 # link config file(s)

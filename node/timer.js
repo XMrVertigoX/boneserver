@@ -45,10 +45,10 @@ var addTimer = function (type, pin) {
 
 		case 'analogRead':
 			// Creates data directory and links to node/http if not existing
-			if (!fs.existsSync(settings.get('dataLocation'))) {
-				fs.mkdirSync(settings.get('dataLocation'), 0755);
-				fs.symlinkSync('../node/data', '../http/data');
-			}
+			// if (!fs.existsSync(settings.get('dataLocation'))) {
+			// 	fs.mkdirSync(settings.get('dataLocation'), 0755);
+			// 	fs.symlinkSync('../node/data', '../http/data');
+			// }
 
 			timers[pin].id = setInterval(function () {
 				timerResponse.response = [new Date().getTime(), bonescript.analogRead(pin)];

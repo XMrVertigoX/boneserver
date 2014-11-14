@@ -1,6 +1,6 @@
 boneserver
 ==========
 
-#Scripts#
+#Scripts
 
 some personal utility scripts
