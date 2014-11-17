@@ -60,7 +60,6 @@ var saveToFile = function() {
 readFromFile();
 
 module.exports = {
-	config: config,
 	get: get,
 	set: set,
 	readFromFile: readFromFile,

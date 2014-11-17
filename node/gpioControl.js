@@ -9,10 +9,10 @@ var shelljs = require('shelljs');
 var gpioPath = '/sys/class/gpio/';
 
 /*
- * disables a GPIO. Checks if GPIO is enabled and if not writes its ID to the
+ * Disables a GPIO. Checks if GPIO is enabled and if not writes its ID to the
  * unexport system file
  * 
- * returns true if the GPIO is disabled
+ * eturns true if gpio has been successfully disabled
  */
 var disable = function(gpio) {
 	if (isEnabled(gpio)) {
@@ -23,8 +23,10 @@ var disable = function(gpio) {
 }
 
 /*
- * enables a GPIO. Checks if GPIO is not enabled and if not writes its ID to
- * the export system file
+ * Enables a GPIO. Checks if GPIO is not enabled and if not writes its ID to
+ * the export system file.
+ *
+ * returns true if gpio has been successfully enabled
  */
 var enable = function(gpio) {
 	if (!isEnabled(gpio)) {
@@ -34,6 +36,11 @@ var enable = function(gpio) {
 	return isEnabled(gpio);
 }
 
+/*
+ * Reads the GPIO files.
+ * 
+ * returns the strings from the files in a JSON onject.
+ */
 var read = function(gpio) {
 	var content = {};
 
@@ -51,6 +58,11 @@ var read = function(gpio) {
 	return content;
 }
 
+/*
+ * Writes new parameters to the GPIO files.
+ *
+ * returns the new GPIO status
+ */
 var write = function(gpio, options) {
 	if (!isEnabled(gpio)) {
 		enable(gpio);

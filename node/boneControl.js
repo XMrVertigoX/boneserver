@@ -187,8 +187,8 @@ var handleRequest = function(request) {
 
 		case 'toggle':
 			var pin = parameters.pin;
-			//var file = './interface.json';
-			//var list = JSON.parse(fs.readFileSync(file));
+			// var file = './interface.json';
+			// var list = JSON.parse(fs.readFileSync(file));
 
 			// if (interface.config.hasOwnProperty(pin)) {
 			// 	interface.config[pin].active = !interface.config[pin].active;
