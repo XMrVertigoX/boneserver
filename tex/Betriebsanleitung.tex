@@ -1,0 +1,58 @@
+\documentclass[a4paper, oneside, 12pt]{scrartcl}
+
+\usepackage[english, german]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{
+  eurosym,
+  listings,
+  scrhack,
+  pdfpages,
+  lscape,
+  graphicx,
+  rotating,
+  hyperref,
+  tabu,
+  longtable,
+  datetime
+}
+
+\hypersetup{
+  colorlinks = true,
+  linkcolor = black,
+  urlcolor = blue
+}
+    
+\definecolor{backcolour}{rgb}{0.90, 0.90, 0.90}
+
+\lstdefinestyle{default}{
+  backgroundcolor = \color{backcolour},
+  breaklines = true
+  basicstyle = \tiny,
+  columns = fullflexible
+}
+
+\lstset{style = default}
+
+\title{boneserver}
+\subtitle{Installations- und Betriebsanleitung}
+\author{Caspar Friedrich}
+\date{\today}
+
+\begin{document}
+
+%Titlepage
+\maketitle
+
+%Table of contents
+\tableofcontents
+
+\newpage
+
+%Sections
+\input{betriebsanleitung/1-hardware.tex}
+\input{betriebsanleitung/2-installation.tex}
+\input{betriebsanleitung/3-betrieb.tex}
+\input{betriebsanleitung/4-wartung.tex}
+
+\end{document}

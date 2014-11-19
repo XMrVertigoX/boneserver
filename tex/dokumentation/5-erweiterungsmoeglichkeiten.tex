@@ -1,0 +1,60 @@
+\chapter{Erweiterungsmöglichkeiten}
+Der boneserver kann und soll an bestehende Laborumgebungen angepasst werden.
+
+
+\section{Zusätzliche Anpassungsoptionen}
+Das Interface könnte durch zusätzliche Anpassungsoptionen erweitert werden. Eine Idee wäre es, die eizelnen Kachen mit idividuellen bezeichnungen zu versehen.
+
+Der \textit{Interface Controller} kann dazu dahingehend erweitert werden. Da im WebSocket Server die Pink-Konfiguration ohnehin in einer \gls{json}-Struktur gespeichet wird, können eventuelle Namen einfach hier gespeichert werden. Die Daten werden im Initialisierungsprozess der Seite automatisch an den Browser übertragen.
+
+Im \textit{Init Script} kann die Weiterverarbeitung ähnlich dem Status der Kacheln implementiert werden (Abb. \ref{lst:fakeResponseMessage}).
+
+\begin{figure}[H]
+  \begin{lstlisting}
+  for(pin in pins) {
+    if (!pins[pin].active) {
+      responseHandler.toggle({parameters: {pin: pin}, response: false});
+    }
+  }
+  \end{lstlisting}
+  \caption{Fake response message um geladene Kacheln vo verändern}
+  \label{lst:fakeResponseMessage}
+\end{figure}
+
+
+\section{Höher aufgelöste A/D-Wandlung}
+Der maximale Takt der digitalen Inputs und der \gls{adc} ist durch die kleinste Zeiteinheit in JavaScript (1ms) vorgegeben. Denkbar wäre eine höher aufgelöste Taktung in einer separaten Software zu implementieren. In C/C++ könnte eine wesendlich höhere Abtastrate erreicht werden. Diese Samples müssen dann zu mehreren in eine Response Message gepackt und wie bisher übertragen werden.\\
+
+Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur einzelne Tupel zu verarbeiten (Abb. \ref{lst:insertTupel}), sondern oben beschriebene Frames. Je nach Abtastrate sollte auch über eine entsprechenden Downsampling für die Anzeige nachgedacht werden.
+
+\begin{figure}[H]
+  \begin{lstlisting}
+  diagramCtrl.util.addValue = function(pin, data) {
+    diagramCtrl[pin]['data'].push(data);
+  }
+  \end{lstlisting}
+  \caption{Tupel in ein Diagramm einfügen}
+  \label{lst:insertTupel}
+\end{figure}
+
+
+\section{Alternative Steuerungsbibliothek -- octalbonescript}
+Die Bibliothek \textit{octalbonescript}\footnote{https://github.com/theoctal/octalbonescript}, ein bonescript Fork, löst laut API einige Probleme der bonescript Library. Diese könnte als ersatz für die bisher verwendete bonescript Library verwendet werden. Dadurch würden auch die Module \textit{gpioControl.js} und \textit{pwmControl.js} nicht mehr nötig sein, da diese nur Bypass-Funktionen für fehlerhafte Funktionen enthalten.
+
+
+\section{Alternative Hardware}
+Denkbar wäre eine Portierung des boneserver auf eine andere Hardware-Plattform. Die Vorraussetzung hierfür ist ein Linux-System mit einem Netzwerkzugang und entsprechendem Speicher.\\
+
+Um auf einer anderen Hardware arbeiten zu können ist eine passende Bibliothek, wie die bonescript Library BeagleBone, nötig, um die Hardware zu steuern. Das Modul \textit{boneControl.js} die gesamte Steuerung und muss dahingehend erweitert werden, dass die enthaltenen Fälle (Abb. \ref{lst:exampleCase}) passende Funktionen aus ihrer Bibliothek starten.
+
+\begin{figure}[H]
+  \begin{lstlisting}
+    case 'analogRead':
+      var pin = parameters.pin;
+
+      response = bonescript[request.type](pin);
+      break;
+  \end{lstlisting}
+  \caption{Beispiel-Case aus dem Modul \textit{boneControl.js}}
+  \label{lst:exampleCase}
+\end{figure}

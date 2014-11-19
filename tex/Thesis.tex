@@ -1,0 +1,84 @@
+\documentclass[a4paper, oneside, 12pt, bibliography=totocnumbered]{scrbook}
+
+\usepackage[english, german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[xindy, nonumberlist, toc, numberedsection]{glossaries}
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage{
+  eurosym,
+  listings,
+  scrhack,
+  pdfpages,
+  float,
+  lscape,
+  graphicx,
+  rotating,
+  wrapfig,
+  hyperref,
+  tabu,
+  longtable,
+  datetime
+}
+
+\hypersetup{
+  colorlinks = true,
+  linkcolor = black,
+  urlcolor = black
+}
+    
+\definecolor{backcolour}{rgb}{0.90, 0.90, 0.90}
+
+\lstdefinestyle{default}{
+  backgroundcolor = \color{backcolour},
+  breaklines = true
+  basicstyle = \tiny,
+  columns = fullflexible
+}
+
+\makeglossaries
+\input{appendix/glossary.tex}
+
+\lstset{style = default}
+
+\bibliographystyle{unsrtdin}
+
+\author{Caspar Friedrich}
+\title{Webgestütztes GPIO Management am Beispiel des BeagleBone Black}
+
+
+\begin{document}
+
+%Titlepages
+\input{title/titlepage_de.tex}
+\input{title/titlepage_en.tex}
+
+%Overview
+\input{title/overview_de.tex}\newpage
+\input{title/overview_en.tex}\newpage
+
+\tableofcontents
+
+\part{Dokumentation}
+\input{dokumentation/1-einleitung.tex}
+\input{dokumentation/2-grundlagen.tex}
+\input{dokumentation/3-konfiguration.tex}
+\input{dokumentation/4-implementierung.tex}
+\input{dokumentation/5-erweiterungsmoeglichkeiten.tex}
+\input{dokumentation/6-zusammenfassung.tex}
+
+
+\appendix
+\part{Anhang}
+\chapter{Betriebsanleitung}
+\input{betriebsanleitung/1-hardware.tex}
+\input{betriebsanleitung/2-installation.tex}
+\input{betriebsanleitung/3-betrieb.tex}
+\input{betriebsanleitung/4-wartung.tex}
+
+\input{appendix/tabellen.tex}
+\printglossary[title={Glossar}]
+\bibliography{appendix/literature.bib}
+\input{appendix/erklaerung.tex}
+
+\end{document}

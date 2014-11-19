@@ -1,0 +1,109 @@
+\chapter{Grundlagen}
+
+\section{Hardware}
+
+\subsection{\glsentrylong{sbc}}
+Ein \gls{sbc}, zu deutsch Einplatinenrechner, ist ein Computersystem, bei dem alle für die Verwendung nötigen Bauteile auf einer einzelnen Platine aufgebracht sind. Hierbei sind neben den essenziellen Komponenten wie Prozessor, RAM und ROM auch Controller für verschiedene I/O-Schnittstellen, Oszillatoren oder Co-Prozessoren verbaut. Single-Board Computer werden vor allem in der Industrie als Steuersysteme eingesetzt, da sie oft billiger und flexibler sind als fest verdrahtete Steuersysteme. Mit fortschreitender Miniaturisierung und steigender Leistungsfähigkeit finden SBC's heute auch in alltäglichen Geräten wie Autos, Waschmaschienen oder auch Fernbedienungen Verwendung.\\
+
+Technisch gesehen sind auch erste Heimcomputer wie der \emph{C64} oder \emph{Atari ST} Single-Board Computer, allerdings lassen sich diese ohne Ein- und Ausgeabegräte wie Maus, Tastatur, Bildschirm nicht sinnvoll nutzen und werden in der Regel nicht als solche bezeichnet.
+
+
+\subsubsection{Schnittstellen}
+Single-Board Computer verfügen, je nach Anwendungsgebiet, über eine Vielzahl verschiedener analoger und digitaler I/O-Schnittstellen.\\
+
+\noindent Übliche Schnittstellen sind:
+
+\begin{itemize}
+  \item \gls{gpio}, darunter digitale I/O, \gls{pwm} und \gls{adc}
+  \item \gls{uart}
+  \item \gls{spi}
+  \item \gls{i2c}
+\end{itemize}
+
+Über \gls{uart} isteine Implementierung der verbreiteten RS232/422/485-Schnittstellen möglich und auch üblich.\\
+
+Aktuelle (Entwickler-)Systeme haben in der Regel einen oder mehrere USB-Anschlüsse (sowohl Client als auch Host Ports sind üblich) oder zumindest einen JTAG-Port, was die Programmierung wesentlich vereinfacht. In der Regel verfügen leistungsstärkere Systeme auch über einen Grafikausgang, Oft HDMI oder eine der Miniaturvarianten.
+
+
+\subsection{\glsentrylong{soc}}
+Eng verknüpft mit der Entwicklung der SBC ist das Konzept des \gls{soc}. Hierbei werden die meisten oben genannten Komponenten eines Systems direkt in einem einzelnen IC verbaut. Meist sind nur ROM und Controller für höhere Schnittstellen USB oder LAN (in manchen Fällen auch Grafik) extern angebunden.
+
+Heutige Single-Board Computer mit einem SOC können sehr leistungsstark sein, sind als Mehrkernsystem aufgebaut und haben Taktraten von mehreren GHz. Diese Computer sind vom Design her stark an Desktop-Systeme angepasst und können mit einem vollwertigen Linux- oder Windows-System betrieben werden.
+
+Gerade bei diesen leistungsstarken SOCs hat sich die ARM-Architektur durchgesetzt. 1983 als Nebenprojekt gegründet hatte die 32-Bit-Architektur bereits 2002 einen Marktanteil von fast 80\% \cite{stiller2002}.\\
+
+\noindent \gls{sbc} lassen sich (sehr) grob in zwei Klassen unterteilen:
+
+\begin{enumerate}
+\item \textbf{Leistungsschwache Systeme}\\
+Die Taktraten dieser Prozessoren liegen üblicherweise deutlich unter 50MHz, in seltenen Fällen bis 100MHz. Diese Mikrocontroller werden meist direkt programmiert und finden vor allem im low energy-Sektor Anwendung.
+\item \textbf{Leistungsstarke Systeme}\\
+Hier ligen die Taktraten meist im GHz-Bereich. Hauptanwendungsbereiche sind Mobilfunksysteme und embedded computing in der Industrie. Gerade im Mobilfunkbereich sind oft Mehrkernsysteme anzutreffen und es wird bis auf wenige Ausnahmen oberhalb eines Betriebssystems, meist Linux bzw. Android, programmiert.
+\end{enumerate}
+
+
+\subsection{BeagleBone Black}
+Für diese Arbeit verwende ich einen BeagleBone Black Rev. A5C (im Folgenden BeagleBone), ein Entwickler-Board mit einem ARM\textregistered ~Cortex\texttrademark -A8 Prozessor (Single Core) von Texas Instruments.\\
+
+\noindent Die wichtigsten Features:
+\begin{itemize}
+  \item 1GHz Taktrate
+  \item 512MB DDR3 RAM
+  \item 2GB\footnote{4GB ab Rev. C} Onboard Flash Memory
+  \item 10/100 Mbit/s Ethernet
+  \item 69\footnote{27 GPIO sind ohne weitere Konfiguration direkt verfügbar} \gls{gpio} mit mehreren \gls{pwm}-Ausgängen und \gls{adc}-Eingängen
+  \item Verhältnismäßig geringer Preis von ca. \EUR{45}
+\end{itemize}
+
+
+\section{Betriebsysteme}
+Da die Ressourcen des BeagleBone Black sehr begrenzt sind, wird für diese Arbeit ein schlankes Betriebssystem benötigt, welches nur wenig Speicher verbraucht und geringen Leistungs-Overhead verursacht. Für diesen Zweck gibt es spezielle Versionen der bekannten Betriebssysteme wie Microsoft Windows oder Linux sowie verschiedene \glqq unixoide\grqq ~Betriebssysteme.
+
+
+\subsection{Linux}
+Linux hat den Vorteil, dass nahzu alle Software als Quellcode verfügbar ist und im Zweifel angepasst werden kann. Zudem ist es üblich Lizenzen zu verwenden, die eine nicht-kommerzielle Anwendung sowie Anpassungen kostenfrei zulassen.
+
+Ein eigenes Linux zu entwickeln oder ein Build System\footnote{Einige Distributionen verwenden ein sog. Build System, bei dem die benötigten Kernelmodule und Softwarepakete selbst zusammengestellt werden können.} zu verwenden wäre aus Sicht der Performance sicherlich die beste Wahl und ist in der Industrie weitgehend üblich. Das würde allerdings den Rahmen dieser Arbeit sprengen. Zudem gibt es einige sehr schlanke und bereits für den BeagleBone angepasste \glspl{linux-distribution}.
+
+
+\subsection{Linux Distributionen}
+\href{http://beagleboard.org/}{BeagleBoard.org} bietet für den BeagleBone Black zwei verschiedene Distributionen an: {\AA}ngström und Debian. Beide Distributionen haben Vor- und Nachteile, die weier unten erlätert werden. Ein weiteres Projekt, welches sich unter Entwicklern großer Beliebtheit erfreut ist Arch Linux, das als Basis für diese Anwendung dienen soll.
+
+\subsubsection{The {\AA}ngström Distribution}
+The {\AA}ngström Distribution ist auf dem BeagleBone vorinstalliert und stellt die Hauptdistribution dar. Diese Distribution nutzt ein Build System und findet im Wesentlichen Anwendung bei Speichersystemen wie NAS oder FTP-server, wichtigstes Feature ist daher der geringe Leistungs- und Speicherbedarf. Bei dieser Distribution muss allerdings nahezu jede nicht-standard Software selbst kompiliert und eingerichtet werden.
+
+\subsubsection{Debian Linux}
+Im Allgemeinen gilt Debian Linux als (rock-)stable und ist eine der verbreitetsten Distributionen. Zudem basieren einige weitere namhafte Distributionen auf Debian Linux. Stärke und gleichzeitig auch Schwäche dieser Distribution sind die langen und umfangreichen Softwaretests. Wenn ein Paket in den offiziellen Repositories verfügbar ist kann man zwar davon ausgehen, dass es fehlerfrei funktioniert und mit allen anderen angebotenen Paketen kompatibel ist. Allerdings liegt es meist nicht mehr in der aktuellen Version vor. Das kann gerade bei Software aus dem Bereich Netzwerk/Internet problematisch werden.
+
+\subsubsection{Arch Linux}
+Gegenüber den oben genannten Distributionen hat Arch Linux zwei wesentliche Vorteile: Zum einen gibt es eine (Sub-)Distribution speziell für ARM-Prozessoren, bei der das Basissystem mit ca. 500MB sehr schlank ist. Zum anderen stellt Arch Linux ARM ein sehr umfangreiches Software Repository mit hoher Aktualität zur Verfügung. Zusätzlich gibt es das \gls{aur}, ein freies Repository in dem jeder Nutzer seine Pakete einstellen kann. Sämtliche in diesem Projekt verwendete Software lässt sich entweder direkt via Paketverwantung aus den offiziellen Repositories installieren oder kann vom Anwender selber kompiliert werden.
+
+Arch Linux ARM verwendet ein Rolling-Release-Konzept, ein System kontinuierlicher Software-Entwicklung, bei der Pakete separat aktuell gehalten und weiter entwickelt werden. Es gibt keine explizite Betriebssystemversion sondern sog. Snapshots. So ist es  wesentlich einfacher, das System aktuell und sicher zu halten. Zwar kann es durchaus passieren, dass die eingestellte Software nicht out-of-the-box funktioniert. Aber in der sehr aktiven Community hinter Arch Linux bekommt man relativ schnell Hilfe.
+
+Die Kernel-Entwicklung schreitet derzeit sehr schnell voran, daher wird zusätzlich zur regulären Kernel-Entwicklung  ein Legacy-Paket mit einer stabilen Version (3.8) gepflegt, um nach einem Update des Kernelpaketes nicht erst die Kompatibilität wieder herstellen zu müssen.
+
+
+\section{Webtechnologien}
+In dieser Arbeit kommen eine Vielzahl unterschiedlicher Webtechnologien zum Einsatz. An dieser Stelle alle zur Verfügung stehenden Technologien im Detail zu beschreiben, würden den Rahmen der Arbeit sprengen. Ich beschränke mich hier darauf, die Architektur des Projektes zu darzustellen. Meine Auswahl an Software erläutere ich im Zusammenhang in Kapitel 4: Implementierung.
+
+\subsection{Webserver}
+Als Webserver wird in der Regel eine Software bezeichnet, die verschiedene Dokumente an einen Client, z. B. ein Webbrowser, ausliefert. Oft wird auch die ganze Hardware, auf der ein Webserver betrieben wird, als Webserver bezeichnet. Dies ist dann der Fall, wenn der Rechner ausschließlich zu diesem Zweck betrieben wird, z. B. bei größeren Webseiten.
+
+Auf Grund verschiedener Spezialisierungen und Ansätze gibt es heute eine große Anzahl verschiedener Webserver. Apache HTTP Server der gleichnamigen Firma und Microsofts IIS haben sich hier in den letzten Jahren deutlich von der Konkurenz absetzen können. \cite{webserversurvey1014}. IIS kommt für diese Arbeit allerdings nicht in Frage, da er nicht für Linux angeboten wird.
+
+\subsubsection{Lighttpd}
+Lighttpd ist ein Webserver, der durch seine besonders ressourcenschonende Implementierung hervorsticht. Dieser Webserver ist darauf spezialisiert, statische Dokumente auszuliefern, was ihn besonders passend für diese Arbeit macht. Außerdem lässt er sich wesentlich einfacher konfigurieren und über Module erweitern als andere weiter verbreitete Webserver \cite{krieg2009}.
+
+
+\subsection{Node.js}
+\label{subsec:Node.js}
+Node.js ist ein JavaScript-Framwork, das auf Googles \glqq V8\grqq ~JavaScript-Engine basiert. Es stellt eine serverseitige Umgebung zur Verfügung, über die sich komplexe Netzwerkanwendungen leicht programmieren lassen. Dabei stellt Node.js ein Modulkonzept vor, mit man relativ unkompliziert Programmteile auslagern oder weitere Funktionalität einbinden kann. In der Basisinstallation liefert Node.js bereits eine große Bandbreite an Modulen mit, sodass viele Anwendungen ohne zusätzliche Software umgesetzt werden können \cite{springer2013}.
+
+\subsubsection{npm}
+Der Node Package Manager erweitert Node.js um ein Werkzeug, mit dem sich externe Module leicht herunterladen und einbinden lassen. Unter \href{https://www.npmjs.org/}{npmjs.org} können zudem weitere Informationen und in der Regel auch eine API der Module eingesehen werden. Dank einer großen Community lassen sich hier zu den meisten allgemeinen Problemen bereits einige Lösungsansätze finden.
+
+\subsubsection{bonescript}
+Ausschlaggebend für die Verwendung von Node.js ist das Modul \textit{bonescript} von Jason Kridner, Mitgründer der BeagleBoard.org  Foundation. Dieses Modul steuert über eine übersichtliche API weite Teile der BeagleBone-Hardware, sodass auch hier der Arbeitsaufwand deutlich verringert wird.
+
+\subsection{WebSockets}
+WebSockets stellen eine Möglichkeit dar, Daten zwischen Client (Browser) und Server auszutauschen. Wie auch \gls{http} basieren WebSockets auf \gls{tcp}, sind dabei aber wesendtlich schneller. Im Gegensatz zu \gls{http} ist über WebSockets eine Vollduplex-Verbindung möglich. Die Metadaten sind zudem überschaubar, sodass hierbei wenig zusätzliche Netzwerklast entsteht. Ein weiterer Vorteil ist, dass WebSockets von der \gls{sameOriginPolicy} ausgeschlossen sind \cite{rfc6455}.
