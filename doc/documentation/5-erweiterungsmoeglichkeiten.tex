@@ -1,11 +1,10 @@
 \chapter{Erweiterungsmöglichkeiten}
-Der boneserver kann und soll an bestehende Laborumgebungen angepasst werden.
-
+Im Folgenden Kapitel werden weitere Möglichkeiten erläutert, durch die der boneserver noch besser an bestehende Laborumgebungen angepasst werden kann oder die weiteres Potential des Konzeptes nutzbar machen.
 
 \section{Zusätzliche Anpassungsoptionen}
-Das Interface könnte durch zusätzliche Anpassungsoptionen erweitert werden. Eine Idee wäre es, die eizelnen Kachen mit idividuellen bezeichnungen zu versehen.
+Das Interface könnte durch zusätzliche Anpassungsoptionen erweitert werden. Eine Möglichkeit besteht darin, die eizelnen Kacheln mit individuellen Bezeichnungen zu versehen.
 
-Der \textit{Interface Controller} kann dazu dahingehend erweitert werden. Da im WebSocket Server die Pink-Konfiguration ohnehin in einer \gls{json}-Struktur gespeichet wird, können eventuelle Namen einfach hier gespeichert werden. Die Daten werden im Initialisierungsprozess der Seite automatisch an den Browser übertragen.
+Der \textit{Interface Controller} kann hierzu dahingehend erweitert werden. Da im WebSocket Server die Pink-Konfiguration ohnehin in einer \gls{json}-Struktur gespeichet wird, können eventuelle Namen einfach hier gespeichert werden. Die Daten werden im Initialisierungsprozess der Seite automatisch an den Browser übertragen.
 
 Im \textit{Init Script} kann die Weiterverarbeitung ähnlich dem Status der Kacheln implementiert werden (Abb. \ref{lst:fakeResponseMessage}).
 
@@ -58,3 +57,9 @@ Um auf einer anderen Hardware arbeiten zu können ist eine passende Bibliothek, 
   \caption{Beispiel-Case aus dem Modul \textit{boneControl.js}}
   \label{lst:exampleCase}
 \end{figure}
+
+
+\section{Erweiterte Konfigurationsmöglichkeiten in das Interface integrieren}
+Die erweiterten Konfigurationsmöglichkeiten, die bisher aus sicherheitsgründen nur über eine Konfigurationsdatei möglich waren, können is das Interface integriert werden. Das Authentifizierungssystem bietet hierfür die möglichkeite verschiedene Benutzer- und Administrator-Accounts einzurichten (vgl. Abb. \ref{lst:lighttpdhtdigest}). Dazu muss eine Administrationsseite geschrieben und in einem passenden Verzeichnis abgelegt werden. Die Zugriffsbeschränkungen können dann wie oben beschrieben separat für dieses Verzeichnis konfiguriert werden.\\
+
+Externe Laufwerke und USB-Sticks sollten dafür automatisch mit passenden Rechten gemountet werden und auswählbar sein.
