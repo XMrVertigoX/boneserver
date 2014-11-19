@@ -1,5 +1,5 @@
 \chapter{Erweiterungsmöglichkeiten}
-Im Folgenden Kapitel werden weitere Möglichkeiten erläutert, durch die der boneserver noch besser an bestehende Laborumgebungen angepasst werden kann oder die weiteres Potential des Konzeptes nutzbar machen.
+Im Folgenden Kapitel werden weitere Möglichkeiten erläutert, durch die der Boneserver noch besser an bestehende Laborumgebungen angepasst werden kann, oder die weiteres Potential des Konzeptes nutzbar machen.
 
 \section{Zusätzliche Anpassungsoptionen}
 Das Interface könnte durch zusätzliche Anpassungsoptionen erweitert werden. Eine Möglichkeit besteht darin, die eizelnen Kacheln mit individuellen Bezeichnungen zu versehen.
@@ -22,9 +22,9 @@ Im \textit{Init Script} kann die Weiterverarbeitung ähnlich dem Status der Kach
 
 
 \section{Höher aufgelöste A/D-Wandlung}
-Der maximale Takt der digitalen Inputs und der \gls{adc} ist durch die kleinste Zeiteinheit in JavaScript (1ms) vorgegeben. Denkbar wäre eine höher aufgelöste Taktung in einer separaten Software zu implementieren. In C/C++ könnte eine wesendlich höhere Abtastrate erreicht werden. Diese Samples müssen dann zu mehreren in eine Response Message gepackt und wie bisher übertragen werden.\\
+Der maximale Takt der digitalen Inputs und der \gls{adc} ist durch die kleinste Zeiteinheit in JavaScript (1ms) vorgegeben. Denkbar wäre eine höher aufgelöste Taktung in einer separaten Software zu implementieren. In C/C++ könnte eine wesendlich höhere Abtastrate erreicht werden. Diese Samples können dann zu mehreren als Antwort übertragen.\\
 
-Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur einzelne Tupel zu verarbeiten (Abb. \ref{lst:insertTupel}), sondern oben beschriebene Frames. Je nach Abtastrate sollte auch über eine entsprechenden Downsampling für die Anzeige nachgedacht werden.
+Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur einzelne Wertepaare zu verarbeiten (Abb. \ref{lst:insertTupel}), sondern oben beschriebene Frames. Je nach Abtastrate sollte auch über eine entsprechenden Downsampling für die Anzeige nachgedacht werden.
 
 \begin{figure}[H]
   \begin{lstlisting}
@@ -38,13 +38,13 @@ Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur ein
 
 
 \section{Alternative Steuerungsbibliothek -- octalbonescript}
-Die Bibliothek \textit{octalbonescript}\footnote{https://github.com/theoctal/octalbonescript}, ein bonescript Fork, löst laut API einige Probleme der bonescript Library. Diese könnte als ersatz für die bisher verwendete bonescript Library verwendet werden. Dadurch würden auch die Module \textit{gpioControl.js} und \textit{pwmControl.js} nicht mehr nötig sein, da diese nur Bypass-Funktionen für fehlerhafte Funktionen enthalten.
+Die Bibliothek \textit{octalbonescript}\footnote{https://github.com/theoctal/octalbonescript}, ein bonescript Fork, löst laut API einige Probleme der Bonescript-Bibliothek. Diese könnte als Ersatz für die bisher verwendete Bonescript-Bibliothek verwendet werden. Dadurch würden auch die Module \textit{gpioControl.js} und \textit{pwmControl.js} nicht mehr nötig sein, da diese nur Bypass-Funktionen für fehlerhafte Funktionen enthalten.
 
 
 \section{Alternative Hardware}
-Denkbar wäre eine Portierung des boneserver auf eine andere Hardware-Plattform. Die Vorraussetzung hierfür ist ein Linux-System mit einem Netzwerkzugang und entsprechendem Speicher.\\
+Denkbar wäre eine Portierung des Boneservers auf eine andere Hardware-Plattform. Die Vorraussetzung hierfür ist ein Linux-System mit einem Netzwerkzugang und entsprechendem Speicher.\\
 
-Um auf einer anderen Hardware arbeiten zu können ist eine passende Bibliothek, wie die bonescript Library BeagleBone, nötig, um die Hardware zu steuern. Das Modul \textit{boneControl.js} die gesamte Steuerung und muss dahingehend erweitert werden, dass die enthaltenen Fälle (Abb. \ref{lst:exampleCase}) passende Funktionen aus ihrer Bibliothek starten.
+Um auf einer anderen Hardware arbeiten zu können, ist eine passende Bibliothek, wie die Bonescript-Bibliothek BeagleBone, nötig, um die Hardware zu steuern. Das Modul \textit{boneControl.js} die gesamte Steuerung und muss dahingehend erweitert werden, dass die enthaltenen Fälle (Abb. \ref{lst:exampleCase}) passende Funktionen aus ihrer Bibliothek starten.
 
 \begin{figure}[H]
   \begin{lstlisting}
@@ -59,7 +59,9 @@ Um auf einer anderen Hardware arbeiten zu können ist eine passende Bibliothek, 
 \end{figure}
 
 
-\section{Erweiterte Konfigurationsmöglichkeiten in das Interface integrieren}
-Die erweiterten Konfigurationsmöglichkeiten, die bisher aus sicherheitsgründen nur über eine Konfigurationsdatei möglich waren, können is das Interface integriert werden. Das Authentifizierungssystem bietet hierfür die möglichkeite verschiedene Benutzer- und Administrator-Accounts einzurichten (vgl. Abb. \ref{lst:lighttpdhtdigest}). Dazu muss eine Administrationsseite geschrieben und in einem passenden Verzeichnis abgelegt werden. Die Zugriffsbeschränkungen können dann wie oben beschrieben separat für dieses Verzeichnis konfiguriert werden.\\
+\section{Erweiterte Konfiguration in das Interface integrieren}
+Die erweiterten Konfigurationsmöglichkeiten, die bisher aus Sicherheitsgründen nur über eine Konfigurationsdatei möglich waren, können in das Interface integriert werden. Das Authentifizierungssystem bietet hierfür die Möglichkeit verschiedene Benutzer- und Administrator-Accounts einzurichten (vgl. Abb. \ref{lst:lighttpdhtdigest}). Dazu muss eine Administrationsseite geschrieben und in einem passenden Verzeichnis abgelegt werden. Die Zugriffsbeschränkungen können dann, wie oben beschrieben, separat für dieses Verzeichnis konfiguriert werden. Externe Laufwerke und USB-Sticks sollten dafür automatisch mit passenden Rechten eingebunden werden und in einem Menü auswählbar sein.
 
-Externe Laufwerke und USB-Sticks sollten dafür automatisch mit passenden Rechten gemountet werden und auswählbar sein.
+
+\section{Differenzierte Zugriffsrechteverwaltung}
+...

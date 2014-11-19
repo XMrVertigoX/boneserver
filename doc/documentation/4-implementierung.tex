@@ -7,7 +7,7 @@
 \label{fig:functionalComponents}
 \end{figure}
 
-Das Webinterface besteht aus drei funktionalen Teilen: auf der einen Seite der Webbrowser, der ausschließlich als Client dient und zum anderen aus dem WebSocket Server, der die Steuerung der \gls{gpio} erledigt und die Daten für die Konfiguration der Weboberfläche liefert und aus einem Webserver, der die Dokumente ausliefert. Um nach außen über einen einzigen Port zu kommunizieren, ist ein Proxy Server vorgelagert (Abb. \ref{fig:functionalComponents}), der den Datenverkehr an Hand des verwendeten Protokolls an den richtigen Server weiterleitet (Abb. \ref{fig:requestForwarding}).
+Das Webinterface besteht aus drei funktionalen Teilen. Der erste Teil ist der der Webbrowser, der ausschließlich als Client dient. Zweitens besteht das Webinterface aus dem WebSocket Server, der die Steuerung der \gls{gpio} erledigt und die Daten für die Konfiguration der Weboberfläche liefert und drittens aus einem Webserver, der die Dokumente ausliefert. Um nach außen über einen einzigen Port zu kommunizieren, ist ein Proxy Server vorgelagert (Abb. \ref{fig:functionalComponents}), der den Datenverkehr an Hand des verwendeten Protokolls an den richtigen Server weiterleitet (Abb. \ref{fig:requestForwarding}).
 
 \begin{figure}[ht]
 \centering
@@ -43,7 +43,7 @@ Der gesamte Datenaustausch des Interfaces läuft über die WebSocket-Verbindung 
 \label{lst:requestMessage}
 \end{figure}
 
-Um Antworten richtig zuordnen zu können, werden Rückgabewerte der Funktionen in einem \textit{response}-Objekt an die ursprüngliche Messsage angehängt. Alle Daten, die zu dieser Antwort geführt haben, sind dann noch vorhanden und können über einen Response Handler verarbeitet werden.\\
+Um Antworten richtig zuordnen zu können, werden Rückgabewerte der Funktionen in einem \textit{response}-Objekt an die ursprüngliche Messsage angehängt. Alle Daten die zu dieser Antwort geführt haben, sind dann noch vorhanden und können über einen Response Handler verarbeitet werden.\\
 
 \begin{figure}[ht]
 \begin{lstlisting}
@@ -62,12 +62,12 @@ Um Antworten richtig zuordnen zu können, werden Rückgabewerte der Funktionen i
 \label{lst:responseMessage}
 \end{figure}
 
-Durch diese Technik ist gewährleistet, dass das Interface immer aktiv bleibt und nicht durch eine langsame Netzweranbindung blockiert wird. Gleichzeitig werden asynchron eingehende Messages zeitlich unabhängig verarbeitet.
+Durch diese Technik ist gewährleistet, dass das Interface immer aktiv bleibt und nicht durch eine langsame Netzwerkanbindung blockiert wird. Gleichzeitig werden asynchron eingehende Messages zeitlich unabhängig verarbeitet.
 
 \section{Seitenaufruf}
-Um die Systembelastung durch das Webinterface möglichst gering zu halten, wird die Webseite dynamisch über Templates in weiten Teilen erst im Browser generiert. Dabei wird der Nutzer zunächst via HTTP Digest Authentication autentifiziert. Ist diese erfolgreich, werden die Doumente der Webseite an den Browser ausgeliefert.\\
+Um die Systembelastung durch das Webinterface möglichst gering zu halten, wird die Webseite dynamisch über Templates in weiten Teilen erst im Browser generiert. Dabei wird der Nutzer zunächst via HTTP Digest Authentication authentifiziert. Ist diese erfolgreich, werden die Doumente der Webseite an den Browser ausgeliefert.\\
 
-Abbildung \ref{fig:pageloadSequence} zeigt schematisch, wie die Initialisierung der Seite abläuft. Das Diagramm zeigt horizontal die vier beteiligten Entitäten und vertikal, ähnlich einem Sequenzdiagramm, den zeitlichen Ablauf. Antworten sind dabei immer asynchron Event-basiert. Gestrichelte Linien zeigen Antworten tieferliegender Schichten und Protokolle. Sie sind nicht Teil meiner Implementierung und sollen den Request/Response-Verlauf verdeutlichen. Die Authentifizierung ist im Webserver implementiert und Teil der Kommunikation zwischen Webbrowser und Webserver \cite{rfc7235}. Sie ist daher nicht im Diagramm explizit dargestellt.
+Abbildung \ref{fig:pageloadSequence} zeigt schematisch, wie die Initialisierung der Seite abläuft. Das Diagramm zeigt horizontal die vier beteiligten Entitäten und vertikal, ähnlich einem Sequenzdiagramm, den zeitlichen Ablauf. Antworten sind dabei immer Event-basiert. Gestrichelte Linien zeigen Antworten tieferliegender Schichten und Protokolle. Sie sind nicht Teil dieser Implementierung und sollen den Request/Response-Verlauf verdeutlichen. Die Authentifizierung ist im Webserver implementiert und Teil der Kommunikation zwischen Webbrowser und Webserver \cite{rfc7235}. Sie ist daher nicht im Diagramm explizit dargestellt.
 
 \begin{figure}[ht]
   \centering
@@ -89,10 +89,10 @@ Die Kommunikation mit dem WebSocket Server läuft vollständig asynchron ab. Es 
 
 \section{WebSocket Server}
 Der WebSocket Server ist vollständig in JavaScript/Node.js implementiert und modular aufgebaut. Alle notwendigen Dateien finden sich im Verzeichnes \textit{node/}.\\
-Eine Besonderheit von JavaScript/Node.js ist es, dass sich Module grundsätzlich ähnlich wie ein Singleton Pattern verhalten. Dabei wird bei einem erneuten Aufruf von \textit{require()} keine neue Instanz erzeugt sondern Referenzen auf die erste übergeben.\\
+Eine Besonderheit von JavaScript/Node.js ist es, dass sich Module grundsätzlich ähnlich wie ein Singleton Pattern verhalten. Dabei wird bei einem erneuten Aufruf von \textit{require()} keine neue Instanz erzeugt, sondern Referenzen auf die Erste übergeben.\\
 So müssen bei asynchronen Funktionsaufrufen nicht alle benötigten Variablen übergeben werden und es wird sichergestellt, dass alle Funktionen auf denselben WebSocket zugreifen. Dies ist vor allem wichtig, da Intervalfunktionen, die via \textit{setInterval()} aufgerufen werden, keinen direkten Zugriff erlauben. Zudem sollen laufende Timer bei einem erneuten Besuch der Seite (oder eine reload) ihre Daten direkt wieder an den Browser senden.\\
 
-Abbildung \ref{fig:wssDependencies} zeigt die Abhängigkeit zwischen den eizelnen Modulen. Im Kasten unter dem Modulnamen sind Abhängigkeiten dargestellt, die nicht Teil meiner Implementierung sind.
+Abbildung \ref{fig:wssDependencies} zeigt die Abhängigkeit zwischen den eizelnen Modulen. Im Kasten unter dem Modulnamen sind Abhängigkeiten dargestellt, die nicht Teil dieser Implementierung sind.
 
 \begin{figure}[ht]
   \centering
@@ -121,7 +121,7 @@ Dieses Modul generiert bei Bedarf eine Liste der verfügbaren Pins und deren Typ
 \noindent Zwei Dateien werden zur Generierung des interface-Objektes ausgelesen:
 
 \begin{itemize}
-  \item \textit{whitelist.json} enthält eine Liste der Pins mit Informationen über die Verwendbarkeit. Die Liste ist muss zur restlichen Software passen und wird vom Programm nicht verändert.
+  \item \textit{whitelist.json} enthält eine Liste der Pins mit Informationen über die Verwendbarkeit. Die Liste muss zur restlichen Software passen und wird vom Programm nicht verändert.
   \item \textit{interface.json} ist eine String-Version der letzten Interface-Konfiguration. Falls sie existiert, wird ein kombiniertes Objekt generiert um sicherzustellen, dass Informationen über das Interface nicht verloren gehen und eventuell zusätzliche Pins dennoch verfügbar sind.
 \end{itemize}
 
@@ -134,9 +134,9 @@ Wenn die WebSocket-Verbindung geschlossen wird, wird das im Speicher befindliche
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiSettingsControl.eps}
 \end{wrapfigure}
 
-Das Modul \textit{settingsControl.js} liest die Einstellungsdateien ein und stellt diese programmweit zur Verfügung. Das Modul nutzt dafür die Datei \textit{settings-default.json}, in der alle Basiseinstellungen enthalten sind. Diese Einstellungen werden dann von denen in der Datei \textit{settings.json} überschrieben, sofern das Dokument vorhanden ist. Bei den beiden Dateien handelt es sich um \gls{json}-Files nach rfc6455 \cite{rfc6455}.
+Das Modul \textit{settingsControl.js} liest die Einstellungsdateien ein und stellt diese programmweit zur Verfügung. Das Modul nutzt dafür die Datei \textit{settings-default.json}, in der alle Basiseinstellungen enthalten sind. Diese Einstellungen werden dann von denen in der Datei \textit{settings.json} überschrieben, sofern das Dokument vorhanden ist. Bei den beiden Dateien handelt es sich um \gls{json}-Dateien nach rfc6455 \cite{rfc6455}.
 
-Es werden nur Parameter überschrieben, die sowohl in den Default-Einstellungen als auch in den eigenen vorhanden sind. So ist sicherggestellt, dass keine Pareter versehentlich ins System gelangen, die nicht vorgesehen sind. Desweiteren ist es möglich, nur die Einstellungen einzutragen, die geändert werden sollen.
+Es werden nur Parameter überschrieben, die sowohl in den Default-Einstellungen als auch in den eigenen vorhanden sind. So ist sicherggestellt, dass keine Parameter versehentlich ins System gelangen, die nicht dafür vorgesehen sind. Desweiteren ist es möglich, nur die Einstellungen einzutragen, die geändert werden sollen.
 
 \subsubsection{websocket.js}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -145,7 +145,7 @@ Es werden nur Parameter überschrieben, die sowohl in den Default-Einstellungen 
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiWebsocket.eps}
 \end{wrapfigure}
 
-Dieses Modul verwaltet die eigentliche WebSocket-Verbindung. Essenziell ist die Funktion \textit{write()}. Hierüber können die restlichen Module direk auf den Socket schreiben. Dabei wird intern geprüft ob der Socket noch offen ist. Wenn eine neue Verbindung hergestellt wurde, wird diese sofort wieder beschrieben.
+Dieses Modul verwaltet die eigentliche WebSocket-Verbindung. Essenziell ist die Funktion \textit{write()}. Hierüber können die restlichen Module direkt auf den Socket schreiben. Dabei wird intern geprüft ob der Socket noch offen ist. Wenn eine neue Verbindung hergestellt wurde, wird diese sofort wieder beschrieben.
 
 
 \subsection{Controller-Module}
@@ -158,7 +158,7 @@ Ein weiterer Teil des WebSocket Servers besteht aus einer Reihe von Controller-M
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiBoneControl.eps}
 \end{wrapfigure}
 
-Dieses Modul stellt den Kern der Hardware-Ansteuerung dar. Eingehende WebSocket Requests werden hier über \textit{type} identifiziert und abgearbeitet. Hierbei wird über eine Switch-Case-Anweisung entschieden was zu tun ist, Requests mit unbekanntem Typ werden mit einer Fehlermeldung im \textit{response}-Objekt an das Interface zurückgesendet (Abb. \ref{fig:wssResponseHandler}).
+Dieses Modul stellt den Kern der Hardware-Ansteuerung dar. Eingehende WebSocket Requests werden hier über \textit{type} identifiziert und abgearbeitet. Hierbei wird über eine Switch-Case-Anweisung entschieden was zu tun ist. Requests mit unbekanntem Typ werden mit einer Fehlermeldung im \textit{response}-Objekt an das Interface zurückgesendet (Abb. \ref{fig:wssResponseHandler}).
 
 \begin{figure}[ht]
   \centering
@@ -176,9 +176,9 @@ Die API der \textit{bonescript} Library ist in dieser Liste weitgehend abgebilde
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiTimer.eps}
 \end{wrapfigure}
 
-Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft ob es sich im einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callback Funktion aufruft. Das zeitliche Interval wird dem Settings Modul entnommen. Die Funktionen senden dann die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen Timer-Objekt registriert.
+Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft ob es sich um einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callback-Funktion aufruft. Das zeitliche Interval wird dem Settings-Modul entnommen. Die Funktionen senden dann die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen Timer-Objekt registriert.
 
-\paragraph{Digital Input} Um unnötiges Datenvolumen zu vermeiden prüft diese Funktion zunächst ob sich der Pin-Status gegenüber der letzten Abfrage geändert hat. Nur wenn das wenn sich der Wert unterscheidet, wird er an das Interface gesendet (Abb. \ref{fig:wssTimerDigital}).
+\paragraph{Digital Input} Um unnötiges Datenvolumen zu vermeiden prüft diese Funktion zunächst ob sich der Pin-Status gegenüber der letzten Abfrage geändert hat. Nur wenn sich der Wert unterscheidet, wird er an das Interface gesendet (Abb. \ref{fig:wssTimerDigital}).
 
 \begin{figure}[H]
   \centering
@@ -197,7 +197,7 @@ Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine
 \end{figure}
 
 \subsection{Bypass-Module}
-Die bonescript Library weist in einigen Fällen Fehler oder fehlende Feature auf. Intern arbeitet die Bibliothek mit \gls{devicetree} Overlays allerdings ist es nicht möglich diese wieder zu entladen. Dies ist vor allem wichtig, wenn \gls{pwm}-Ausgänge bockiert wurden um einen zweiten synchronen Ausgang zu erhalten. Um diese Funktionalität zu implementieren habe ich zwei Bypass-Module geschrieben, die das digital I/O- und das PWM-Management übernehmen.
+Die Bonescript-Bibliothek weist in einigen Fällen Fehler oder fehlende Features auf. Intern arbeitet die Bibliothek mit \gls{devicetree} Overlays, wobei es nicht möglich ist diese wieder zu entladen. Dies ist vor allem wichtig, wenn \gls{pwm}-Ausgänge bockiert wurden um einen zweiten synchronen Ausgang zu erhalten. Um diese Funktionalität zu implementieren wurden zwei Bypass-Module geschrieben, die das digital I/O- und das PWM-Management übernehmen.
 
 \subsubsection{gpioControl.js}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -206,9 +206,9 @@ Die bonescript Library weist in einigen Fällen Fehler oder fehlende Feature auf
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiGPIOControl.eps}
 \end{wrapfigure}
 
-Dieses Modul steuert die digitalen I/O direkt über das Dateisystem. Dazu werden die in der bonescript Library hinterlegten Pin IDs genutzt.\\
+Dieses Modul steuert die digitalen I/O direkt über das Dateisystem. Dazu werden die in der Bonescript-Bibliothek hinterlegten Pin IDs genutzt.\\
 
-Das Modul stellt Funktionen zum aktivieren und deaktivieren der \gls{gpio} zur verfügung, sowie zum Lesen und schreiben der Parameter. Parameter werden in Form eines \gls{json}-Objektes übergeben und sind jeweils optional.
+Das Modul stellt Funktionen zum aktivieren und deaktivieren der \gls{gpio} zur Verfügung, sowie zum Lesen und schreiben der Parameter. Parameter werden in Form eines \gls{json}-Objektes übergeben und sind jeweils optional.
 
 \subsubsection{pwmControl.js}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -217,9 +217,9 @@ Das Modul stellt Funktionen zum aktivieren und deaktivieren der \gls{gpio} zur v
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiPWMControl.eps}
 \end{wrapfigure}
 
-Die API dieses Moduls verhält sich analog zu dem der \gls{gpio}. Intern werden Die Device Tree Overlays der bonescript Library verwendet. Diese werde per Filesystem über den \gls{capemgr} geladen.
+Die API dieses Moduls verhält sich analog zu dem der \gls{gpio}. Intern werden die Device Tree Overlays der Bonescript-Bibliothek verwendet. Diese werde per Filesystem über den \gls{capemgr} geladen.
 
-\section{Website} Bei der Implementierung steht die Funktionalität im Fokus. Daher habe ich so viel wie möglich mit bereits existierenden Bibliotheken gearbeitet, um Design und Darstellung umzusetzen. Diese Bibliotheken basieren intern auf \gls{html}, \gls{css} und \gls{js}.\\
+\section{Website} Bei der Implementierung steht die Funktionalität im Fokus. Daher wurde so viel wie möglich mit bereits existierenden Bibliotheken gearbeitet, um Design und Darstellung umzusetzen. Diese Bibliotheken basieren intern auf \gls{html}, \gls{css} und \gls{js}.\\
 Die Website selbst besteht daher nur aus einem einzigen \gls{html}-Dokument, in dem die Basisstruktur der Seite definiert wird. In der index.html werden auch alle globalen Objekte wie die WebSocket-Verbindung und die Pin-Liste angelegt.\\
 
 Bei einem Seitenaufruf werden zunächst die benötigten Bibliotheken beim Webserver angefordert und geladen. Das Event \textit{document.ready} stößt dann den Verbindungsaufbau zum WebSocket Server an. Ist die Verbindung hergestellt, wird das Event \textit{websocket.onopen} ausgelöst und die aktuelle Pin-Konfiguration vom Server angefordert.
@@ -228,7 +228,7 @@ Die weiteren Inhalte werden dynamisch via JavaScript und \gls{html}-Templates ge
 
 
 \subsection{Skriptdokumente}
-Die Funktionen für die Webseite sind analog zu den Modulen des WebSocket Servers aufgeteilt. Die Skriptdokumente der Webseite sind jeweils via \gls{json} mit einem Pseudo-Namespace versehen. Funktionen und Objekte sind dabei in einer \gls{json}-Struktur angelegt und können darüber abgerufen werden. Auch Sub Namespaces sind möglich um beispielsweise Hilfsfunktionen zu beherbergen (Abb. \ref{lst:pseudeNamespaceJS}).
+Die Funktionen für die Webseite sind analog zu den Modulen des WebSocket Servers aufgeteilt. Die Skriptdokumente der Webseite sind jeweils via \gls{json} mit einem Pseudo-Namespace versehen. Funktionen und Objekte sind dabei in einer \gls{json}-Struktur angelegt und können darüber abgerufen werden. Auch Sub-Namespaces sind möglich, um beispielsweise Hilfsfunktionen zu beherbergen (Abb. \ref{lst:pseudeNamespaceJS}).
 
 \begin{figure}[ht]
   \begin{lstlisting}
@@ -239,40 +239,40 @@ Die Funktionen für die Webseite sind analog zu den Modulen des WebSocket Server
   \label{lst:pseudeNamespaceJS}
 \end{figure}
 
-Da es innerhalb des Browsers keine modulare Struktur wie im WebSocket Server gibt und um daher keinen falschen Eindruck zu erwecken, sind im folgenden sind alle Skriptdokumente alphabetisch zusammengestellt.
+Da es innerhalb des Browsers keine modulare Struktur wie im WebSocket Server gibt und um daher keinen falschen Eindruck zu erwecken, sind im Folgenden alle Skriptdokumente alphabetisch zusammengestellt.
 
 \begin{longtabu} to \textwidth {
   X[1]
   X[3]}
   \textbf{bonescriptCtrl.js} & Hier werden alle Funktionen zum Absetzen von Steuerbefehlen an den WebSocket Server definiert. Sowohl Befehle für die Hardware-Steuerung als auch für das Interface sind hinterlegt.\newline\\
   
-  \textbf{diagramCtrl.js} & Enthält Funktionen um die Diagramme zu verwalten. Zum einen werden hierüber die Diagramme initialisiert und zum anderen Funktionen zum hizufügen neuer Wertepaare und zurücksetzten des Diagramms. Die Zeichengeschwindigkeit ist fest auf 25Hz gesetzt um die Systemlast möglicht gering zu halten.\newline\\
+  \textbf{diagramCtrl.js} & Enthält Funktionen, um die Diagramme zu verwalten. Zum einen werden hierüber die Diagramme initialisiert und zum anderen Funktionen zum Hizufügen neuer Wertepaare und Zurücksetzten des Diagramms. Die Zeichengeschwindigkeit ist fest auf 25Hz gesetzt, um die Systemlast möglichst gering zu halten.\newline\\
 
-  \textbf{init.js} & Dieses Dokument liefert eine Funktion, \textit{init()}, in der der eigentliche Inhalt der Seite generiert wird. Sobald die Pin-Liste übermittelt wurde, arbeitet eine For-Each-Schleife jeden einzelnen Pin ab. Dabei werden via synchronem Ajax Request die Templates vom Webserver angefordert. Da die Dokumente zunächst im Cache des Browsers verbleiben, entsteht durch den häufigen Aufruf kein erhöhter Netzwerk-Traffic. Im Anschluss werden die Listener-Funktionen an Buttons, etc. angehängt.\newline\\
+  \textbf{init.js} & Dieses Dokument liefert eine Funktion, \textit{init()}, in der der eigentliche Inhalt der Seite generiert wird. Sobald die Pin-Liste übermittelt wurde, arbeitet eine For-Each-Schleife jeden einzelnen Pin ab. Dabei werden via synchronem Ajax Request die Templates vom Webserver angefordert. Da die Dokumente zunächst im Cache des Browsers verbleiben, entsteht durch den häufigen Aufruf kein erhöhter Netzwerkverkehr. Im Anschluss werden die Listener-Funktionen an Buttons, etc. angehängt.\newline\\
 
-  \textbf{responseHandler.js} & Der Response Handler ist eine Sammlung von Funktionen um auf eingehende Messages zu reagieren. Zu jedem im WebSocket Server definierten \textit{type} gibt es hier eine entsprechende Funktion. Funktionsnamen sind identisch, damit die Fuktionen direkt aufgerufen werden können.\newline\\
+  \textbf{responseHandler.js} & Der Response Handler ist eine Sammlung von Funktionen, um auf eingehende Messages zu reagieren. Zu jedem im WebSocket Server definierten \textit{type} gibt es hier eine entsprechende Funktion. Funktionsnamen sind identisch, damit die Fuktionen direkt aufgerufen werden können.\newline\\
 
-  \textbf{util.js} & Dieses Dokument enthält einige Utility-Funktionen zur einfacheren Bedienung von Bootstrap.\newline\\
+  \textbf{util.js} & Dieses Dokument enthält einige Utility-Funktionen, zur einfacheren Bedienung von Bootstrap.\newline\\
 
-  \textbf{websocketCtrl.js} & Hier leigen die Listener-Funktionen für die WebSocket-Verbindung. Bei einem erfolgreichen Verbindungsaufbau wird der Buttom im Hautfenster verändert und der Init-Prozess angestoßen. Eingehende Messages werden in \gls{json}-Objekte übersetxzt und die entsprechende Funktion aus dem Response Handler aufgerufen.\newline\\
+  \textbf{websocketCtrl.js} & Hier leigen die Listener-Funktionen für die WebSocket-Verbindung. Bei einem erfolgreichen Verbindungsaufbau wird der Buttom im Hautfenster verändert und der Init-Prozess angestoßen. Eingehende Messages werden in \gls{json}-Objekte übersetzt und die entsprechende Funktion aus dem Response Handler aufgerufen.\newline\\
 \end{longtabu}
 
 
 \subsection{Bibliotheken}
 
 \subsubsection{jQuery}
-jQuery ist ein \gls{de-facto-Standard} zur \gls{dom}-Verwaltung. Diese Bibliothek ermöglicht objektähnliche Verwendung von \gls{html}-Elementen und stellt viele Rendering- und Animationsfunktionen zur Verfügung.\\
+jQuery ist ein \gls{de-facto-Standard} zur \gls{dom}-Verwaltung. Diese Bibliothek ermöglicht objektähnliche Verwendung von \gls{html}-Elementen und stellt viele Render- und Animationsfunktionen zur Verfügung.\\
 
 jQuery ist Vorraussetzung für alle weiteren Bibliotheken.
 
 
 \subsubsection{Bootstrap \& jQuery-UI}
-Bootstrap ist für die grafische Darstellung verantwortlich und wird dabei durch einzelne Funktionen aus jQuery-UI ergänzt. Hierbei ermöglicht das Framework das Kachelsystem, das zur Anordnung der Bedienelemente verwendet wird. Dieses System ermöglicht eine dynamische Darstellung, sodass deaktivierte Bedienelemente nicht einfach nur leere Felder hinterlassen. Die aktiven Felder werden vielmehr übersichtlich zusammen gerückt. Weiter generiert Bootstrap mit Hilfe von Themes alle Elemente wie Kopfleiste, Buttons oder Eingabemasken.\\
+Bootstrap ist für die grafische Darstellung verantwortlich und wird dabei durch einzelne Funktionen aus jQuery-UI ergänzt. Hierbei ermöglicht dieses Framework ein Kachelsystem, dass zur Anordnung der Bedienelemente verwendet wird. Dieses System ermöglicht eine dynamische Darstellung, sodass deaktivierte Bedienelemente nicht einfach nur leere Felder hinterlassen. Die aktiven Felder werden vielmehr übersichtlich zusammen gerückt. Weiter generiert Bootstrap mit Hilfe von Themes alle Elemente wie Kopfleiste, Buttons oder Eingabemasken.\\
 
 
 \subsubsection{Flot Diagrams}
-Diese Bibliothek dient zum Zeichnen der Diagramme. Im Dokument wir hierfür nur ein Platzhalter eingetragen. Alles weitere wird von der Bibliothek geregelt. Um neue Punkte zu generieren, wird zunächst das Array, welches alle darzustellenden Tupel enthält, aktualitisiert und per Funktionsaufruf neu gerendert.
+Diese Bibliothek dient zum Zeichnen der Diagramme. Im Dokument wird hierfür nur ein Platzhalter eingetragen. Alles weitere ist Aufgabe der Bibliothek. Um neue Punkte zu generieren, wird zunächst das Array, welches alle darzustellenden Wertepaare enthält, aktualitisiert und per Funktionsaufruf neu gerendert.
 
 
 \subsubsection{Mustache.js}
-Mustache.js ist eine JavaScript Implementierung des \href{http://mustache.github.io/}{Mustache Template System}. Mit diesem Tool lassen sich ohne großen Aufwand HTML-Templates schreiben, bei denen Variablen in doppelten geschweiften Klammern -- \{\{variable\}\} -- eingesetzt werden. Diese werden in der Laufzeit mittels \textit{Mustache.render()} zu einem gültigen HTML-String verarbeitet. Da sich die einzelnen Kacheln nur in der Pin-Bezeichnung unterscheiden, habe ich für jeden der drei Kacheltypen jeweils ein Template entworfen.
+Mustache.js ist eine JavaScript Implementierung des \href{http://mustache.github.io/}{Mustache-Template-Systems}. Mit diesem Werkzeug lassen sich ohne großen Aufwand HTML-Templates schreiben, bei denen Variablen in doppelten geschweiften Klammern -- \{\{variable\}\} -- eingesetzt werden. Diese werden in der Laufzeit mittels \textit{Mustache.render()} zu einem gültigen HTML-String verarbeitet. Da sich die einzelnen Kacheln nur in der Pin-Bezeichnung unterscheiden, wurde für jeden der drei Kacheltypen jeweils ein Template entworfen.
