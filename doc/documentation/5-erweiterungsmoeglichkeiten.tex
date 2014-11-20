@@ -2,7 +2,7 @@
 Im Folgenden Kapitel werden weitere Möglichkeiten erläutert, durch die der Boneserver noch besser an bestehende Laborumgebungen angepasst werden kann, oder die weiteres Potential des Konzeptes nutzbar machen.
 
 \section{Zusätzliche Anpassungsoptionen}
-Das Interface könnte durch zusätzliche Anpassungsoptionen erweitert werden. Eine Möglichkeit besteht darin, die eizelnen Kacheln mit individuellen Bezeichnungen zu versehen.
+Das Interface könnte durch zusätzliche Anpassungsoptionen erweitert werden. Eine Möglichkeit besteht darin, die einzelnen Kacheln mit individuellen Bezeichnungen zu versehen.
 
 Der \textit{Interface Controller} kann hierzu dahingehend erweitert werden. Da im WebSocket Server die Pink-Konfiguration ohnehin in einer \gls{json}-Struktur gespeichet wird, können eventuelle Namen einfach hier gespeichert werden. Die Daten werden im Initialisierungsprozess der Seite automatisch an den Browser übertragen.
 
@@ -22,7 +22,7 @@ Im \textit{Init Script} kann die Weiterverarbeitung ähnlich dem Status der Kach
 
 
 \section{Höher aufgelöste A/D-Wandlung}
-Der maximale Takt der digitalen Inputs und der \gls{adc} ist durch die kleinste Zeiteinheit in JavaScript (1ms) vorgegeben. Denkbar wäre eine höher aufgelöste Taktung in einer separaten Software zu implementieren. In C/C++ könnte eine wesendlich höhere Abtastrate erreicht werden. Diese Samples können dann zu mehreren als Antwort übertragen.\\
+Der maximale Takt der digitalen Inputs und der \gls{adc} ist durch die kleinste Zeiteinheit in JavaScript (1ms) vorgegeben. Denkbar wäre eine höher aufgelöste Taktung in einer separaten Software zu implementieren. In C/C++ könnte eine wesentlich höhere Abtastrate erreicht werden. Diese Samples können dann zu mehreren als Antwort übertragen.\\
 
 Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur einzelne Wertepaare zu verarbeiten (Abb. \ref{lst:insertTupel}), sondern oben beschriebene Frames. Je nach Abtastrate sollte auch über eine entsprechenden Downsampling für die Anzeige nachgedacht werden.
 
@@ -63,5 +63,5 @@ Um auf einer anderen Hardware arbeiten zu können, ist eine passende Bibliothek,
 Die erweiterten Konfigurationsmöglichkeiten, die bisher aus Sicherheitsgründen nur über eine Konfigurationsdatei möglich waren, können in das Interface integriert werden. Das Authentifizierungssystem bietet hierfür die Möglichkeit verschiedene Benutzer- und Administrator-Accounts einzurichten (vgl. Abb. \ref{lst:lighttpdhtdigest}). Dazu muss eine Administrationsseite geschrieben und in einem passenden Verzeichnis abgelegt werden. Die Zugriffsbeschränkungen können dann, wie oben beschrieben, separat für dieses Verzeichnis konfiguriert werden. Externe Laufwerke und USB-Sticks sollten dafür automatisch mit passenden Rechten eingebunden werden und in einem Menü auswählbar sein.
 
 
-\section{Differenzierte Zugriffsrechteverwaltung}
-...
+\section{Weitere GPIO}
+Neben den bereits verfügbaren GPIO sind noch einige weitere vorhanden, die standardmäßig für den HDMI-Ausgang verwendet werden. Da das System primär per Fernzugriff verwaltet werden soll kann der Anschluss deaktiviert werden. Diese GPIO können dann über die \textit{whitelist.json} freigegeben werden.

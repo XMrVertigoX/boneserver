@@ -112,7 +112,7 @@ Bei einem erfolgreichen Verbindungsaufbau wird der WebSocket im \textit{websocke
 
 \subsubsection{settingsControl.js}
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiSettingsControl.eps}
 \end{wrapfigure}
@@ -123,7 +123,7 @@ Es werden nur Parameter überschrieben, die sowohl in den Default-Einstellungen 
 
 \subsubsection{interfaceControl.js}
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiInterfaceControl.eps}
 \end{wrapfigure}
@@ -141,7 +141,7 @@ Wenn die WebSocket-Verbindung geschlossen wird, wird das im Speicher befindliche
 
 \subsubsection{websocket.js}
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiWebsocket.eps}
 \end{wrapfigure}
@@ -154,12 +154,12 @@ Ein weiterer Teil des WebSocket Servers besteht aus einer Reihe von Controller-M
 
 \subsubsection{boneControl.js}
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiBoneControl.eps}
 \end{wrapfigure}
 
-Dieses Modul stellt den Kern der Hardware-Ansteuerung dar. Eingehende WebSocket Requests werden hier über \textit{type} identifiziert und abgearbeitet. Hierbei wird über eine Switch-Case-Anweisung entschieden was zu tun ist. Requests mit unbekanntem Typ werden mit einer Fehlermeldung im \textit{response}-Objekt an das Interface zurückgesendet (Abb. \ref{fig:wssResponseHandler}).
+Dieses Modul stellt den Kern der Hardware-Ansteuerung dar. Eingehende WebSocket Requests werden hier über \textit{type} identifiziert und abgearbeitet. Hierbei wird über eine Switch-Case-Anweisung entschieden was zu tun ist. Requests mit unbekanntem Typ werden mit einer Fehlermeldung im \textit{response}-Objekt an das Interface zurückgesendet (Abb. \ref{fig:wssResponseHandler}). Die API der \textit{bonescript} Library ist in dieser Liste weitgehend abgebildet. Daneben werden hier auch sämtliche Parameter für das Interface zusammengestellt und an den Browser gesendet.
 
 \begin{figure}[ht]
   \centering
@@ -168,17 +168,16 @@ Dieses Modul stellt den Kern der Hardware-Ansteuerung dar. Eingehende WebSocket 
   \label{fig:wssResponseHandler}
 \end{figure}
 
-Die API der \textit{bonescript} Library ist in dieser Liste weitgehend abgebildet. Daneben werden hier auch sämtliche Parameter für das Interface zusammengestellt und an den Browser gesendet.
 
 \subsubsection{timer.js}
-Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft ob es sich um einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callback-Funktion aufruft. Das zeitliche Interval wird dem Settings-Modul entnommen. Die Funktionen senden dann die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen Timer-Objekt registriert.
 
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiTimer.eps}
 \end{wrapfigure}
 
+Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft ob es sich um einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callback-Funktion aufruft. Das zeitliche Interval wird dem Settings-Modul entnommen. Die Funktionen senden dann die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen Timer-Objekt registriert.
 
 \paragraph{Digital Input} Um unnötiges Datenvolumen zu vermeiden prüft diese Funktion zunächst ob sich der Pin-Status gegenüber der letzten Abfrage geändert hat. Nur wenn sich der Wert unterscheidet, wird er an das Interface gesendet (Abb. \ref{fig:wssTimerDigital}).
 
@@ -203,7 +202,7 @@ Die Bonescript-Bibliothek weist in einigen Fällen Fehler oder fehlende Features
 
 \subsubsection{gpioControl.js}
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiGPIOControl.eps}
 \end{wrapfigure}
@@ -214,7 +213,7 @@ Das Modul stellt Funktionen zum aktivieren und deaktivieren der \gls{gpio} zur V
 
 \subsubsection{pwmControl.js}
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
-  \vspace{-18pt}
+  \vspace{-14pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiPWMControl.eps}
 \end{wrapfigure}

@@ -37,18 +37,6 @@ var set = function(pin, parameter, value) {
  * read the interface config files. copies config data from whitelist or from
  * interface.json if existing
  */
-// var readFromFile = function() {
-//     if (fs.existsSync('./interface.json')) {
-//         config = JSON.parse(fs.readFileSync('interface.json'));
-//     }
-
-//     for (pin in whitelist) {
-//         if (!config.hasOwnProperty(pin)) {
-//             config[pin] = whitelist[pin];
-//         }
-//     }
-// }
-
 var readFromFile = function() {
     for (pin in whitelist) {
         if (whitelist[pin].available) {
