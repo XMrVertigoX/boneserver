@@ -90,9 +90,7 @@ Die Kommunikation mit dem WebSocket Server läuft vollständig asynchron ab. Es 
 \section{WebSocket Server}
 Der WebSocket Server ist vollständig in JavaScript/Node.js implementiert und modular aufgebaut. Alle notwendigen Dateien finden sich im Verzeichnes \textit{node/}.\\
 Eine Besonderheit von JavaScript/Node.js ist es, dass sich Module grundsätzlich ähnlich wie ein Singleton Pattern verhalten. Dabei wird bei einem erneuten Aufruf von \textit{require()} keine neue Instanz erzeugt, sondern Referenzen auf die Erste übergeben.\\
-So müssen bei asynchronen Funktionsaufrufen nicht alle benötigten Variablen übergeben werden und es wird sichergestellt, dass alle Funktionen auf denselben WebSocket zugreifen. Dies ist vor allem wichtig, da Intervalfunktionen, die via \textit{setInterval()} aufgerufen werden, keinen direkten Zugriff erlauben. Zudem sollen laufende Timer bei einem erneuten Besuch der Seite (oder eine reload) ihre Daten direkt wieder an den Browser senden.\\
-
-Abbildung \ref{fig:wssDependencies} zeigt die Abhängigkeit zwischen den eizelnen Modulen. Im Kasten unter dem Modulnamen sind Abhängigkeiten dargestellt, die nicht Teil dieser Implementierung sind.
+So müssen bei asynchronen Funktionsaufrufen nicht alle benötigten Variablen übergeben werden und es wird sichergestellt, dass alle Funktionen auf denselben WebSocket zugreifen. Dies ist vor allem wichtig, da Intervalfunktionen, die via \textit{setInterval()} aufgerufen werden, keinen direkten Zugriff erlauben. Zudem sollen laufende Timer bei einem erneuten Besuch der Seite (oder eine reload) ihre Daten direkt wieder an den Browser senden.
 
 \begin{figure}[ht]
   \centering
@@ -100,6 +98,9 @@ Abbildung \ref{fig:wssDependencies} zeigt die Abhängigkeit zwischen den eizelne
   \caption{Abhängigkeiten der Module des WebSocket Server}
   \label{fig:wssDependencies}
 \end{figure}
+
+Abbildung \ref{fig:wssDependencies} zeigt die Abhängigkeit zwischen den eizelnen Modulen. Im Kasten unter dem Modulnamen sind Abhängigkeiten dargestellt, die nicht Teil dieser Implementierung sind.
+
 
 \subsubsection{index.js}
 Die index.js stellt das Hauptdokument dar. Von hier aus wird der Server gestartet. Über den Aufruf \textit{require()} werden die Module des Servers geladen und die Event Listener für die WebSocket-Verbindung registriert.
@@ -109,9 +110,20 @@ Bei einem erfolgreichen Verbindungsaufbau wird der WebSocket im \textit{websocke
 
 \subsection{Models}
 
+\subsubsection{settingsControl.js}
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
+  \centering
+  \includegraphics[width = 0.25\textwidth]{documentation/images/apiSettingsControl.eps}
+\end{wrapfigure}
+
+Das Modul \textit{settingsControl.js} liest die Einstellungsdateien ein und stellt diese programmweit zur Verfügung. Das Modul nutzt dafür die Datei \textit{settings-default.json}, in der alle Basiseinstellungen enthalten sind. Diese Einstellungen werden dann von denen in der Datei \textit{settings.json} überschrieben, sofern das Dokument vorhanden ist. Bei den beiden Dateien handelt es sich um \gls{json}-Dateien nach rfc6455 \cite{rfc6455}.
+
+Es werden nur Parameter überschrieben, die sowohl in den Default-Einstellungen als auch in den eigenen vorhanden sind. So ist sicherggestellt, dass keine Parameter versehentlich ins System gelangen, die nicht dafür vorgesehen sind. Desweiteren ist es möglich, nur die Einstellungen einzutragen, die geändert werden sollen.
+
 \subsubsection{interfaceControl.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiInterfaceControl.eps}
 \end{wrapfigure}
@@ -127,20 +139,9 @@ Dieses Modul generiert bei Bedarf eine Liste der verfügbaren Pins und deren Typ
 
 Wenn die WebSocket-Verbindung geschlossen wird, wird das im Speicher befindliche Interface-Objekt in die Datei interface.json geschrieben und kann beim nächsten Aufruf der Seite erneut geladen werden.
 
-\subsubsection{settingsControl.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
-  \centering
-  \includegraphics[width = 0.25\textwidth]{documentation/images/apiSettingsControl.eps}
-\end{wrapfigure}
-
-Das Modul \textit{settingsControl.js} liest die Einstellungsdateien ein und stellt diese programmweit zur Verfügung. Das Modul nutzt dafür die Datei \textit{settings-default.json}, in der alle Basiseinstellungen enthalten sind. Diese Einstellungen werden dann von denen in der Datei \textit{settings.json} überschrieben, sofern das Dokument vorhanden ist. Bei den beiden Dateien handelt es sich um \gls{json}-Dateien nach rfc6455 \cite{rfc6455}.
-
-Es werden nur Parameter überschrieben, die sowohl in den Default-Einstellungen als auch in den eigenen vorhanden sind. So ist sicherggestellt, dass keine Parameter versehentlich ins System gelangen, die nicht dafür vorgesehen sind. Desweiteren ist es möglich, nur die Einstellungen einzutragen, die geändert werden sollen.
-
 \subsubsection{websocket.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiWebsocket.eps}
 \end{wrapfigure}
@@ -152,8 +153,8 @@ Dieses Modul verwaltet die eigentliche WebSocket-Verbindung. Essenziell ist die 
 Ein weiterer Teil des WebSocket Servers besteht aus einer Reihe von Controller-Modulen, die verschiedene Steuerungen übernehmen.
 
 \subsubsection{boneControl.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiBoneControl.eps}
 \end{wrapfigure}
@@ -170,17 +171,18 @@ Dieses Modul stellt den Kern der Hardware-Ansteuerung dar. Eingehende WebSocket 
 Die API der \textit{bonescript} Library ist in dieser Liste weitgehend abgebildet. Daneben werden hier auch sämtliche Parameter für das Interface zusammengestellt und an den Browser gesendet.
 
 \subsubsection{timer.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
+Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft ob es sich um einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callback-Funktion aufruft. Das zeitliche Interval wird dem Settings-Modul entnommen. Die Funktionen senden dann die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen Timer-Objekt registriert.
+
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiTimer.eps}
 \end{wrapfigure}
 
-Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft ob es sich um einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callback-Funktion aufruft. Das zeitliche Interval wird dem Settings-Modul entnommen. Die Funktionen senden dann die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen Timer-Objekt registriert.
 
 \paragraph{Digital Input} Um unnötiges Datenvolumen zu vermeiden prüft diese Funktion zunächst ob sich der Pin-Status gegenüber der letzten Abfrage geändert hat. Nur wenn sich der Wert unterscheidet, wird er an das Interface gesendet (Abb. \ref{fig:wssTimerDigital}).
 
-\begin{figure}[H]
+\begin{figure}[ht]
   \centering
   \includegraphics[width = 0.5\textwidth]{documentation/images/wssTimerDigital.eps}
   \caption{Anonyme \textit{digitalRead}-Funktion}
@@ -189,7 +191,7 @@ Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine
 
 \paragraph{Analog Input} Die Funktion für den analogen Input produziert einen kontinuierlichen Datenstrom um ein fließendes Diagramm auf der Webseite zu realisieren und speichert diese Daten parallel in einer standardkonformen CSV-Datei \cite{rfc4180} (Abb. \ref{fig:wssTimerAnalog}).
 
-\begin{figure}[H]
+\begin{figure}[ht]
   \centering
   \includegraphics[width = 0.5\textwidth]{documentation/images/wssTimerAnalog.eps}
   \caption{Anonyme \textit{analogRead}-Funktion}
@@ -200,8 +202,8 @@ Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine
 Die Bonescript-Bibliothek weist in einigen Fällen Fehler oder fehlende Features auf. Intern arbeitet die Bibliothek mit \gls{devicetree} Overlays, wobei es nicht möglich ist diese wieder zu entladen. Dies ist vor allem wichtig, wenn \gls{pwm}-Ausgänge bockiert wurden um einen zweiten synchronen Ausgang zu erhalten. Um diese Funktionalität zu implementieren wurden zwei Bypass-Module geschrieben, die das digital I/O- und das PWM-Management übernehmen.
 
 \subsubsection{gpioControl.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiGPIOControl.eps}
 \end{wrapfigure}
@@ -211,8 +213,8 @@ Dieses Modul steuert die digitalen I/O direkt über das Dateisystem. Dazu werden
 Das Modul stellt Funktionen zum aktivieren und deaktivieren der \gls{gpio} zur Verfügung, sowie zum Lesen und schreiben der Parameter. Parameter werden in Form eines \gls{json}-Objektes übergeben und sind jeweils optional.
 
 \subsubsection{pwmControl.js}
-\begin{wrapfigure}{r}{0.3\textwidth}
-  \vspace{-16pt}
+\begin{wrapfigure}[4]{r}{0.25\textwidth}
+  \vspace{-18pt}
   \centering
   \includegraphics[width = 0.25\textwidth]{documentation/images/apiPWMControl.eps}
 \end{wrapfigure}
