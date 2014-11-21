@@ -1,6 +1,6 @@
 \documentclass[a4paper, oneside, 12pt, bibliography = totocnumbered]{scrbook}
 
-\usepackage[english, german]{babel}
+\usepackage[english, ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[xindy, nonumberlist, toc, numberedsection]{glossaries}
 \usepackage[onehalfspacing]{setspace}
@@ -40,6 +40,7 @@
   columns = fullflexible
 }
 
+\renewcommand*{\glspostdescription}{}
 \makeglossaries
 \input{appendix/glossary.tex}
 
