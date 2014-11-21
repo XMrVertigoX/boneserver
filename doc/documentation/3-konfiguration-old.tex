@@ -1,28 +1,29 @@
 \chapter{Konfiguration des Betriebssystems}
 
-Ein essentieller Punkt zu Beginn des Projektes ist die Auswahl des Betriebssystems, da im weiteren Verlauf alle Entwicklungen darauf aufbauen werden. Außerdem ist ein Teilziel des Projektes, schon existierende Software zu nutzen, um den Entwicklungsaufwand klein zu halten und den Fokus auf die eigentliche Fragestellung zu richten. Zunächst wurde das bereits auf dem BeagleBone vorinstallierte Betriebssystem - {\AA}ngström Linux - intensiv getestet.\\
+Ein essentieller Punkt zu Beginn des Projektes ist die Auswahl des Betriebssystems, da im weiteren Verlauf alle Entwicklungen darauf aufbauen werden. Außerdem ist ein Teilziel des Projektes, schon existierende Software zu nutzen, um den Entwicklungsaufwand klein zu halten und den Fokus auf die eigentliche Fragestellung zu richten. Also habe ich das bereits auf dem BeagleBone vorinstallierte Betriebssystem - {\AA}ngström Linux - intensiv getestet.\\
 
 \noindent Die grundlegenden Fragen waren:
 
 \begin{itemize}
   \item Gibt es genügend Speicherplatz für die zu entwickelnde Software?\\
-  Wie kann bei Bedarf weiterer Speicherplatz frei gemacht werden?
+  Wie schaffe ich bei Bedarf weiteren Speicherplatz für meine Anwendungen?
   \item Wird die zusätzlich gebrauchte Software (Webserver, FTP-Server, etc...) in einem Repository zur Verfügung gestellt?
   \item Sind ausreichend Rechenleistung und Arbeitsspeicher verfügbar, um zusätzliche Dienste zu betreiben?
-  \item Sind die benötigten Systemressourcen (Netzwerkports u.a.) verfügbar, bzw. können sie ohne großen Aufwand freigeben werden?
+  \item Sind die benötigten Systemressourcen (Netzwerkports u.a.) verfügbar, bzw. kann ich sie ohne großen Aufwand freigeben?
 \end{itemize}
 
-Die Tests ergaben, dass das Betriebssystem mit einer graphischen Oberfläche und mehreren Netzwerkdiensten ausgeliefert wird. Die graphische Oberfläche verbraucht Systemressourcen und Speicherplatz, ist aber überflüssig, da das System headless betrieben werden soll. Dazu laufen ein Apache Webserver, eine Cloud9 Entwicklungsumgebung und ein Websocket Server. Des weiteren verwendet {\AA}ngström Distribution parallel zwei verschiedene Daemon Manager, (\gls{systemd} und \gls{init}). Dies erschwert das Arbeiten mit {\AA}ngström Linux erheblich.
+Die Tests ergaben, dass das Betriebssystem mit einer graphischen Oberfläche und mehreren Netzwerkdiensten ausgeliefert wird. 
+Die graphische Oberfläche verbraucht Systemressourcen und Speicherplatz, ist aber überflüssig, da das System headless betrieben werden soll. Dazu laufen ein Apache Webserver, eine Cloud9 Entwicklungsumgebung und ein Websocket Server. Des weiteren verwendet {\AA}ngström Distribution parallel zwei verschiedene Daemon Manager (\gls{systemd} und \gls{sysvinit}). Diese erschweren das Arbeiten mit {\AA}ngström Linux erheblich.
 
-Die Software, die für dieses Projekt verwendet werden soll, liegt nicht in den offiziellen \glspl{repository} vor. Also müßte sie einzeln konfiguriert und kompiliert werden.
+Die Software, die ich für mein Projekt verwenden möchte, liegt nicht in den offiziellen Repositories vor. Also müßte ich sie selber konfigurieren und kompilieren.
 
-Aus diesen Erfahrungen folgt, dass {\AA}ngström Linux nicht das richtige Betriebssystem für das Projekt ist. Der Aufwand, es an die Bedürfnisse anzupassen, wäre größer als auf eine andere Distribution zurückzugreifen.\\
+Aus diesen Erfahrungen folgt, dass {\AA}ngström Linux nicht das richtige Betriebssystem für mein Projekt ist. Der Aufwand, es an meine Bedürfnisse anzupassen, wäre größer als auf eine andere Distribution zurückzugreifen.\\
 
-Die zweite vom Hersteller des BeagleBone angebotene Distribution ist Debian Linux. Auch diese wurde nach den oben genannten Kriterien geprüft. Die Konfiguration, die schon zum Ausschluss von {\AA}ngströn Linux führte, fanden sich im Prinzip auch hier. Auf \href{http://www.armhf.com/}{ARMhf.com} gibt es zwar eine weitere Debian-Installation bereits fertig als Linux Image. Diese hat nicht die oben erwähnten Eigenheiten, nutzt aber die neueste Kernel-Version, die mit der Bonescript Library nicht kompatibel ist. Ein Kernel-Downgrade wäre möglich, ist aber grundsätzlich und unter Debian im Besonderen sehr aufwändig. Daher eignet sich Debian Linux ebenfalls nicht für mein Projekt.\\
+Die zweite vom Hersteller des BeagleBone angebotene Distribution ist Debian Linux. Auch diese habe ich nach den oben genannten Kriterien geprüft. Die Konfiguration, die schon zum Ausschluss von {\AA}ngströn Linux führte, fanden sich im Prinzip auch hier. Auf \href{http://www.armhf.com/}{ARMhf.com} gibt es zwar eine weitere Debian-Installation bereits fertig als Linux Image. Diese hat nicht die oben erwähnten Eigenheiten, nutzt aber die neueste Kernel-Version, die mit der Bonescript Library nicht kompatibel ist. Ein Kernel-Downgrade wäre möglich, ist aber grundsätzlich und unter Debian im Besonderen sehr aufwändig. Daher eignet sich Debian Linux ebenfalls nicht für mein Projekt.\\
 
-Eine weitere Distribution für BeagleBone ist Arch Linux. Die Besonderheit dieser Distribution ist, dass die Basisinstallation sehr Ressourcenschonend ist. Sie enthält keinerlei Software, die nicht für den grundsätzlichen Betrieb erforderlich ist. Gleichzeitig stellt sie Werkzeuge zur Verfügung, um die benötigte Software bequem aus umfangreichen \glspl{repository} zu installieren. Abweichend von der regulären Kernel-Entwicklung wird die hier benötigte Kernel-Version (3.8) und entsprechende Header Files über die Pakete \textit{linux-am33x-legacy} und \textit{linux-headers-am33x-legacy} bereitgestellt.\\
+Eine weitere Distribution für BeagleBone ist Arch Linux. Die Besonderheit dieser Distribution ist, dass die Basisinstallation sehr Ressourcen schonend ist. Sie enthält keinerlei Software, die nicht für den grundsätzlichen Betrieb erforderlich ist. Gleichzeitig stellt sie Werkzeuge zur Verfügung, um die benötigte Software bequem aus umfangreichen Repositories zu installieren. Abweichend von der regulären Kernel-Entwicklung wird die hier benötigte Kernel-Version (3.8) und entsprechende Header Files über die Pakete \textit{linux-am33x-legacy} und \textit{linux-headers-am33x-legacy} bereitgestellt.\\
 
-Somit ist meines Erachtens Arch Linux das richtige Betriebssystem für dieses Projekt.
+Somit ist meines Erachtens Arch Linux das richtige Betriebssystem für dieses Projekt. Darüber hinaus kenne ich es seit langem, da ich es beruflich wie privat auf Desktop Computern verwende. Ich muss mich also nicht in eine neue Distribution einarbeiten.
 
 
 \section{Software}
@@ -127,4 +128,4 @@ Zusätzlich zu den bereits enthaltenen Modulen werden noch drei Module benötigt
 Die gesamte Software liegt bei Github\footnote{https://github.com/XMrVertigoX/boneserver} als git Repository vor und wird auch von hier aus installiert. So wird sichergestellt, dass aktuelle Änderungen und Bugfixes in jede Neuinstallation übernommen werden. Auch die Aktualisierung bestehender Installationen kann vorgenommen werden.\\
 Der Webserver, der FTP-Server und die \textit{boneserver}-Software selbst wird bei Systemstart über einen \textit{systemd}-Service gestartet. Diese Services werden bei der Installation ebenfalls automatisch istalliert und gestartet.\\
 
-Die Installation wird über das Shell-Skript \textit{install.sh}, welches sich im root-Verzeichnis des Repositories befindet, gestartet. so wird sichergestellt, dass alle Komponenten des Systems vorhanden sind und funktionieren. Im Anhang befindet sich eine vollständige Installations- und Betriebsanleitung.
+Die Installation wird über das Shell-Skript \textit{install.sh}, welches sich im root-Verzeichnis des Repositories befindet, gestartet. so wird sichergestellt, dass alle Komponenten des Systems vorhanden sind und funktionieren. Im Anhang befindet sich eine Vollständige Installations- und Betriebsanleitung.
