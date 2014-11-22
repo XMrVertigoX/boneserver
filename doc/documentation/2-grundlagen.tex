@@ -3,7 +3,7 @@
 \section{Hardware}
 
 \subsection{\glsentrylong{sbc}}
-Ein \gls{sbc}, zu deutsch Ein-Platinen-Rechner, ist ein Computersystem, bei dem alle für die Verwendung nötigen Bauteile auf einer einzelnen Platine aufgebracht sind. Hierbei sind neben den essenziellen Komponenten wie Prozessor, RAM und ROM auch Controller für verschiedene I/O-Schnittstellen, Oszillatoren oder Co-Prozessoren verbaut. Single-Board Computer werden vor allem in der Industrie als Steuersysteme eingesetzt, da sie oft billiger und flexibler sind als fest verdrahtete Steuersysteme. Mit fortschreitender Miniaturisierung und steigender Leistungsfähigkeit finden SBC's heute auch in alltäglichen Geräten wie Autos, Waschmaschinen oder Fernbedienungen Verwendung.\\
+Ein \gls{sbc}, zu deutsch Einplatinenrechner, ist ein Computersystem, bei dem alle für die Verwendung nötigen Bauteile auf einer einzelnen Platine aufgebracht sind. Hierbei sind neben den essenziellen Komponenten wie Prozessor, RAM und ROM auch Controller für verschiedene I/O-Schnittstellen, Oszillatoren oder Co-Prozessoren verbaut. Single-Board Computer werden vor allem in der Industrie als Steuersysteme eingesetzt, da sie oft billiger und flexibler sind als fest verdrahtete Steuersysteme. Mit fortschreitender Miniaturisierung und steigender Leistungsfähigkeit finden \glspl{sbc} heute auch in alltäglichen Geräten wie Autos, Waschmaschinen oder Fernbedienungen Verwendung.\\
 
 Technisch gesehen sind auch die ersten Heimcomputer wie der \emph{C64} oder \emph{Atari ST} Single-Board Computer, allerdings lassen sich diese ohne Ein- und Ausgeabegräte wie Maus, Tastatur, Bildschirm nicht sinnvoll nutzen und werden in der Regel nicht als solche bezeichnet.
 
@@ -36,14 +36,14 @@ Gerade bei diesen leistungsstarken SOCs hat sich die ARM-Architektur durchgesetz
 
 \begin{enumerate}
 \item \textbf{Leistungsschwache Systeme}\\
-Die Taktraten dieser Prozessoren liegen üblicherweise deutlich unter 50MHz, in seltenen Fällen bis 100MHz. Diese Mikrocontroller werden meist direkt programmiert und finden vor allem im low energy-Sektor Anwendung.
+Die Taktraten dieser Prozessoren liegen üblicherweise deutlich unter 50 MHz, in seltenen Fällen bis 100 MHz. Diese Mikrocontroller werden meist direkt programmiert und finden vor allem im low energy-Sektor Anwendung.
 \item \textbf{Leistungsstarke Systeme}\\
 Hier ligen die Taktraten meist im GHz-Bereich. Hauptanwendungsbereiche sind Mobilfunksysteme und embedded computing in der Industrie. Gerade im Mobilfunkbereich sind oft Mehrkernsysteme anzutreffen und es wird bis auf wenige Ausnahmen oberhalb eines Betriebssystems, meist Linux bzw. Android, programmiert.
 \end{enumerate}
 
 
 \subsection{BeagleBone Black}
-Für diese Arbeit verwende ich einen BeagleBone Black Rev. A5C (im Folgenden BeagleBone), ein Entwickler-Board mit einem ARM\textregistered ~Cortex\texttrademark -A8 Prozessor (Single Core) von Texas Instruments.\\
+Für diese Arbeit verwende ich einen BeagleBone Black Rev. A5C (im Folgenden BeagleBone), ein Entwicklerboard mit einem ARM\textregistered ~Cortex\texttrademark -A8 Prozessor (Single Core) von Texas Instruments.\\
 
 \noindent Die wichtigsten Features:
 \begin{itemize}
@@ -57,47 +57,47 @@ Für diese Arbeit verwende ich einen BeagleBone Black Rev. A5C (im Folgenden Bea
 
 
 \section{Betriebssysteme}
-Da die Ressourcen des BeagleBone Black sehr begrenzt sind, wird für diese Arbeit ein schlankes Betriebssystem benötigt, welches nur wenig Speicher verbraucht und geringen Leistungs-Overhead verursacht. Für diesen Zweck gibt es spezielle Versionen der bekannten Betriebssysteme wie Microsoft Windows oder Linux sowie verschiedene \glqq unixoide\grqq ~Betriebssysteme.
+Da die Ressourcen des BeagleBone Black sehr begrenzt sind, wird für diese Arbeit ein schlankes Betriebssystem benötigt, welches nur wenig Speicher verbraucht und geringen Leistungs-Overhead verursacht. Für diesen Zweck gibt es spezielle Versionen der bekannten Betriebssysteme wie Microsoft Windows oder Linux sowie verschiedene \gls{unixoideBetriebssysteme}.
 
 
 \subsection{Linux}
-Linux hat den Vorteil, dass nahzu alle Software als Quellcode verfügbar ist und im Bedarfsfall angepasst werden kann. Zudem ist es üblich Lizenzen zu verwenden, die eine nicht-kommerzielle Anwendung sowie Anpassungen kostenfrei zulassen.
+Linux hat den Vorteil, dass nahzu alle Software als Quellcode verfügbar ist und im Bedarfsfall angepasst werden kann. Zudem ist es üblich Lizenzen zu verwenden, die eine nicht kommerzielle Anwendung sowie Anpassungen kostenfrei zulassen.
 
-Ein eigenes Linux zu entwickeln oder ein Build System\footnote{Einige Distributionen verwenden ein sog. Build System, bei dem die benötigten Kernelmodule und Softwarepakete selbst zusammengestellt werden können.} zu verwenden wäre aus Sicht der Performance sicherlich die beste Wahl und ist in der Industrie weitgehend üblich. Das würde allerdings den Rahmen dieser Arbeit sprengen. Zudem gibt es einige sehr schlanke und bereits für den BeagleBone angepasste \glspl{linux-distribution}.
+Ein eigenes Linux zu entwickeln oder ein \gls{buildSystem} zu verwenden wäre aus Sicht der Performance sicherlich die beste Wahl und ist in der Industrie weitgehend üblich. Im Rahmen dieser Arbeit wird eine bereits bestehenede \gls{linux-distribution} verwendet, da es bereits einige sehr schlanke und für den BeagleBone angepasste \glspl{linux-distribution} gibt.
 
 
 \subsection{Linux Distributionen}
 \href{http://beagleboard.org/}{BeagleBoard.org} bietet für den BeagleBone Black zwei verschiedene Distributionen an: {\AA}ngström und Debian. Beide Distributionen haben Vor- und Nachteile, die weiter unten erläutert werden. Ein weiteres Projekt, welches sich unter Entwicklern großer Beliebtheit erfreut ist Arch Linux, das als Basis für diese Anwendung dienen soll.
 
 \subsubsection{The {\AA}ngström Distribution}
-The {\AA}ngström Distribution ist auf dem BeagleBone vorinstalliert und stellt die Hauptdistribution dar. Diese Distribution nutzt ein Build System und findet im Wesentlichen Anwendung bei Speichersystemen wie NAS oder FTP-Server, wichtigstes Feature ist daher der geringe Leistungs- und Speicherbedarf. Bei dieser Distribution muss allerdings nahezu jede Nicht-Standard-Software selbst kompiliert und eingerichtet werden.
+The {\AA}ngström Distribution ist auf dem BeagleBone vorinstalliert und stellt die Hauptdistribution dar. Diese Distribution nutzt ein Build System und findet im Wesentlichen Anwendung bei Speichersystemen wie NAS oder FTP-Server, wichtigstes Feature ist daher der geringe Leistungs- und Speicherbedarf. Bei dieser Distribution muss allerdings nahezu jede Software selbst kompiliert und eingerichtet werden.
 
 \subsubsection{Debian Linux}
-Im Allgemeinen gilt Debian Linux als (rock-)stable und ist eine der verbreitetsten Distributionen. Zudem basieren einige weitere namhafte Distributionen auf Debian Linux. Stärke und gleichzeitig auch Schwäche dieser Distribution sind die langen und umfangreichen Softwaretests. Wenn ein Paket in den offiziellen Repositories verfügbar ist kann man zwar davon ausgehen, dass es fehlerfrei funktioniert und mit allen anderen angebotenen Paketen kompatibel ist. Allerdings liegt es dann meist nicht mehr in der aktuellen Version vor. Das kann gerade bei Software aus dem Bereich Netzwerk/Internet problematisch werden.
+Im Allgemeinen gilt Debian Linux als (rock-)stable und ist eine der verbreitetsten Distributionen. Zudem basieren einige weitere namhafte Distributionen auf Debian Linux. Stärke und gleichzeitig auch Schwäche dieser Distribution sind die langen und umfangreichen Softwaretests. Wenn ein Paket in den offiziellen \glspl{repository} verfügbar ist kann man zwar davon ausgehen, dass es fehlerfrei funktioniert und mit allen anderen angebotenen Paketen kompatibel ist. Allerdings liegt es dann meist nicht mehr in der aktuellen Version vor. Das kann gerade bei Software aus dem Bereich Netzwerk/Internet problematisch werden.
 
 \subsubsection{Arch Linux}
-Gegenüber den oben genannten Distributionen hat Arch Linux zwei wesentliche Vorteile: Zum einen gibt es eine (Sub-)Distribution speziell für ARM-Prozessoren, bei der das Basissystem mit ca. 500MB sehr schlank ist. Zum anderen stellt Arch Linux ARM ein sehr umfangreiches \gls{softwareRepository} mit hoher Aktualität zur Verfügung. Zusätzlich gibt es das \gls{aur}, ein freies \gls{repository} in dem jeder Nutzer seine Pakete einstellen kann. Sämtliche in diesem Projekt verwendete Software lässt sich entweder direkt via Paketverwaltung aus den offiziellen \glspl{repository} installieren oder kann vom Anwender selber kompiliert werden.
+Gegenüber den oben genannten Distributionen hat Arch Linux zwei wesentliche Vorteile: Zum einen gibt es eine (Sub-)Distribution speziell für ARM-Prozessoren, bei der das Basissystem mit ca. 500MB sehr schlank ist. Zum anderen stellt Arch Linux ARM ein sehr umfangreiches \gls{softwareRepository} mit hoher Aktualität zur Verfügung. Zusätzlich gibt es das \gls{aur}, ein freies \gls{repository} in dem jeder Nutzer seine Pakete einstellen kann. Sämtliche in diesem Projekt verwendete Software lässt sich entweder direkt via Paketverwaltung aus den offiziellen \glspl{repository} installieren, oder kann vom Anwender selber kompiliert werden.
 
-Arch Linux ARM verwendet ein Rolling-Release-Konzept, ein System kontinuierlicher Software-Entwicklung, bei der Pakete separat aktuell gehalten und weiter entwickelt werden. Es gibt keine explizite Betriebssystemversion sondern sog. Snapshots. So ist es  wesentlich einfacher, das System aktuell und sicher zu halten. Zwar kann es durchaus passieren, dass die eingestellte Software nicht out-of-the-box funktioniert. Aber in der sehr aktiven Community hinter Arch Linux bekommt man relativ schnell Hilfe.
+Arch Linux ARM verwendet ein Rolling-Release-Konzept, ein System kontinuierlicher Softwareentwicklung, bei der Pakete separat aktuell gehalten und weiter entwickelt werden. Es gibt keine explizite Betriebssystemversion sondern sogenannte Snapshots. So ist es  wesentlich einfacher, das System aktuell und sicher zu halten. Zwar kann es durchaus passieren, dass die eingestellte Software nicht \glqq out of the Box\grqq ~funktioniert. Aber in der sehr aktiven Community hinter Arch Linux bekommt man relativ schnell Hilfe.
 
-Die Kernel-Entwicklung schreitet derzeit sehr schnell voran, daher wird zusätzlich zur regulären Kernel-Entwicklung  ein Legacy-Paket mit einer stabilen Version (3.8) gepflegt, um nach einem Update des Kernelpaketes nicht erst die Kompatibilität wieder herstellen zu müssen.
+Die Kernelentwicklung schreitet derzeit sehr schnell voran, daher wird zusätzlich zur regulären Kernelentwicklung ein Legacy-Paket mit einer stabilen Version (3.8) gepflegt, um nach einem Update des Kernelpakets nicht erst die Kompatibilität wieder herstellen zu müssen.
 
 
 \section{Webtechnologien}
-In der vorliegenden Arbeit kommen eine Vielzahl unterschiedlicher Webtechnologien zum Einsatz. An dieser Stelle alle zur Verfügung stehenden Technologien im Detail zu beschreiben, würden den Rahmen der Arbeit sprengen. Ich beschränke mich hier darauf, die Architektur des Projektes zu darzustellen. Meine Auswahl an Software erläutere ich im Zusammenhang in Kapitel 4: Implementierung.
+In der vorliegenden Arbeit kommen eine Vielzahl unterschiedlicher Webtechnologien zum Einsatz. An dieser Stelle werden nur die Grundpfeiler dieser Arbeit beschrieben, um die Architektur des Projekts darzustellen. Die weitere Auswahl verwendeter Technologien wird im Zusammenhang mit der Implementierung in Kapitel 4 beschrieben.
 
 \subsection{Webserver}
 Als Webserver wird in der Regel eine Software bezeichnet, die verschiedene Dokumente an einen Client, z. B. ein Webbrowser, ausliefert. Oft wird auch die ganze Hardware, auf der ein Webserver betrieben wird, als Webserver bezeichnet. Dies ist dann der Fall, wenn der Rechner ausschließlich zu diesem Zweck betrieben wird, z. B. bei größeren Webseiten.
 
-Auf Grund verschiedener Spezialisierungen und Ansätze gibt es heute eine große Anzahl verschiedener Webserver. Apache HTTP Server der gleichnamigen Firma und Microsofts IIS haben sich hier in den letzten Jahren deutlich von der Konkurenz absetzen können. \cite{webserversurvey1014}. IIS kommt für diese Arbeit allerdings nicht in Frage, da er nicht für Linux angeboten wird.
+Auf Grund verschiedener Spezialisierungen und Ansätze gibt es heute eine große Anzahl verschiedener Webserver. Apache HTTP Server der gleichnamigen Firma und Microsofts IIS haben sich hier in den letzten Jahren deutlich von der Konkurenz absetzen können \cite{webserversurvey1014}. IIS kommt für diese Arbeit allerdings nicht in Frage, da er nicht für Linux angeboten wird.
 
 \subsubsection{Lighttpd}
-Lighttpd ist ein Webserver, der durch seine besonders ressourcenschonende Implementierung hervorsticht. Dieser Webserver ist darauf spezialisiert, statische Dokumente auszuliefern, was ihn besonders passend für dieses Projekt macht. Außerdem lässt er sich wesentlich einfacher konfigurieren und über Module erweitern als andere weiter verbreitete Webserver \cite{krieg2009}.
+Lighttpd ist ein Webserver, der durch seine besonders ressourcenschonende Implementierung hervorsticht. Dieser Webserver ist darauf spezialisiert, statische Dokumente auszuliefern, was ihn besonders passend für dieses Projekt macht. Außerdem lässt er sich wesentlich einfacher konfigurieren und über Module erweitern, als andere weiter verbreitete Webserver \cite{krieg2009}.
 
 
 \subsection{Node.js}
 \label{subsec:Node.js}
-Node.js ist ein JavaScript-Framwork, das auf Googles V8-JavaScript-Engine basiert. Es stellt eine serverseitige Umgebung zur Verfügung, über die sich komplexe Netzwerkanwendungen leicht programmieren lassen. Dabei stellt Node.js ein Modulkonzept vor, mit man relativ unkompliziert Programmteile auslagern oder weitere Funktionalität einbinden kann. In der Basisinstallation liefert Node.js bereits eine große Bandbreite an Modulen mit, sodass viele Anwendungen ohne zusätzliche Software umgesetzt werden können \cite{springer2013}.
+Node.js ist ein JavaScript-Framwork, das auf Googles V8-JavaScript-Engine basiert. Es stellt eine serverseitige Umgebung zur Verfügung, über die sich komplexe Netzwerkanwendungen leicht programmieren lassen. Dabei stellt Node.js ein Modulkonzept vor, mit dem man relativ unkompliziert Programmteile auslagern oder weitere Funktionalität einbinden kann. In der Basisinstallation liefert Node.js bereits eine große Bandbreite an Modulen mit, sodass viele Anwendungen ohne zusätzliche Software umgesetzt werden können \cite{springer2013}.
 
 \subsubsection{npm}
 Der Node Package Manager (NPM) erweitert Node.js um ein Werkzeug, mit dem sich externe Module leicht herunterladen und einbinden lassen. Unter \href{https://www.npmjs.org/}{npmjs.org} können zudem weitere Informationen und in der Regel auch eine API der Module eingesehen werden. Dank einer großen Community lassen sich hier zu den meisten allgemeinen Problemen bereits einige Lösungsansätze finden.
@@ -106,4 +106,4 @@ Der Node Package Manager (NPM) erweitert Node.js um ein Werkzeug, mit dem sich e
 Ausschlaggebend für die Verwendung von Node.js ist das Modul \textit{bonescript} von Jason Kridner, Mitgründer der \href{http://beagleboard.org/}{BeagleBoard.org} Foundation. Dieses Modul steuert über eine übersichtliche API weite Teile der Hardware, sodass auch hier der Arbeitsaufwand deutlich verringert wird.
 
 \subsection{WebSockets}
-WebSockets stellen eine Möglichkeit dar, Daten zwischen Client, z. B. der Browser und Server auszutauschen. Wie auch \gls{http} basieren WebSockets auf \gls{tcp}, sind dabei aber wesendtlich schneller. Im Gegensatz zu \gls{http} ist über WebSockets eine Vollduplex-Verbindung möglich. Die Metadaten sind zudem überschaubar, sodass hierbei wenig zusätzliche Netzwerklast entsteht. Ein weiterer Vorteil ist, dass WebSockets von der \gls{sameOriginPolicy} ausgeschlossen sind \cite{rfc6455}.
+WebSockets stellen eine Möglichkeit dar, Daten zwischen Client, z. B. der Browser, und Server auszutauschen. Wie auch \gls{http} basieren WebSockets auf \gls{tcp}, sind dabei aber wesendtlich schneller. Im Gegensatz zu \gls{http} ist über WebSockets eine Vollduplex-Verbindung möglich. Die Metadaten sind zudem überschaubar, sodass hierbei wenig zusätzliche Netzwerklast entsteht. Ein weiterer Vorteil ist, dass WebSockets von der \gls{sameOriginPolicy} ausgeschlossen sind \cite{rfc6455}.

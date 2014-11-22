@@ -16,7 +16,7 @@ for(pin in pins) {
   }
 }
 \end{lstlisting}
-\caption{Fake response message um geladene Kacheln vo verändern}
+\caption{Fake response message, um geladene Kacheln zu verändern}
 \label{lst:fakeResponseMessage}
 \end{figure}
 
@@ -24,7 +24,7 @@ for(pin in pins) {
 \section{Höher aufgelöste A/D-Wandlung}
 Der maximale Takt der digitalen Inputs und der \gls{adc} ist durch die kleinste Zeiteinheit in JavaScript (1ms) vorgegeben. Denkbar wäre es, eine höher aufgelöste Taktung in einer separaten Software zu implementieren. In C/C++ könnte eine wesentlich höhere Ab\-tast\-rate erreicht werden. Diese Samples können dann zu mehreren als Antwort übertragen werden.\\
 
-Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur einzelne Wertepaare zu verarbeiten (Abb. \ref{lst:insertTupel}), sondern oben beschriebene Frames. Je nach Abtastrate sollte auch über eine entsprechende Unterabtstung für die Anzeige nachgedacht werden.
+Der \textit{Diagram Controller} muss dahingehend erweitert werden, nicht nur einzelne Wertepaare zu verarbeiten (Abb. \ref{lst:insertTupel}), sondern oben beschriebene Frames. Je nach Abtastrate sollte auch über eine entsprechende Unterabtastung für die Anzeige nachgedacht werden.
 
 \begin{figure}[H]
 \begin{lstlisting}
@@ -38,11 +38,11 @@ diagramCtrl.util.addValue = function(pin, data) {
 
 
 \section{Alternative Steuerungsbibliothek -- octalbonescript}
-Die Bibliothek \textit{octalbonescript}\footnote{https://github.com/theoctal/octalbonescript}, ein bonescript Fork, löst laut API verschiedene Probleme der Bonescript-Bibliothek. Sie könnte als Ersatz für die bisher verwendete Bonescript-Bibliothek genutzt werden. Dadurch würden auch die Module \textit{gpioControl.js} und \textit{pwmControl.js} nicht mehr nötig sein, da sie nur Bypass-Funktionen für fehlerhafte Funktionen enthalten.
+Die Bibliothek \textit{octalbonescript}\footnote{https://github.com/theoctal/octalbonescript}, ein bonescript Fork, löst laut API verschiedene Probleme der Bonescript-Bibliothek. Sie könnte als Ersatz für die bisher verwendete Bonescript-Bibliothek genutzt werden. Dadurch würden auch die Module \textit{gpioControl.js} und \textit{pwmControl.js} nicht mehr nötig sein, da sie nur Bypassfunktionen für fehlerhafte Funktionen enthalten.
 
 
 \section{Alternative Hardware}
-Denkbar wäre eine Portierung des Boneservers auf eine andere Hardware-Plattform. Die Voraussetzung hierfür ist ein Linux-System mit einem Netzwerkzugang und entsprechendem Speicher.\\
+Denkbar wäre eine Portierung des Boneservers auf eine andere Hardwareplattform. Die Voraussetzung hierfür ist ein Linux System mit einem Netzwerkzugang und entsprechendem Speicher.\\
 
 Um auf einer anderen Hardware arbeiten zu können, ist eine passende Bibliothek wie die Bonescript-Bibliothek BeagleBone, nötig, um die Hardware zu steuern. Das Modul \textit{boneControl.js} regelt die gesamte Steuerung und muss dahingehend erweitert werden, dass die enthaltenen Fälle (Abb. \ref{lst:exampleCase}) passende Funktionen aus ihrer Bibliothek starten.
 
