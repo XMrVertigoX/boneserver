@@ -1,6 +1,6 @@
 var shelljs = require('shelljs');
 
-// slopts path
+// slots path
 var slots = shelljs.ls('/sys/devices/bone_capemgr.*')[0] + '/slots';
 
 // Enable PWM functionality
