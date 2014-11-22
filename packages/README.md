@@ -1,2 +1,2 @@
 #packages
-Here are the required packages not available at the official repositories.
+Additional packages compiled on BeagleBone Black A5C.

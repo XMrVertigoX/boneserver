@@ -108,4 +108,4 @@ module.exports = {
 	enable: enable,
 	read: read,
 	write: write
-};
+}

@@ -107,7 +107,7 @@ bonescriptCtrl.util.sendRequest = function(type, parameters) {
 
 		if (parameters != undefined) {
 			request['parameters'] = parameters;
-		};
+		}
 
 	websocket.send(JSON.stringify(request));
 }

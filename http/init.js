@@ -91,19 +91,19 @@ init.init = function () {
 
 			$('#' + pin + 'TileBtnON').click(function () {
 				bonescriptCtrl.digitalWrite(this.title, 1);
-			})
+			});
 
 			$('#' + pin + 'TileBtnOFF').click(function () {
 				bonescriptCtrl.digitalWrite(this.title, 0);
-			})
+			});
 
 			$('#' + pin + 'TileBtnIN').click(function () {
 				bonescriptCtrl.pinMode(this.title, 'in');
-			})
+			});
 
 			$('#' + pin + 'TileBtnOUT').click(function () {
 				bonescriptCtrl.pinMode(this.title, 'out');
-			})
+			});
 
 			$('#' + pin + 'TileBtnON').prop('disabled', true);
 			$('#' + pin + 'TileBtnOFF').prop('disabled', true);
@@ -139,13 +139,13 @@ init.init = function () {
 				diagramCtrl.util.resetData(this.title);
 				$('#' + pin + 'Download').prop( "disabled", true );
 				$('#' + pin + 'Delete').prop( "disabled", true );
-			})
+			});
 
 			$('#' + pin + 'Stop').click(function () {
 				bonescriptCtrl.stopADC(this.title);
 				$('#' + pin + 'Download').prop( "disabled", false );
 				$('#' + pin + 'Delete').prop( "disabled", false );
-			})
+			});
 
 			$('#' + pin + 'Download').click(function(e) {
 				e.preventDefault(); //stop the browser from following
@@ -182,7 +182,7 @@ init.init = function () {
 		// append toggle function
 		$('#' + pin + 'TileTglBtn').click(function () {
 			bonescriptCtrl.toggle(this.title);
-		})
+		});
 	}
 
 	// if tile is inactive toggle them via fake response message

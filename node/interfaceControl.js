@@ -15,22 +15,22 @@ var config = {};
  * returns the parameter value otherwise undefined
  */
 var get = function(pin, parameter) {
-    if (config.hasOwnProperty(pin)) {
-        if (config[pin].hasOwnProperty(parameter)) {
-            return config[pin][parameter];
-        }
-    }
+	if (config.hasOwnProperty(pin)) {
+		if (config[pin].hasOwnProperty(parameter)) {
+			return config[pin][parameter];
+		}
+	}
 }
 
 /*
  * write a parameter to the interface object. overwrites only existing parameters.
  */
 var set = function(pin, parameter, value) {
-    if (config.hasOwnProperty(pin)) {
-        if (config[pin].hasOwnProperty(parameter)) {
-            config[pin][parameter] = value;
-        }
-    }
+	if (config.hasOwnProperty(pin)) {
+		if (config[pin].hasOwnProperty(parameter)) {
+			config[pin][parameter] = value;
+		}
+	}
 }
 
 /*
@@ -38,37 +38,37 @@ var set = function(pin, parameter, value) {
  * interface.json if existing
  */
 var readFromFile = function() {
-    for (pin in whitelist) {
-        if (whitelist[pin].available) {
-            config[pin] = whitelist[pin];
-        }
-    }
+	for (pin in whitelist) {
+		if (whitelist[pin].available) {
+			config[pin] = whitelist[pin];
+		}
+	}
 
-    if (fs.existsSync('./interface.json')) {
-        temp = JSON.parse(fs.readFileSync('interface.json'));
+	if (fs.existsSync('./interface.json')) {
+		temp = JSON.parse(fs.readFileSync('interface.json'));
 
-        for (pin in temp) {
-            if (config.hasOwnProperty(pin)) {
-                config[pin] = temp[pin];
-            };
-        }
-    }
+		for (pin in temp) {
+			if (config.hasOwnProperty(pin)) {
+				config[pin] = temp[pin];
+			};
+		}
+	}
 }
 
 /*
  * write the interface object. overwrite existing one
  */
 var saveToFile = function() {
-    fs.writeFileSync('./interface.json', JSON.stringify(config));
+	fs.writeFileSync('./interface.json', JSON.stringify(config));
 }
 
 // read config files
 readFromFile();
 
 module.exports = {
-    config: config,
-    get: get,
-    set: set,
-    readFromFile: readFromFile,
-    saveToFile: saveToFile
-};
+	config: config,
+	get: get,
+	set: set,
+	readFromFile: readFromFile,
+	saveToFile: saveToFile
+}

@@ -86,4 +86,4 @@ module.exports = {
 	addTimer: addTimer,
 	deleteTimer: deleteTimer,
 	isRunning: isRunning
-};
+}

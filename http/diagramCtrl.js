@@ -21,7 +21,7 @@ diagramCtrl.init = function(pin) {
 
 		if (diagramCtrl[pin]['data'].length > points) {
 			diagramCtrl[pin]['data'].splice(0, diagramCtrl[pin]['data'].length - points);
-		};
+		}
 
 		diagramCtrl[pin]['plot'].setData([diagramCtrl[pin]['data']]);
 		diagramCtrl[pin]['plot'].setupGrid();

@@ -18,7 +18,7 @@ Die Software, die für dieses Projekt verwendet werden soll, liegt nicht in den 
 
 Aus diesen Erfahrungen folgt, dass {\AA}ngström Linux nicht das richtige Betriebssystem für das Projekt ist. Der Aufwand, es an die Bedürfnisse anzupassen, wäre größer als auf eine andere Distribution zurückzugreifen.\\
 
-Die zweite vom Hersteller des BeagleBone angebotene Distribution ist Debian Linux. Auch diese wurde nach den oben genannten Kriterien geprüft. Die Konfiguration, die schon zum Ausschluss von {\AA}ngströn Linux geführt hat, findet sich im Prinzip auch hier. Auf \href{http://www.armhf.com/}{ARMhf.com} gibt es zwar eine weitere Debian Installation bereits fertig als Linux Image. Diese hat nicht die oben erwähnten Eigenheiten, nutzt aber die neueste Kernelversion, die mit der Bonescript Library nicht kompatibel ist. Ein Kernel Downgrade wäre möglich, ist aber grundsätzlich und unter Debian im Besonderen sehr aufwändig. Daher eignet sich Debian Linux ebenfalls nicht für mein Projekt.\\
+Die zweite vom Hersteller des BeagleBone angebotene Distribution ist Debian Linux. Auch diese wurde nach den oben genannten Kriterien geprüft. Die Konfiguration, die schon zum Ausschluss von {\AA}ngström Linux geführt hat, findet sich im Prinzip auch hier. Auf \href{http://www.armhf.com/}{ARMhf.com} gibt es zwar eine weitere Debian Installation bereits fertig als Linux Image. Diese hat nicht die oben erwähnten Eigenheiten, nutzt aber die neueste Kernelversion, die mit der Bonescript Library nicht kompatibel ist. Ein Kernel Downgrade wäre möglich, ist aber grundsätzlich und unter Debian im Besonderen sehr aufwändig. Daher eignet sich Debian Linux ebenfalls nicht für mein Projekt.\\
 
 Eine weitere Distribution für BeagleBone ist Arch Linux. Die Besonderheit dieser Distribution ist, dass die Basisinstallation sehr ressourcenschonend ist. Sie enthält keinerlei Software, die nicht für den grundsätzlichen Betrieb erforderlich ist. Gleichzeitig stellt sie Werkzeuge zur Verfügung, um die benötigte Software bequem aus umfangreichen \glspl{repository} zu installieren. Abweichend von der regulären Kernelentwicklung wird die hier benötigte Kernelversion (3.8) und entsprechende Header Files über die Pakete \textit{linux-am33x-legacy} und \textit{linux-headers-am33x-legacy} bereitgestellt.\\
 
@@ -107,7 +107,7 @@ Um die Verwendung in einer weitgehend automatisierten Umgebung zu ermöglichen, 
 local_enable=YES
 anonymous_enable=NO
 \end{lstlisting}
-sichergestellt, dass auch hier nur autorisierte Nutzer Zugriff haben. Hierbei verwendet vsftpd die lokalen Nutzerkonten (in diesem Fall nur das root-Konto) zur Authentifikation. Vsftpd lässt sich dabei leicht dahingehend erweitern, dass auch zusätzliche Nutzer mit spezifischen Zugriffsrechten eingerichtet werden können.
+sichergestellt, dass auch hier nur autorisierte Nutzer Zugriff haben. Hierbei verwendet vsftpd die lokalen Nutzerkonten (in diesem Fall nur das root-Konto) zur Authentifizierung. Vsftpd lässt sich dabei leicht dahingehend erweitern, dass auch zusätzliche Nutzer mit spezifischen Zugriffsrechten eingerichtet werden können.
 
 
 \subsection{JavaScript Engine -- Node.js}
@@ -125,6 +125,6 @@ X[5]}
 
 \section{Installation}
 Die gesamte Software liegt bei Github\footnote{https://github.com/XMrVertigoX/boneserver} als git Repository vor und wird auch von hier aus installiert. So wird sichergestellt, dass aktuelle Änderungen und Bugfixes in jede Neuinstallation übernommen werden. Auch die Aktualisierung bestehender Installationen kann vorgenommen werden.\\ 
-Der Webserver, der FTP Server und die \textit{Boneserver} Software selbst werden bei Systemstart über einen \textit{systemd} Service gestartet. Diese Services werden bei der Installation ebenfalls automatisch istalliert und gestartet.\\
+Der Webserver, der FTP Server und die \textit{Boneserver} Software selbst werden bei Systemstart über einen \textit{systemd} Service gestartet. Diese Services werden bei der Installation ebenfalls automatisch installiert und gestartet.\\
 
 Die Installation wird über das Shell-Skript \textit{install.sh}, welches sich im root-Verzeichnis des Repositories befindet, gestartet. So wird sichergestellt, dass alle Komponenten des Systems vorhanden sind und funktionieren. Im Anhang befindet sich eine vollständige Installations- und Betriebsanleitung.
