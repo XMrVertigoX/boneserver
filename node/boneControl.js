@@ -165,10 +165,10 @@ var handleRequest = function(request) {
 		case 'deleteADCData':
 			var pin = parameters.pin;
 
-			var file = settings.dataLocation + '/' + pin + '.csv';
+			var file = settings.get('dataLocation') + '/' + pin + '.csv';
 
 			if (fs.existsSync(file)) {
-				fs.unlinkSync(settings.dataLocation + '/' + pin + '.csv');
+				fs.unlinkSync(settings.get('dataLocation') + '/' + pin + '.csv');
 			}
 			break;
 

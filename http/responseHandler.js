@@ -116,6 +116,11 @@ responseHandler.stopADC = function(message) {
 	if (debug) { console.log("responseHandler.stopADC: " + JSON.stringify(message)) };
 }
 
+responseHandler.deleteADCData = function(message) {
+	if (debug) { console.log("responseHandler.deleteADCData: " + 
+							 JSON.stringify(message)) };
+}
+
 responseHandler.getPins = function(message) {
 	if (debug) { console.log("responseHandler.getPins: " + JSON.stringify(message)) };
 

@@ -1,4 +1,3 @@
 backup-*.img.gz
 
 node/node_modules
-node/data

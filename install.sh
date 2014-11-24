@@ -5,7 +5,7 @@ set -e
 cd /opt/boneserver
 
 # install or update required packages
-pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs pv wget zsh grml-zsh-config wpa_supplicant
+pacman -S --noconfirm --needed ntp base-devel python2 lighttpd vsftpd linux-headers-am33x-legacy nodejs pv wget zsh grml-zsh-config wpa_supplicant rsync
 pacman -U --noconfirm --needed packages/dtc-git-patched-20130410-1-armv7h.pkg.tar.xz packages/haproxy-1.5.3-1-armv7h.pkg.tar.xz
 
 chsh -s /bin/zsh
@@ -14,17 +14,14 @@ chsh -s /bin/zsh
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 echo boneserver > /etc/hostname
 
+# force time sync
+ntpdate -u pool.ntp.org
+
 # install node modules
 cd node
 npm config set python /bin/python2.7
 npm install bonescript shelljs ws
-# mkdir data
 cd ..
-
-# Link data directory
-# cd http
-# ln -sf ../node/data ./
-# cd ..
 
 # link config file(s)
 ln -sf /opt/boneserver/config/vsftpd/vsftpd.conf /etc/vsftpd.conf
