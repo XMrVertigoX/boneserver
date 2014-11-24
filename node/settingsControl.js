@@ -12,19 +12,19 @@ var settingsDefault = require('./settings-default.json');
 // generate a empty object
 var settings = {};
 
+// deep copy of the default settings
+settings = JSON.parse(JSON.stringify(settingsDefault));
+
 /* 
  * Overwrites default settings if custom ones exists
  */
 if (fs.existsSync('./settings.json')) {
-	// deep copy of the default settings
-	settings = JSON.parse(JSON.stringify(settingsDefault));
-
 	// read and parse the settings.json
-    var temp = JSON.parse(fs.readFileSync('./settings.json'));
-    
-    for (key in temp) {
-        settings[key] = temp[key];
-    }
+	var temp = JSON.parse(fs.readFileSync('./settings.json'));
+	
+	for (key in temp) {
+		settings[key] = temp[key];
+	}
 }
 
 /*
