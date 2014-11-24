@@ -57,7 +57,7 @@ var pwmDirectory = function(pin) {
 var readSlots = function() {
 	var lines = shelljs.grep(pwmSlotPrefix, slots).split('\n');
 	var pwmlist = {};
-
+ 
 	for (var i = 0; i < lines.length; i++) {
 		var pin = lines[i].match(pinPattern);
 		if (pin != null) {
