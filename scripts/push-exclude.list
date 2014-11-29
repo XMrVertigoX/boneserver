@@ -1,3 +1,5 @@
 backup-*.img.gz
 
 node/node_modules
+node/settings.json
+node/interface.json
