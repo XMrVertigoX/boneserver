@@ -2,7 +2,7 @@
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = 0.8\textwidth]{documentation/images/components.eps}
+\includegraphics[width = 0.8\textwidth]{images/components.eps}
 \caption{Funktionale Komponenten}
 \label{fig:functionalComponents}
 \end{figure}
@@ -11,7 +11,7 @@ Das Webinterface besteht aus drei funktionalen Teilen. Der erste Teil ist der We
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = 0.5\textwidth]{documentation/images/request.eps}
+\includegraphics[width = 0.5\textwidth]{images/request.eps}
 \caption{Verarbeitungschema eines Requests am Proxy Server}
 \label{fig:requestForwarding}
 \end{figure}
@@ -71,7 +71,7 @@ Abbildung \ref{fig:pageloadSequence} zeigt schematisch, wie die Initialisierung 
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = \textwidth]{documentation/images/pageload.eps}
+\includegraphics[width = \textwidth]{images/pageload.eps}
 \caption{Sequezieller Ablauf bei einem Seitenaufruf}
 \label{fig:pageloadSequence}
 \end{figure}
@@ -81,7 +81,7 @@ Abbildung \ref{fig:pageloadSequence} zeigt schematisch, wie die Initialisierung 
 Die Kommunikation mit dem WebSocket Server läuft vollständig asynchron ab. Es wird grundsätzlich keine direkte Antwort auf eine Anfrage erwartet, um bei eventuell schlechter Netzwerverbindung nicht das Interface zu blockieren. Abbildung \ref{fig:interaction} zeigt diesen Vorgang exemplarisch.
 
 \begin{figure}[ht]
-\includegraphics[width = \textwidth]{documentation/images/sendRequest.eps}
+\includegraphics[width = \textwidth]{images/sendRequest.eps}
 \caption{Verarbeitung einer User-Interaktion}
 \label{fig:interaction}
 \end{figure}
@@ -94,7 +94,7 @@ So müssen bei asynchronen Funktionsaufrufen nicht alle benötigten Variablen ü
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = \textwidth]{documentation/images/wssDependencies.eps}
+\includegraphics[width = \textwidth]{images/wssDependencies.eps}
 \caption{Abhängigkeiten der Module des WebSocket Server}
 \label{fig:wssDependencies}
 \end{figure}
@@ -114,7 +114,7 @@ Bei einem erfolgreichen Verbindungsaufbau wird der WebSocket im \textit{websocke
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiSettingsControl.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiSettingsControl.eps}
 \end{wrapfigure}
 
 Das Modul \textit{settingsControl.js} liest die Einstellungsdateien ein und stellt diese programmweit zur Verfügung. Das Modul nutzt dafür die Datei \textit{settings-default.json}, in der alle Basiseinstellungen enthalten sind. Diese Einstellungen werden dann von denen in der Datei \textit{settings.json} überschrieben, sofern das Dokument vorhanden ist. Bei den beiden Dateien handelt es sich um \gls{json}-Dateien nach rfc6455 \cite{rfc6455}.
@@ -125,7 +125,7 @@ Es werden nur Parameter überschrieben, die sowohl in den Defaulteinstellungen a
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiInterfaceControl.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiInterfaceControl.eps}
 \end{wrapfigure}
 
 Dieses Modul generiert bei Bedarf eine Liste der verfügbaren Pins und deren Typen sowie deren letztmalige Interfacekonfiguration bezüglich aktiver und inaktiver Kacheln.\\
@@ -143,7 +143,7 @@ Wenn die WebSocket Verbindung geschlossen wird, wird das im Speicher befindliche
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiWebsocket.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiWebsocket.eps}
 \end{wrapfigure}
 
 Dieses Modul verwaltet die eigentliche WebSocket Verbindung. Essenziell ist die Funktion \textit{write()}. Hierüber können die restlichen Module direkt auf den WebSocket schreiben. Dabei wird intern geprüft, ob der WebSocket noch offen ist. Wenn eine neue Verbindung hergestellt wurde, wird diese sofort wieder beschrieben.
@@ -156,14 +156,14 @@ Ein weiterer Teil des WebSocket Servers besteht aus einer Reihe von Controllermo
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiBoneControl.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiBoneControl.eps}
 \end{wrapfigure}
 
 Dieses Modul stellt den Kern der Hardwareansteuerung dar. Eingehende WebSocket Requests werden hier über \textit{type} identifiziert und abgearbeitet. Hierbei wird über eine Switch-Case-Anweisung entschieden, was zu tun ist. Requests mit unbekanntem Typ werden mit einer Fehlermeldung im \textit{response}-Objekt an das Interface zurückgesendet (Abb. \ref{fig:wssResponseHandler}). Die API der Bonescript Bibliothek ist in dieser Liste weitgehend abgebildet. Daneben werden hier auch sämtliche Parameter für das Interface zusammengestellt und an den Browser gesendet.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = 0.5\textwidth]{documentation/images/wssResponseHandler.eps}
+\includegraphics[width = 0.5\textwidth]{images/wssResponseHandler.eps}
 \caption{Schematische Arbeitsweise des Response Handlers}
 \label{fig:wssResponseHandler}
 \end{figure}
@@ -174,7 +174,7 @@ Dieses Modul stellt den Kern der Hardwareansteuerung dar. Eingehende WebSocket R
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiTimer.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiTimer.eps}
 \end{wrapfigure}
 
 Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine Switch-Case-Anweisung wird geprüft, ob es sich um einen analogen oder digitalen Input handelt und dann mit Hilfe von \textit{setInterval()} ein Timer gestartet, der zyklisch eine anonyme Callbackfunktion aufruft. Das zeitliche Interval wird dem Settingsmodul entnommen. Die Funktionen senden die Ergebnisse selbstständig an die Webseite. Fehlende Dateien, Links oder Ordner werden ebenfalls automatisch erstellt. Um den Timer wieder beenden zu können, wird die Funktion zusätzlich in einem lokalen \textit{Timer}-Objekt registriert.
@@ -183,7 +183,7 @@ Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = 0.5\textwidth]{documentation/images/wssTimerDigital.eps}
+\includegraphics[width = 0.5\textwidth]{images/wssTimerDigital.eps}
 \caption{Anonyme \textit{digitalRead}-Funktion}
 \label{fig:wssTimerDigital}
 \end{figure}
@@ -192,7 +192,7 @@ Mit Hilfe dieses Moduls werden digitale und analoge Inputs verwaltet. Über eine
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width = 0.5\textwidth]{documentation/images/wssTimerAnalog.eps}
+\includegraphics[width = 0.5\textwidth]{images/wssTimerAnalog.eps}
 \caption{Anonyme \textit{analogRead}-Funktion}
 \label{fig:wssTimerAnalog}
 \end{figure}
@@ -204,7 +204,7 @@ Die Bonescript Bibliothek weist in einigen Fällen Fehler oder fehlende Features
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiGPIOControl.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiGPIOControl.eps}
 \end{wrapfigure}
 
 Dieses Modul steuert die digitalen I/O direkt über das Dateisystem. Dazu werden die in der Bonescript Bibliothek hinterlegten Pin IDs genutzt.\\
@@ -215,7 +215,7 @@ Das Modul stellt Funktionen zum Aktivieren und Deaktivieren der \gls{gpio} zur V
 \begin{wrapfigure}[4]{r}{0.25\textwidth}
 \vspace{-14pt}
 \centering
-\includegraphics[width = 0.25\textwidth]{documentation/images/apiPWMControl.eps}
+\includegraphics[width = 0.25\textwidth]{images/apiPWMControl.eps}
 \end{wrapfigure}
 
 Die API dieses Moduls verhält sich analog zu dem der \gls{gpio}. Intern werden die Device Tree Overlays der Bonescript Bibliothek verwendet. Diese werden per Filesystem über den \gls{capemgr} geladen.

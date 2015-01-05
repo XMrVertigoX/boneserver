@@ -43,7 +43,7 @@
 
 \renewcommand*{\glspostdescription}{}
 \makeglossaries
-\input{appendix/glossary.tex}
+\input{glossary.tex}
 
 \lstset{style = default}
 
@@ -55,22 +55,22 @@
 \begin{document}
 
 %Titlepages
-\input{title/titlepage_de.tex}
-\input{title/titlepage_en.tex}
+\input{titlepage_de.tex}
+\input{titlepage_en.tex}
 
 %Overview
-\input{title/overview_de.tex}\newpage
-\input{title/overview_en.tex}\newpage
+\input{overview_de.tex}\newpage
+\input{overview_en.tex}\newpage
 
 \tableofcontents
 
 \part{Dokumentation}
-\input{documentation/1-einleitung.tex}
-\input{documentation/2-grundlagen.tex}
-\input{documentation/3-konfiguration.tex}
-\input{documentation/4-implementierung.tex}
-\input{documentation/5-erweiterungsmoeglichkeiten.tex}
-\input{documentation/6-zusammenfassung.tex}
+\input{1-einleitung.tex}
+\input{2-grundlagen.tex}
+\input{3-konfiguration.tex}
+\input{4-implementierung.tex}
+\input{5-erweiterungsmoeglichkeiten.tex}
+\input{6-zusammenfassung.tex}
 
 
 \appendix
@@ -81,9 +81,9 @@
 \input{manual/3-betrieb.tex}
 \input{manual/4-wartung.tex}
 
-\input{appendix/tabellen.tex}
+\input{tabellen.tex}
 \printglossary[title = {Glossar}]
-\bibliography{appendix/literature.bib}
-\input{appendix/erklaerung.tex}
+\bibliography{literature.bib}
+\input{erklaerung.tex}
 
 \end{document}
