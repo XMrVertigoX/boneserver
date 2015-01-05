@@ -2,27 +2,27 @@
  * websocket.js - manages the websocket connection.
  */
 
-var connected = false;
-var websocket;
+//var connected = false;
+var socket;
 
 /*
  * sets a connection status variable
  *
  * returns nothing
  */
-exports.setConnected = function(state) {
-    if (typeof state == 'boolean') {
-        connected = state;
-    }
-}
+// exports.setConnected = function(state) {
+//     if (typeof state == 'boolean') {
+//         connected = state;
+//     }
+// }
 
 /*
  * Sets the websocket object
  *
  * returns nothing
  */
-exports.setSocket = function(socket) {
-    websocket = socket;
+function set(data) {
+    socket = data;
 }
 
 /*
@@ -30,12 +30,17 @@ exports.setSocket = function(socket) {
  *
  * returns nothing
  */
-exports.write = function(data) {
-    if (connected) {
-        websocket.send(JSON.stringify(data), function(err) {
+function write(data) {
+    if (socket["_socket"].writable) {
+        socket.send(JSON.stringify(data), function(err) {
             if (err != undefined) {
                 console.log(err.stack);
             }
         });
     }
+}
+
+module.exports = {
+    set: set,
+    write: write
 }

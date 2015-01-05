@@ -20,12 +20,12 @@ var boneserver = new wss({'host': settings.get('host'), 'port': settings.get('po
 
 boneserver.on('connection', function(socket) {
     websocket.setSocket(socket);
-    websocket.setConnected(true);
+    //websocket.setConnected(true);
     
     console.log("interface connected");
 
     socket.on('close', function() {
-        websocket.setConnected(false);
+        //websocket.setConnected(false);
         interface.saveToFile();
         console.log("interface disconnected");
     });
