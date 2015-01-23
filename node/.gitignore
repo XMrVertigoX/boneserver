@@ -1,4 +1,6 @@
+# Compiled node modules
 node_modules/
 
+# Individual Files
 interface.json
 settings.json
