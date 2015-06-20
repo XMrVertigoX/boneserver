@@ -1,2 +1,18 @@
 ## Markdown preview files
 README.html
+
+## LaTex/BibTex temporary files files
+*.aux
+*.bbl
+*.blg
+*.glg
+*.glo
+*.gls
+*.log
+*.fdb_latexmk
+*.out
+*.synctex.gz
+*.toc
+*.xdy
+
+*-eps-converted-to.pdf

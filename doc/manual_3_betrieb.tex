@@ -4,13 +4,13 @@ Für die Verwendung des Webinterface wird eine Netzwerkverbindung zum BeagleBone
 
 \subsection{Netzwerkverbindung herstellen}
 
-\paragraph{Hinweis:} Die Standardkonfiguration des BeagleBone sieht den Betrieb mit einem DHCP-Server vor. Sollte dies nicht gewünscht oder möglich sein, kann über die üblichen Wege eine statische IP eingestellt werden. Anleitungen hierzu findet man im Internet.\\
+\paragraph{Hinweis} Die Standardkonfiguration des BeagleBone sieht den Betrieb mit einem DHCP-Server vor. Sollte dies nicht gewünscht oder möglich sein, kann über die üblichen Wege eine statische IP eingestellt werden. Anleitungen hierzu findet man im Internet.\\
 
 Steht ein DNS-Server zur Verfügung, kann der BeagleBone über seinen Hostname erreicht werden, standardmäßig \textit{boneserver}. Ansonsten finden Sie zunächst heraus, welche IP dem BeagleBone zugewiesen wurde. Hierfür kann entweder die Routing-Tabelle des DHCP-Servers konsultiert werden oder in der Kommandozeile via \emph{ip} die aktuelle Addresse der einzelnen Netzwerkadapter abgerufen werden \mbox{(Abb. \ref{fig:getBeagleBoneIP})}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{manual/images/getBeagleBoneIP.png}
+	\includegraphics[width=0.7\textwidth]{images/manual/getBeagleBoneIP.png}
 	\caption{IP des BeagleBone abrufen}
 	\label{fig:getBeagleBoneIP}
 \end{figure}
@@ -24,7 +24,7 @@ Sollte die Verbindung einmal unterbrochen werden, wechselt dieser Haken in ein r
 
 \begin{figure}[ht] 
 	\centering
-	\includegraphics[]{manual/images/mainWindowConnected.png}
+	\includegraphics[]{images/manual/mainWindowConnected.png}
 	\caption{Webinterface verbunden}
 	\label{fig:mainWindowConnected}
 \end{figure}
@@ -46,7 +46,7 @@ Hier können einzelne Kacheln ein- bzw. ausgeblendet werden, um die Oberfläche 
 
 \begin{figure}[ht] 
 	\centering
-	\includegraphics[width=1.0\textwidth]{manual/images/controlElements.png}
+	\includegraphics[width=1.0\textwidth]{images/manual/controlElements.png}
 	\caption{Weboberfläche}
 	\label{fig:webinterface}
 \end{figure}
@@ -60,7 +60,7 @@ Die Konfigurationskachel \mbox{(Abb. \ref{fig:mainWindowGPIODisabled})} für dig
 
 \begin{figure}[ht] 
 	\centering
-	\includegraphics[]{manual/images/mainWindowGPIODisabled.png}
+	\includegraphics[]{images/manual/mainWindowGPIODisabled.png}
 	\caption{Deaktivierte GPIO-Kachel}
 	\label{fig:mainWindowGPIODisabled}
 \end{figure}
@@ -79,7 +79,7 @@ Der BeagleBone stellt insgesamt sieben PWM-Ausgänge mit insgesamt vier Timern z
 
 \begin{figure}[ht] 
 	\centering
-	\includegraphics[]{manual/images/mainWindowPWMDisabled.png}
+	\includegraphics[]{images/manual/mainWindowPWMDisabled.png}
 	\caption{Deaktivierte PWM-Kachel}
 	\label{fig:mainWindowPWMDisabled}
 \end{figure}
@@ -102,7 +102,7 @@ Die Taste \textbf{Delete} löscht die zu diesem Eingang gespeicherte Messreihe u
 
 \begin{figure}[ht] 
 	\centering
-	\includegraphics[width=0.9\textwidth]{manual/images/mainWindowAIN.png}
+	\includegraphics[width=0.9\textwidth]{images/manual/mainWindowAIN.png}
 	\caption{ADC-Kachel}
 	\label{fig:mainWindowADC}
 \end{figure}
