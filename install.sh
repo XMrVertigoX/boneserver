@@ -20,7 +20,7 @@ ntpdate -u pool.ntp.org
 # install node modules
 cd node
 npm config set python /bin/python2.7
-npm install bonescript shelljs ws
+npm install octalbonescript shelljs ws
 cd ..
 
 # link config file(s)
