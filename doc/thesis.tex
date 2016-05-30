@@ -19,7 +19,8 @@
 	rotating,
 	scrhack,
 	tabu,
-	wrapfig
+	wrapfig,
+	subfiles
 }
 
 \hypersetup{
@@ -27,7 +28,7 @@
 	linkcolor = black,
 	urlcolor = black
 }
-		
+
 \definecolor{backcolour}{rgb}{0.90, 0.90, 0.90}
 
 \lstdefinestyle{default}{
@@ -38,7 +39,7 @@
 }
 
 \renewcommand*{\glspostdescription}{}
-\input{glossary.tex}
+\input{glossary.include}
 \makeglossaries
 
 \lstset{style = default}
@@ -51,37 +52,37 @@
 \begin{document}
 
 %Titlepages
-\input{thesis_titlepage_de.tex}
-\input{thesis_titlepage_en.tex}
+\subfile{thesis_titlepage_de}
+\subfile{thesis_titlepage_en}
 
 %Overview
-\input{thesis_overview_de.tex}
+\subfile{thesis_overview_de}
 \newpage
-\input{thesis_overview_en.tex}
+\subfile{thesis_overview_en}
 \newpage
 
 \tableofcontents
 
 \part{Dokumentation}
-\input{thesis_1_einleitung.tex}
-\input{thesis_2_grundlagen.tex}
-\input{thesis_3_konfiguration.tex}
-\input{thesis_4_implementierung.tex}
-\input{thesis_5_erweiterungsmoeglichkeiten.tex}
-\input{thesis_6_zusammenfassung.tex}
+\subfile{thesis_1_einleitung}
+\subfile{thesis_2_grundlagen}
+\subfile{thesis_3_konfiguration}
+\subfile{thesis_4_implementierung}
+\subfile{thesis_5_erweiterungsmoeglichkeiten}
+\subfile{thesis_6_zusammenfassung}
 
 
 \appendix
 \part{Anhang}
 \chapter{Betriebsanleitung}
-\input{manual_1_hardware.tex}
-\input{manual_2_installation.tex}
-\input{manual_3_betrieb.tex}
-\input{manual_4_wartung.tex}
+\subfile{manual_1_hardware}
+\subfile{manual_2_installation}
+\subfile{manual_3_betrieb}
+\subfile{manual_4_wartung}
 
-\input{thesis_tabellen.tex}
+\subfile{thesis_tabellen}
 \printglossary[title = {Glossar}]
 \bibliography{literature.bib}
-\input{thesis_erklaerung.tex}
+\subfile{thesis_erklaerung}
 
 \end{document}

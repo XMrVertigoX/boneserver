@@ -1,7 +1,4 @@
-## Markdown preview files
-README.html
-
-## Core latex/pdflatex auxiliary files:
+# Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
 *.log
@@ -10,15 +7,15 @@ README.html
 *.out
 *.toc
 
-## Intermediate documents:
+# Intermediate documents:
 *.dvi
 *-converted-to.*
 # these rules might exclude image files for figures etc.
-#*.ps
-#*.eps
-#*.pdf
+# *.ps
+# *.eps
+/*.pdf
 
-## Bibliography auxiliary files (bibtex/biblatex/biber):
+# Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
 *.blg
@@ -27,13 +24,13 @@ README.html
 *.brf
 *.run.xml
 
-## Build tool auxiliary files:
+# Build tool auxiliary files:
 *.fdb_latexmk
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
 
-## Auxiliary and intermediate files from other packages:
+# Auxiliary and intermediate files from other packages:
 
 # algorithms
 *.alg
@@ -47,7 +44,7 @@ README.html
 *.snm
 *.vrb
 
-#(e)ledmac/(e)ledpar
+# (e)ledmac/(e)ledpar
 *.end
 *.[1-9]
 *.[1-9][0-9]

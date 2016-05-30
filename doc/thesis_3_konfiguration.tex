@@ -1,3 +1,6 @@
+\documentclass[thesis.tex]{subfiles}
+\begin{document}
+
 \chapter{Konfiguration des Betriebssystems}
 
 Ein essentieller Punkt zu Beginn des Projektes ist die Auswahl des Betriebssystems, da im weiteren Verlauf alle Entwicklungen darauf aufbauen werden. Außerdem ist ein Teilziel des Projektes, schon existierende Software zu nutzen, um den Entwicklungsaufwand klein zu halten und den Fokus auf die eigentliche Fragestellung zu richten. Zunächst wurde das bereits auf dem BeagleBone vorinstallierte Betriebssystem - {\AA}ngström Linux - intensiv getestet.\\
@@ -128,3 +131,5 @@ Die gesamte Software liegt bei Github\footnote{https://github.com/XMrVertigoX/bo
 Der Webserver, der FTP Server und die \textit{Boneserver} Software selbst werden bei Systemstart über einen \textit{systemd} Service gestartet. Diese Services werden bei der Installation ebenfalls automatisch installiert und gestartet.\\
 
 Die Installation wird über das Shell-Skript \textit{install.sh}, welches sich im root-Verzeichnis des Repositories befindet, gestartet. So wird sichergestellt, dass alle Komponenten des Systems vorhanden sind und funktionieren. Im Anhang befindet sich eine vollständige Installations- und Betriebsanleitung.
+
+\end{document}

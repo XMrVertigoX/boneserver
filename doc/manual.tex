@@ -1,7 +1,8 @@
 \documentclass[a4paper, oneside, 12pt]{scrartcl}
 
-\usepackage[english, german]{babel}
+\usepackage[english, ngerman]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage[onehalfspacing]{setspace}
 
 \usepackage{
 	eurosym,
@@ -14,7 +15,8 @@
 	hyperref,
 	tabu,
 	longtable,
-	datetime
+	datetime,
+	subfiles
 }
 
 \hypersetup{
@@ -50,9 +52,9 @@
 \newpage
 
 %Sections
-\input{manual_1_hardware.tex}
-\input{manual_2_installation.tex}
-\input{manual_3_betrieb.tex}
-\input{manual_4_wartung.tex}
+\subfile{manual_1_hardware}
+\subfile{manual_2_installation}
+\subfile{manual_3_betrieb}
+\subfile{manual_4_wartung}
 
 \end{document}
