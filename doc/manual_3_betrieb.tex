@@ -1,4 +1,5 @@
 \documentclass[manual.tex]{subfiles}
+
 \begin{document}
 
 \section{Betrieb}
@@ -25,7 +26,7 @@ Sollte die Verbindung einmal unterbrochen werden, wechselt dieser Haken in ein r
 
 \paragraph{Passwortschutz} Um unbefugten Zugriff zu verhindern ist das Webinterface passwortgeschützt. Wenn Sie dieses Passwort änderen möchten, generieren Sie zunächst einen neuen Datensatz z. B. mit dem \href{http://jesin.tk/tools/htdigest-generator-tool/}{\textit{htdigest Generator Tool}}\footnote{ \url{http://jesin.tk/tools/htdigest-generator-tool/}} und tragen die Zugangsdaten in die Datei \textit{config/lighttpd/lighttpd.user} ein. Die Default Login-Daten sind \textbf{admin/AgG7KgW4}
 
-\begin{figure}[ht] 
+\begin{figure}[ht]
 	\centering
 	\includegraphics[]{images/manual/mainWindowConnected.png}
 	\caption{Webinterface verbunden}
@@ -47,7 +48,7 @@ Hier findet die tatsächliche Bedienung der GPIO statt. Es gibt drei Sektionen j
 Hier können einzelne Kacheln ein- bzw. ausgeblendet werden, um die Oberfläche übersichtlicher zu gestalten und an die Arbeitsumgebung anzupassen. Diese Funktion dient ausschließlich der Übersicht, eine ausgeblendete Kachel bleibt weiterhin aktiv und kann jederzeit wieder eingeblendet werden. Diese Einstellungen bleiben auch nach einem Neustart erhalten.
 \end{itemize}
 
-\begin{figure}[ht] 
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/manual/controlElements.png}
 	\caption{Weboberfläche}
@@ -61,7 +62,7 @@ Die Konfigurationskachel \mbox{(Abb. \ref{fig:mainWindowGPIODisabled})} für dig
 
 \paragraph{logic level} Wenn der GPIO als Output konfiguriert ist, kann hier mittels der beiden Schaltflächen, \textbf{1} und \textbf{0}, ein logisches high und ein logisches low eingestellt werden. Ist der GPIO als Input konfiguriert, ist diese Schaltfläche deaktiviert und zeigt stattdessen den Status der Leitung an. Die GPIO sind mit einem internen Pulldown-Widerstand beschaltet.
 
-\begin{figure}[ht] 
+\begin{figure}[ht]
 	\centering
 	\includegraphics[]{images/manual/mainWindowGPIODisabled.png}
 	\caption{Deaktivierte GPIO-Kachel}
@@ -80,7 +81,7 @@ Der BeagleBone stellt insgesamt sieben PWM-Ausgänge mit insgesamt vier Timern z
 
 \paragraph{Pulsbreite} Über das Eingabefeld \textbf{Duty} wird die Pulsbreite zwischen 0 und 1 eingestellt. Hier wird intern ebenfalls mit Nanosekunden gearbeitet, daher kann der tatsächliche Wert zusätzliche Nachkommastellen bekommen.
 
-\begin{figure}[ht] 
+\begin{figure}[ht]
 	\centering
 	\includegraphics[]{images/manual/mainWindowPWMDisabled.png}
 	\caption{Deaktivierte PWM-Kachel}
@@ -103,7 +104,7 @@ Die Taste \textbf{Delete} löscht die zu diesem Eingang gespeicherte Messreihe u
 
 \paragraph{\color{red} ACHTUNG} \textbf{\color{red} Laden sie Messreihen immer herunter, bevor Sie sie löschen, die Messdaten sind sonst unwiederbringlich verloren!}
 
-\begin{figure}[ht] 
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/manual/mainWindowAIN.png}
 	\caption{ADC-Kachel}
@@ -117,7 +118,7 @@ Zusätzlich gibt es die Möglichkeit, über die Datei \textit{settings.json} im 
 Die Datei ist eine JSON\footnote{JavaScript Object Notation (JSON) ist in der RFC 7159 beschrieben}-Datei in der folgende Parameter eingestellt werden können:\\
 
 \begin{longtabu} to \textwidth {X[1] X[3]}
-    
+
   \textbf{host} & IP des WebSocket Servers\newline
   Dieser Wert sollte nicht verändert werden, da sonst der WebSocket Server möglicherweise nicht mehr über das Webinterface erreichbar ist.\newline
   \textit{default: localhost}\\
